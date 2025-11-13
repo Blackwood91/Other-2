@@ -1,0 +1,50 @@
+.container-body {
+	/*margin: 44px;*/
+	margin: 2.5rem;
+}
+
+.alert-space-top {
+	margin-top: 1rem;
+}
+
+.footer-space-top {
+	margin-top: 6rem;
+}
+
+.button-bottom-space {
+	float: right;
+    margin-top: 4rem;
+}
+
+.form-space-top {
+	margin-top: 3rem;
+}
+
+.button-bottom-space button {
+    margin-right: 0px !important;
+}
+
+.it-brand-text {
+	margin-left: 2rem;
+}
+
+.lingue-nav-space {
+    margin-right: 1rem;
+}
+
+.lingua-ita-nav-space {
+    margin-right: 0.5rem;
+}
+
+.bi-arrow-up {
+	margin-top: 14px;
+}
+
+.table-result-null-space {
+    margin-top: 4.5rem;
+ }
+
+
+
+
+

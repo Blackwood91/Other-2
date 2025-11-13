@@ -1,0 +1,167 @@
+<div class="container mb-1 mt-1 pt-1">
+  <div class="row ">
+    <div class="col-12" role="region" aria-label="atto riepilogativo">
+      <h1 class="h6 fw-semibold color">AUTOCERTIFICAZIONE REQUISITI ONORABILITA'</h1>
+      <hr />
+    </div>
+  </div>
+</div>
+
+<div class="container text-left body">
+  <div class="col select-wrapper margin-row-top">
+    <label for="selectAutocertificazioneAnagrafiche" class="active">SELEZIONARE IL MEDIATORE PER
+      L'AUTOCERTIFICAZIONE</label>
+    <select aria-expanded="false" (click)="onShowElencoSelectMediatori()"
+      class="data_input" autocomplete="off" id="selectAutocertificazioneAnagrafiche"
+      style="user-select: none; cursor: default;" readonly type="text">
+      <option [selected]="" [value]="0">{{anagraficaSelezionata}}</option>
+    </select>
+  </div>
+  <div *ngIf="showElencoSelectMediatori" class="it-list-wrapper" style="background-color: #f5f5f5; padding: .375rem .5rem;">
+    <ul class="it-list">
+      <li *ngFor="let mediatore of mediatori" 
+        (click)="selectAnagrafica(mediatore.idAnagrafica, mediatore.nome + ' ' + mediatore.cognome)">
+        <a class="list-item">
+          <div class="it-right-zone div-select-custom-icon">
+            <span class="text">{{mediatore.nome + ' ' + mediatore.cognome}}</span>
+            <svg *ngIf="mediatore.validato === 1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-check-circle-fill success-svg" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </svg>                                
+            <svg *ngIf="mediatore.annullato === 1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-x-circle-fill rejection-svg" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
+            </svg>   
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+  <br>
+  <table class="table table-hover" style="border: 1px solid #E0E0E0;">
+    <thead class="thead-voto-estero">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col" class="text-center xlColumn"> Data Inserimento</th>
+      <!--  <th scope="col" class="text-center xlColumn"> Nome File </th> -->
+        <!-- <th scope="col" class="text-center"> Stato </th>
+        <th scope="col" class="text-center"> Lavorazione </th>
+        <th scope="col" class="text-center"> Data Prima Iscrizione </th>
+        <th scope="col" class="text-center"> Data Cancellazione </th> -->
+        <th scope="col" class="text-center"> Azioni Rapide </th>
+      </tr>
+    </thead>
+    <tbody class="tbody-empty-table">
+      <td *ngIf="tableResult.length == 0; else elseBlock" colspan="16">
+          <p class="text-empty-table">Nessun risultato trovato</p>
+      </td>
+      <ng-template #elseBlock>
+          <ng-container *ngFor="let item of tableResult; let i = index">
+          <tr>
+          <td class="text-center">
+            <svg *ngIf="item.validato === 1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2eb20b" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+            </svg>                                
+            <svg *ngIf="item.annullato === 1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#dc3545" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
+            </svg>                      
+          </td>
+          <td class="text-center">{{ item.dataInserimento | date: 'dd/MM/yyyy'}}</td>
+        <!--  <td class="text-center">{{ item.nomeAllegato }}</td>-->
+          <!-- <td class="text-center"> {{ item.idStatoModulo }}  </td>
+          <td class="text-center"> {{ item.idLavorazioneModulo }} </td>
+          <td class="text-center">  {{ item.dataPrimaIscrizione | date: 'dd/MM/yyyy'}} </td>
+          <td class="text-center"> {{ item.dataCancellazione | date: 'dd/MM/yyyy'}} </td> -->
+          <td class="text-center">
+            <div class="div-column-icon">
+            <a class="a-icon-table" (click)="openPdfFile()" data-toggle="tooltip" title="anteprima di stampa">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                [ngClass]="{'bg-light icon align-middle svg-icon-table-td': true}"
+                style="margin-top: 4% !important; margin-left: 7.5%;"
+                class="bg-light icon align-middle svg-icon-table-td" viewBox="0 0 19.5 19.5">
+                <path
+                  d="M5.523 12.424c.14-.082.293-.162.459-.238a7.878 7.878 0 0 1-.45.606c-.28.337-.498.516-.635.572a.266.266 0 0 1-.035.012.282.282 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548zm2.455-1.647c-.119.025-.237.05-.356.078a21.148 21.148 0 0 0 .5-1.05 12.045 12.045 0 0 0 .51.858c-.217.032-.436.07-.654.114zm2.525.939a3.881 3.881 0 0 1-.435-.41c.228.005.434.022.612.054.317.057.466.147.518.209a.095.095 0 0 1 .026.064.436.436 0 0 1-.06.2.307.307 0 0 1-.094.124.107.107 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256zM8.278 6.97c-.04.244-.108.524-.2.829a4.86 4.86 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.517.517 0 0 1 .145-.04c.013.03.028.092.032.198.005.122-.007.277-.038.465z">
+                </path>
+                <path fill-rule="evenodd"
+                  d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3zM4.165 13.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.651 11.651 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.856.856 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.844.844 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.76 5.76 0 0 0-1.335-.05 10.954 10.954 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.238 1.238 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a19.697 19.697 0 0 1-1.062 2.227 7.662 7.662 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103z">
+                </path>
+              </svg>
+            </a>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+      </ng-template>
+    </tbody>
+  </table>
+  <nav class="pagination-wrapper justify-content-center color-pagination mb-3" aria-label="Navigazione centrata">
+    <td class="text-center"> Totale: {{ this.getRows() }}</td>
+  </nav>
+
+  <div class="margin-row-top"></div>
+  <p style="word-wrap: break-word">
+    Il/La sottoscritto/a <b>{{ getTitolo(idTitolo) }} {{ cognome }} {{ nome }}</b>
+    nato il <b>{{ dataNascita ? dataNascita : '' }}</b>
+    a <b>{{ isEsteroNascita == 'true' ?
+      comuneNascitaEstero + ', ' + statoNascita + ',' :
+      comuneSceltoNascita + ', ' + 'Italia,' }}
+    </b> e residente in <b>{{ isEsteroResidenza == 'true' ?
+      comuneResidenzaEstero + ', ' + statoResidenza :
+      comuneSceltoResidenza }}</b>,
+    C.F. <b>{{ codiceFiscale }}</b>
+    in qualità di <b>{{ getTipoMediatore() }}</b>
+    dell’organismo di mediazione <b>{{ denominazioneOdm }}</b>
+  </p>
+  <p style="word-wrap: break-word;">
+    consapevole delle sanzioni penali previste dall’art. 76 del d.P.R. n. 445/2000 per le ipotesi di dichiarazioni
+    mendaci nonché della decadenza dai benefici eventualmente conseguenti al provvedimento emanato sulla
+    base di dichiarazioni non veritiere di cui all’art. 75 del d.P.R. cit., ai sensi e per gli effetti dell’art. 47 del
+    medesimo d.P.R., sotto la propria responsabilità
+  </p>
+  <b style="display: flex; justify-content: center; padding-bottom: 1%;">
+    DICHIARA
+  </b>
+  <ol type="a">
+    <li class="listItem">
+      di non trovarsi in stato di interdizione legale o di inabilitazione né di essere sottoposto ad
+      amministrazione di sostegno, fatti salvi gli effetti della riabilitazione e della revoca della sentenza per
+      abolizione del reato ai sensi dell'articolo 673, comma 1, c.p.c.
+      <small class="form-text riferimento-nomrmativa">(art. 4, co. 2)</small>
+    </li>
+    <li class="listItem">
+      di non essere stato condannato con sentenza definitiva, per delitto non colposo, a pena detentiva, anche
+      se sostituita da una delle pene indicate nell'articolo 20-bis, primo comma, numeri 1), 2), e 3) c.p., fatti
+      salvi gli effetti della riabilitazione e della revoca della sentenza per abolizione del reato ai sensi
+      dell'articolo 673, comma 1, c.p.c. <small class="form-text riferimento-nomrmativa">(art. 4, co. 2)</small>
+    </li>
+    <li class="listItem">
+      di non essere stato destinatario di sentenza definitiva resa ai sensi dell'articolo 444, comma 2, c.p.c.,
+      per delitto non colposo, a pena detentiva, anche se sostituita da una delle pene indicate nell'articolo 20-
+      bis, primo comma, numeri 1), 2) e 3), c.p., con la quale sono state altresì applicate pene accessorie;
+    </li>
+    <li class="listItem">
+      di non avere procedimenti penali in corso per delitti non colposi, fermo restando quanto previsto
+      dall'articolo 335-bis c.p.c.;
+    </li>
+    <li class="listItem">
+      di non essere incorso nell'interdizione perpetua o temporanea dai pubblici uffici;
+    </li>
+    <li class="listItem">
+      di non essere stato sottoposto a misure di prevenzione, salvi gli effetti della riabilitazione, né a misure di
+      sicurezza personali;
+    </li>
+    <li class="listItem">
+      di non avere riportato, per gli iscritti ad un ordinamento professionale, negli ultimi cinque anni, una sanzione
+      disciplinare più grave di quella minima prevista dal singolo ordinamento.
+    </li>
+  </ol>
+</div>
+
+<!-- forse il caso di mettere isConvalidato come null as unknown per l'onInit? -->
+<div class="p-2 clearfix mt-5">
+
+  <button type="button" (click)="validazione()"
+    [ngClass]="{'btn btn-secondary-min float-end btn-menu-page-body': true}">Convalida
+  </button>
+  <button type="button" (click)="annullazione()"
+  [ngClass]="{'btn btn-menu-page-body float-end btn-outline-primary-min': true}">Annulla
+</button>
+</div>

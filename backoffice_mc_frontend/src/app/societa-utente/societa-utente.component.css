@@ -1,0 +1,59 @@
+.nav-richieste {
+    font-size: 13px;
+    width: 32%;
+}
+
+.space-btn-richiesta {
+    margin-left: 1rem;
+}
+
+.container-btn-richiesta {
+    padding-left: 0px;
+}
+
+.p-4 {
+    padding-bottom: 4px !important;
+}
+
+.btn-primary-mediazione {
+    background-color: #216FA3 !important;
+}
+
+.data_input {
+    width: 101% !important;
+    border: 1px solid #216FA3 !important;
+    border-radius: 4px !important;
+}
+
+.form-two-input {
+    width: 49% !important;
+}
+
+.form-three-input {
+    width: 33% !important;
+}
+
+.form-radio-intesta {
+    width: 12% !important;
+    padding-top: 3px;
+    width: 12% !important;
+}
+
+.nav-richieste {
+    width: auto;
+}
+
+/* Fix responsive medio piccolo */
+@media (max-width: 1400px) {
+    .ul-select-type-request {
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-content: stretch;
+        justify-content: center;
+        align-items: stretch;
+    }
+
+    .ul-select-type-request .nav-link {
+        border: 1px solid #c5c7c9;
+    }
+}

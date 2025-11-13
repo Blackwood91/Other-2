@@ -1,0 +1,196 @@
+<header class="it-header-wrapper">
+  <div class="it-header-wrapper">
+    <div class="it-header-slim-wrapper it-header-slim-wrapper theme-light" data-bs-toggle="sticky">
+      <div class="container">
+        <div class="row">
+          <div class="col-12">
+            <div class="it-header-slim-wrapper-content">
+              <a class="d-none d-lg-block navbar-brand color-text" href="http://www.giustizia.it/">Ministero della
+                Giustizia</a>
+              <div class="nav-mobile">
+                <nav aria-label="Navigazione accessoria">
+                  <a class="it-opener d-lg-none color-text" data-bs-toggle="collapse" href="#menu1a" role="button"
+                    aria-expanded="false" aria-controls="menu4">
+                    Mediazione Civile
+                  </a>
+                </nav>
+              </div>
+              <div class="it-header-slim-right-zone">
+                <div class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+                    <span class="visually-hidden"></span>
+                    <span class="color-header">ITA</span>
+                    <svg class="icon d-none d-lg-block">
+                    </svg>
+                  </a>
+                </div>
+                <div class="it-access-top-wrapper">
+                </div>
+              </div>
+              <div id="elementoDaNascondere" class="header-slim-right-zone" *ngIf="isLogin">
+                <div class="it-access-top-wrapper">
+                  <div data-login-top-button="" class="dropdown" data-icon="it-user">
+                    <a [routerLink]="['/login']" class="btn btn-primary btn-icon btn-full dropdown-toggle"
+                      id="dropdown-user" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true"
+                      aria-expanded="false"
+                      style="text-transform: none; font-size: 1rem; background: #216fa3 !important;"> <span
+                        class="rounded-icon"> <svg class="icon icon-primary notrasform log-in-image" alt="Icona user"
+                          aria-hidden="true" focusable="false">
+                          <use href="assets\svg\sprites.svg#it-user">
+                          </use>
+                        </svg> </span> <span class="d-none d-lg-block text-nowrap">Accedi all'area personale</span> <svg
+                        class="icon-expand icon icon-white" alt="Espandi menu" aria-hidden="true" focusable="false">
+                        <use href="assets\svg\sprites.svg#it-expand">
+                        </use>
+                      </svg>
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              <div id="elementoDaNascondere" class="header-slim-right-zone" *ngIf="!isLogin">
+                <div class="it-access-top-wrapper">
+                  <div class="header-slim-right-zone">
+                    <div class="dropdown text-center">
+                      <a href="#" id="dropdown-user" data-toggle="dropdown" data-bs-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false" class="btn  btn-icon btn-full dropdown-toggle"
+                        style="text-transform: none; background-color: white !important;">
+                        <span class="rounded-icon">
+                          <div class="user-initials-circle">{{ nome.charAt(0) + cognome.charAt(0) }}</div>
+                        </span>
+                        <span class="d-none d-lg-block text-nowrap color-text-header margin-iniziali ">{{ nome + " " +
+                          cognome }}</span>
+                        <svg aria-hidden="true" focusable="false" class="icon-expand icon icon-white" fill="#216FA3"
+                          alt="Espandi menu">
+                          <use href="assets\svg\sprites.svg#it-expand"></use>
+                        </svg>
+                      </a>
+
+                      <div class="dropdown-menu dropdown-login color">
+                        <div class="link-list-wrapper ">
+                          <ul class="link-list">
+                            <li>
+                              <a class="dropdown-item list-item text-decoration-none" style="text-decoration:none !important;">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                  class="bi bi-suitcase-lg-fill icon-header-menu" viewBox="0 0 16 16">
+                                  <path
+                                    d="M7 0a2 2 0 0 0-2 2H1.5A1.5 1.5 0 0 0 0 3.5v9A1.5 1.5 0 0 0 1.5 14H2a.5.5 0 0 0 1 0h10a.5.5 0 0 0 1 0h.5a1.5 1.5 0 0 0 1.5-1.5v-9A1.5 1.5 0 0 0 14.5 2H11a2 2 0 0 0-2-2zM6 2a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1zM3 13V3h1v10zm9 0V3h1v10z">
+                                  </path>
+                                </svg>
+                                Società selezionata: <b>{{selectedNomeSocieta}}</b>
+                              </a>
+                            </li>
+                            <li><span class="divider"></span></li>
+                            <li>
+                              <a class="dropdown-item list-item text-decoration-none item-clickable" (click)="logoutIamg()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                  class="bi bi-person-x icon-header-menu" viewBox="0 0 16 16">
+                                  <path
+                                    d="M11 5a3 3 0 1 1-6 0 3 3 0 0 1 6 0M8 7a2 2 0 1 0 0-4 2 2 0 0 0 0 4m.256 7a4.5 4.5 0 0 1-.229-1.004H3c.001-.246.154-.986.832-1.664C4.484 10.68 5.711 10 8 10q.39 0 .74.025c.226-.341.496-.65.804-.918Q8.844 9.002 8 9c-5 0-6 3-6 4s1 1 1 1z" />
+                                  <path
+                                    d="M12.5 16a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7m-.646-4.854.646.647.646-.647a.5.5 0 0 1 .708.708l-.647.646.647.646a.5.5 0 0 1-.708.708l-.646-.647-.646.647a.5.5 0 0 1-.708-.708l.647-.646-.647-.646a.5.5 0 0 1 .708-.708" />
+                                </svg>
+                                Logout
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="it-nav-wrapper">
+      <div class="it-header-center-wrapper theme-light">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <div class="it-header-center-content-wrapper">
+                <div class="it-brand-wrapper ">
+                  <a>
+                    <img class="logo-header" src="assets/image-mediazione-civile/Vector.png" alt="logo Repubblica">
+                    <div class="it-brand-text">
+                      <h1 class="it-brand-title" style="color:#004d99">Mediazione Civile</h1>
+                      <div class="it-brand-tagline d-none d-md-block"></div>
+                    </div>
+                  </a>
+                </div>
+                <div class="it-right-zone">
+                  <div class="it-socials d-none d-md-flex">
+                  </div>
+                  <div class="it-search-wrapper">
+
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="it-header-navbar-wrapper it-header-sticky" data-bs-toggle="sticky" data-bs-stackable="true"
+        style="z-index:1000 !important;">
+        <div class="container">
+          <div class="row">
+            <div class="col-12">
+              <!--start nav-->
+              <nav class="navbar navbar-expand-lg has-megamenu " aria-label="Navigazione principale">
+                <button class="custom-navbar-toggler" type="button" aria-controls="nav1" aria-expanded="false"
+                  aria-label="Mostra/Nascondi la navigazione" data-bs-toggle="navbarcollapsible" data-bs-target="#nav1">
+                  <svg class="icon bg-override" alt="Menu ridotto">
+                    <use href="assets/svg/sprites.svg#it-burger"></use>
+                  </svg>
+                </button>
+                <div class="navbar-collapsable" id="nav1" style="display: none;">
+                  <div class="overlay" style="display: none;"></div>
+                  <div class="close-div">
+                    <button class="btn close-menu" type="button">
+                      <span class="visually-hidden">Nascondi la navigazione</span>
+                      <svg class="icon" alt="Chiudi menu">
+                        <use href="assets/svg/sprites.svg#it-close-big"></use>
+                      </svg>
+                    </button>
+                  </div>
+                  <div class="menu-wrapper">
+                    <ul class="navbar-nav">
+                      <li *ngIf="isLogin" class="nav-item">
+                        <a  [ngClass]="{'nav-link': true, 'active': actualPath === 'home'}" [routerLink]="['/homePage']"
+                          aria-current="page" data-focus-mouse="false">
+                          <span class="span-navbar-empty"></span>
+                        </a>
+                      </li>
+                      <li *ngIf="!isLogin" class="nav-item">
+                        <a [ngClass]="{'nav-link': true, 'active': actualPath === 'home'}" [routerLink]="['/homePage']"
+                          aria-current="page" data-focus-mouse="false">
+                          <span>Home</span>
+                        </a>
+                      </li>
+                      <li *ngIf="!isLogin" class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="mainNavDropdown1">
+                          <span>Gestione Utenti</span>
+                          <svg class="icon icon-xs"><use href="assets/svg/sprites.svg#it-expand"></use></svg>
+                        </a>
+                        <div class="dropdown-menu" role="region" aria-labelledby="mainNavDropdown1">
+                          <div class="link-list-wrapper">
+                            <ul class="link-list">
+                              <li><a class="dropdown-item list-item" [routerLink]="['/richiesteRegistrazioneUtente']"><span style="font-size: 12px !important;">Richieste Registrazione</span></a></li>
+                              <li><a class="dropdown-item list-item" [routerLink]="['/utenti']"><span style="font-size: 12px !important;">Elenco Utenti</span></a></li>
+                            </ul>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

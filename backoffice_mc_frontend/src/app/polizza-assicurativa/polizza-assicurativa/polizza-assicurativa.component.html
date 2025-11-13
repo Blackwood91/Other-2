@@ -1,0 +1,147 @@
+<div class="container mb-1 mt-1 pt-1">
+  <div class="row ">
+    <div class="col-12" role="region" aria-label="atto riepilogativo">
+      <h1 class="h6 fw-semibold color">POLIZZA ASSICURATIVA</h1>
+      <hr />
+    </div>
+  </div>
+</div>
+
+<div class="container text-left body">
+  <table class="table table-hover" style="border: 1px solid #E0E0E0;">
+    <thead class="thead-voto-estero">
+      <tr>
+        <th scope="col" class="text-center"></th>
+        <th scope="col" class="text-center xlColumn"> Data Inserimento</th>
+        <th scope="col" class="text-center xlColumn"> Nome File </th>
+        <!-- <th scope="col" class="text-center"> Stato </th>
+        <th scope="col" class="text-center"> Lavorazione </th>
+        <th scope="col" class="text-center"> Data Prima Iscrizione </th>
+        <th scope="col" class="text-center"> Data Cancellazione </th> -->
+        <th scope="col" class="text-center"> Azioni Rapide </th>
+      </tr>
+    </thead>
+    <tbody class="tbody-empty-table">
+      <td *ngIf="tableResult.length == 0; else elseBlock" colspan="16">
+        <p class="text-empty-table">Nessun risultato trovato</p>
+      </td>
+      <ng-template #elseBlock>
+        <ng-container *ngFor="let item of tableResult; let i = index">
+          <tr>
+            <td class="text-center">
+              <svg *ngIf="item.validato === 1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2eb20b" class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+              </svg>                                
+              <svg *ngIf="item.annullato === 1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#dc3545" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z"/>
+              </svg>                      
+            </td>
+            <td class="text-center">{{ item.dataInserimento ? this.formatDate(item.dataInserimento) : '' }}</td>
+            <td class="text-center">{{ item.nomeAllegato }}</td>
+            <!-- <td class="text-center">{{ item.stato }}</td>
+            <td class="text-center">{{ item.lavorazione }}</td>
+            <td class="text-center"> {{ item.dataPrimaIscrizione | date: 'dd/MM/yyyy'}} </td>
+            <td class="text-center"> {{ item.dataCancellazione | date: 'dd/MM/yyyy' }} </td> -->
+            <td class="text-center">
+              <div class="div-column-icon">
+              <app-save-file (sendFileComponent)="getFileModalChildren($event)"></app-save-file>
+              <a class="a-icon-table" (click)="openPdfFile(item.id)" data-toggle="tooltip" title="anteprima di stampa">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                  [ngClass]="{'bg-light icon align-middle svg-icon-table-td': true}"
+                  style="margin-top: 4% !important; margin-left: 7.5%;"
+                  class="bg-light icon align-middle svg-icon-table-td" viewBox="0 0 19.5 19.5">
+                  <path
+                    d="M5.523 12.424c.14-.082.293-.162.459-.238a7.878 7.878 0 0 1-.45.606c-.28.337-.498.516-.635.572a.266.266 0 0 1-.035.012.282.282 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548zm2.455-1.647c-.119.025-.237.05-.356.078a21.148 21.148 0 0 0 .5-1.05 12.045 12.045 0 0 0 .51.858c-.217.032-.436.07-.654.114zm2.525.939a3.881 3.881 0 0 1-.435-.41c.228.005.434.022.612.054.317.057.466.147.518.209a.095.095 0 0 1 .026.064.436.436 0 0 1-.06.2.307.307 0 0 1-.094.124.107.107 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256zM8.278 6.97c-.04.244-.108.524-.2.829a4.86 4.86 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.517.517 0 0 1 .145-.04c.013.03.028.092.032.198.005.122-.007.277-.038.465z">
+                  </path>
+                  <path fill-rule="evenodd"
+                    d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3zM4.165 13.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.651 11.651 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.856.856 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.844.844 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.76 5.76 0 0 0-1.335-.05 10.954 10.954 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.238 1.238 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a19.697 19.697 0 0 1-1.062 2.227 7.662 7.662 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103z">
+                  </path>
+                </svg>
+              </a>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </ng-template>
+    </tbody>
+  </table>
+  <nav class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+    <ul *ngIf="totalPage != 0" class="pagination mt-2">
+      <li *ngIf="indexPage == 1; else elsePageBefore" class="page-item disabled">
+        <a (click)="previousPage(indexPage)" class="page-link" style="color: #415559">Precedente
+          <span class="visually-hidden">Pagina precedente disabilitata</span>
+        </a>
+      </li>
+      <ng-template #elsePageBefore>
+        <li class="page-item">
+          <a (click)="previousPage(indexPage)" class="page-link" style="color: #415559">Precedente
+            <span class="visually-hidden">Pagina precedente</span>
+          </a>
+        </li>
+      </ng-template>
+      <ng-container>
+        <li *ngIf="(indexPage > 1)" class="page-item"><a (click)="cambiaPagina(indexPage - 1)"
+            class="page-link">{{indexPage -
+            1}}</a></li>
+        <li class="page-item active" style="color:#0F3E75">
+          <a class="page-link" (click)="cambiaPagina(indexPage)" aria-current="page">
+            <span class="d-inline-block d-sm-none">Pagina </span>{{indexPage}}
+          </a>
+        </li>
+        <li *ngIf="(indexPage + 1 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 1)"
+            class="page-link">{{indexPage +
+            1}}</a></li>
+        <li *ngIf="(indexPage + 2 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 2)"
+            class="page-link">{{indexPage +
+            2}}</a></li>
+        <li *ngIf="(indexPage + 3 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 3)"
+            class="page-link">{{indexPage +
+            3}}</a></li>
+      </ng-container>
+      <li *ngIf="totalPage > 1 else elsePageNext" class="page-item">
+        <a (click)="nextPage(indexPage)" class="page-link" style="color: #216FA3">Successiva
+          <span class="visually-hidden">Pagina successiva</span>
+        </a>
+      </li>
+      <ng-template #elsePageNext>
+        <li class="page-item disabled">
+          <a (click)="nextPage(indexPage)" class="page-link" style="color: #216FA3">Successiva
+            <span class="visually-hidden">Pagina successiva disabilitata</span>
+          </a>
+        </li>
+      </ng-template>
+    </ul>
+    <!--<p style="color:#2F475E">Stai visualizzando {{totalPage}} di {{totalResult}} elementi </p>--><!--testo a sinistra-->
+  </nav>
+  <ng-container *ngIf="tableResult.length == 0 && showFilePdf && isModifica">
+    <p style="display: flex; justify-content: center; margin-top: 4%; margin-bottom: 0%;">
+      Effettuare la scansione del documento da allegare, dopodichè</p>
+    <p style="display: flex; justify-content: center;">
+      cliccare su&nbsp;<i>Carica File</i>&nbsp;&nbsp;per caricare il file come allegato</p>
+    <p style="display: flex; justify-content: center; margin-top: 7%;"><b><i>
+          * il documento deve essere scannerizzato in modalità "bianco e nero" con risoluzione di 200 DPI e salvato in
+          formato PDF
+        </i></b></p>
+
+    <div class="row">
+      <div class="form-group form-two-input">
+        <input type="file" (change)="onFilePdf($event)" data-bs-input class="data_input" id="allegatoCopContratto"
+          accept=".pdf" />
+      </div>
+    </div>
+  </ng-container>
+
+</div>
+
+<app-extra-info></app-extra-info>
+
+<div class="container p-2 clearfix mt-3">
+    <button type="button" (click)="validazione()"
+            [ngClass]="{'btn btn-secondary-min float-end btn-menu-page-body': true}"
+            >Convalida
+    </button>
+    <button type="button" (click)="annullazione()"
+    [ngClass]="{'btn btn-menu-page-body float-end btn-outline-primary-min': true}"
+    >Annulla
+</button>
+</div>

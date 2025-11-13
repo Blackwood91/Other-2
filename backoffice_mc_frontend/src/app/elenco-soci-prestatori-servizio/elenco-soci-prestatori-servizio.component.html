@@ -1,0 +1,97 @@
+<app-scheda-prestatore-servizio (eventRappresentante)="getModalChildren($event)"></app-scheda-prestatore-servizio>
+<app-riepilogo-scheda-prestatore-servizio></app-riepilogo-scheda-prestatore-servizio>
+
+<div class="container mb-1 mt-1 pt-1">
+  <div class="row ">
+    <div class="col-12" role="region" aria-label="atto riepilogativo">
+      <h1 class="h6 fw-semibold color">ELENCO PRESTATORI DI OPERA O SERVIZIO</h1>
+      <hr />
+    </div>
+  </div>
+</div>
+
+<div class="container text-left body">
+  <table class="table table-hover" style="border: 1px solid #E0E0E0;">
+    <thead class="thead-voto-estero">
+      <tr>
+        <th scope="col" class="text-center"></th>
+        <th scope="col" class="text-center"> Cognome </th>
+        <th scope="col" class="text-center"> Nome </th>
+        <th scope="col" class="text-center"> Codice Fiscale </th>
+        <!-- <th scope="col" class="text-center"> Stato </th>
+        <th scope="col" class="text-center"> Lavorazione </th>
+        <th scope="col" class="text-center"> Data Prima Iscrizione </th>
+        <th scope="col" class="text-center"> Data Cancellazione </th> -->
+        <th scope="col" class="text-center"> Azioni Rapide </th>
+      </tr>
+    </thead>
+    <tbody class="tbody-empty-table">
+      <td *ngIf="tableResult.length == 0; else elseBlock" colspan="16">
+        <p class="text-empty-table">Nessun risultato trovato</p>
+      </td>
+      <ng-template #elseBlock>
+        <ng-container *ngFor="let item of tableResult; let i = index">
+          <tr>
+            <td class="text-center">
+              <svg *ngIf="item.validato === 1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2eb20b"
+                class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                <path
+                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+              </svg>
+              <svg *ngIf="item.annullato === 1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#dc3545"
+                class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                <path
+                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
+              </svg>
+            </td>
+            <td class="text-center">{{ item.cognome }}</td>
+            <td class="text-center">{{ item.nome }}</td>
+            <td class="text-center">{{ item.codiceFiscale }}</td>
+            <!-- <td class="text-center"> {{ item.stato}} </td>
+            <td class="text-center"> {{ item.lavorazione }} </td>
+            <td class="text-center"> {{ item.dataPrimaIscrizione | date: 'dd/MM/yyyy'}} </td>
+            <td class="text-center"> {{ item.dataCancellazione | date: 'dd/MM/yyyy' }} </td> -->
+            <td class="text-center">
+              <div class="div-column-icon">
+                <a class="a-icon-table" (click)="viewAnagrafica(item.idAnagrafica)" data-toggle="tooltip" title="apri">
+                  <svg class="bg-light icon align-middle svg-icon-table-td">
+                    <use href="\assets\svg\sprites.svg#it-search"></use>
+                  </svg>
+                </a>
+                <a [ngClass]="{'a-icon-table': true}" data-toggle="tooltip" title="annulla/convalida"
+                  (click)="updateAnagrafica(item.idAnagrafica)">
+                  <svg class="bg-light icon align-middle svg-icon-table-td">
+                    <use href="\assets\svg\sprites.svg#it-pencil"></use>
+                  </svg>
+                </a>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </ng-template>
+    </tbody>
+  </table>
+  <nav class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+    <td class="text-center"> Totale: {{ this.getRows() }}</td>
+  </nav>
+  <app-extra-info></app-extra-info>
+
+</div>
+
+<div class="container p-2 clearfix mt-3">
+
+
+  <button type="button" (click)="validazione()"
+    [ngClass]="{'btn btn-secondary-min float-end btn-menu-page-body': true}">Convalida
+  </button>
+  <button type="button" (click)="anteprimaPdf()"
+  [ngClass]="{'btn btn-primary-min float-end btn-menu-page-body': true}">Visualizza Allegato
+</button>
+  <button type="button" (click)="annullazione()"
+    [ngClass]="{'btn btn-menu-page-body float-end btn-outline-primary-min': true}">Annulla
+  </button>
+
+
+</div>
+
+<app-aggiornamento-anagrafica></app-aggiornamento-anagrafica>

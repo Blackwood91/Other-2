@@ -1,0 +1,32 @@
+<div class="container-title-menu-page">
+    <h4 class="title-menu-page"> {{ this.decideTitle() }} </h4>
+</div>
+
+<div class="container text-left body">
+    <table class="table table-hover" style="border: 1px solid #E0E0E0;">
+        <thead class="thead-voto-estero">
+            <tr>
+                <th scope="col" class="text-center xxlColumn">Tipo PDG</th>
+                <th scope="col" class="text-center xxlColumn">Data</th>
+                <th scope="col" class="text-center lColumn">Note</th>
+            </tr>
+        </thead>
+        <tbody class="tbody-empty-table">
+            <td *ngIf="tableResult.length == 0; else elseBlock" colspan="16">
+                <p class="text-empty-table">Nessun risultato trovato</p>
+            </td>
+            <ng-template #elseBlock>
+                <ng-container *ngFor="let item of tableResult; let i = index">
+                    <tr>
+                    <td class="text-center">{{ item.tipoPdg }}</td>
+                    <td class="text-center">{{ item.dataPdg ? this.formatDate(item.dataPdg) : '' }}</td>
+                    <td class="text-center">{{ item.note }}</td>
+                </tr>
+            </ng-container>
+            </ng-template>
+        </tbody>
+    </table>
+    <nav class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+        <td class="text-center"> Totale: {{ this.getRows() }}</td>
+    </nav>
+</div>

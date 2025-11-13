@@ -1,0 +1,48 @@
+<div class="container-title-menu-page">
+    <h4 class="title-menu-page"> {{ this.decideTitle() }} </h4>
+</div>
+
+<!-- *ngIf="this.getRows() > 0" -->
+<div class="container text-left body">
+    <table class="table table-hover" style="border: 1px solid #E0E0E0;">
+        <thead class="thead-voto-estero">
+            <tr>
+                <th scope="col" class="text-center"> Sede Legale </th>
+                <th scope="col" class="text-center"> Indirizzo </th>
+                <th scope="col" class="text-center"> Comune </th>
+                <th scope="col" class="text-center"> CAP </th>
+                <th scope="col" class="text-center"> Prov. </th>
+                <th scope="col" class="text-center"> Regione </th>
+                <th scope="col" class="text-center"> Telefono </th>
+                <th scope="col" class="text-center"> Fax </th>
+                <th scope="col" class="text-center"> Email </th>
+                <th scope="col" class="text-center"> Pec </th>
+            </tr>
+        </thead>
+        <tbody class="tbody-empty-table">
+            <td *ngIf="tableResult.length == 0; else elseBlock" colspan="16">
+                <p class="text-empty-table">Nessun risultato trovato</p>
+            </td>
+            <ng-template #elseBlock>
+                <ng-container *ngFor="let item of tableResult; let i = index">
+                    <tr>
+                    <td class="text-center">{{ item.sedeLegale === 1 ? 'SI':'NO' }}</td>
+                    <td>{{ item.indirizzo }}</td>
+                    <td>{{ item.comune }}</td>
+                    <td class="text-center">{{ item.cap }}</td>
+                    <td class="text-center">{{ item.provincia }}</td>
+                    <td class="text-center">{{ item.regione }}</td>
+                    <td class="text-center">{{ item.telefono }}</td>
+                    <td>{{ item.fax }}</td>
+                    <td>{{ item.email }}</td>
+                    <td>{{ item.pec }}
+                    </td>
+                </tr>
+            </ng-container>
+            </ng-template>
+        </tbody>
+    </table>
+    <nav class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+        <td class="text-center"> Totale: {{ this.getRows() }}</td>
+    </nav>
+</div>

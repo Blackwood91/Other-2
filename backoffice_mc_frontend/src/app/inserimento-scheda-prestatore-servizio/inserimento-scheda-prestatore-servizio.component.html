@@ -1,0 +1,152 @@
+<div class="container mb-1 mt-1 pt-1">
+    <div class="row ">
+        <div class="col-12" role="region" aria-label="atto riepilogativo">
+            <h1 class="h6 fw-semibold color">SCHEDA PRESTATORI DI SERVIZIO</h1>
+            <hr />
+        </div>
+    </div>
+</div>
+
+<div class="container" style="padding-top: 5%;">
+    <div class="row">
+        <div class="col select-wrapper">
+            <label for="titoloSS" [ngClass]="{'color-invalid': validTitolo === false}">Titolo*</label>
+            <select type="text" [(ngModel)]="idTitolo" (change)="checkTitolo()" [disabled]="isModifica === false"
+                id="titoloSS" class="data_input" [ngClass]="{'input-invalid': validTitolo === false}">
+                <option [value]=""></option>
+                <option *ngFor="let titolo of titoliAnagrafiche" [value]="titolo.idTitoloAnagrafiche">
+                    {{ titolo.descrizione }}
+                </option>
+            </select>
+        </div>
+        <div class="col select-wrapper">
+            <div class="form-group form-radio-intesta">
+                <p class="fw-semibold" [ngClass]="{'input-invalid': validSesso === false}">Sesso*</p>
+            </div>
+            <div class="form-check">
+                <input name="radio7" [(ngModel)]="sesso" [value]="'M'" [disabled]= "isModifica === false" type="radio"
+                    class="with-gap" id="radio7" (blur)="checkSesso()">
+                <label for="radio7">Maschio</label>
+                <input name="radio8" [(ngModel)]="sesso" [value]="'F'" [disabled]= "isModifica === false" type="radio"
+                    class="with-gap" id="radio8" (blur)="checkSesso()">
+                <label for="radio8">Femmina</label>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col select-wrapper">
+            <label for="cognomeRapLegale" [ngClass]="{'active': !!cognome}" [ngClass]="{'color-invalid': validCognome === false}">
+                Cognome*
+            </label>
+            <input type="text" required [(ngModel)]="cognome" (blur)="checkCognome()" [disabled]="isModifica === false"
+                class="data_input" id="cognomeRapLegale" [ngClass]="{'input-invalid': validCognome === false}"/>
+        </div>
+        <div class="col select-wrapper">
+            <label for="nomeRapLegale" [ngClass]="{'active': !!nome}" [ngClass]="{'color-invalid': validNome === false}">
+                Nome*
+            </label>
+            <input type="text" [(ngModel)]="nome" (blur)="checkNome()" [disabled]="isModifica === false"
+                class="data_input" id="nomeRapLegale" [ngClass]="{'input-invalid': validNome === false}"/>
+        </div>
+    </div>
+    <div class="row margin-row-top">
+        <div class="col select-wrapper">
+            <label for="dataRapLegale" class="active" [ngClass]="{'color-invalid': validDataNascita === false}">
+                Data di nascita*
+            </label>
+            <input type="date" [(ngModel)]="dataNascita" (blur)="checkDataNascita()" [disabled]="isModifica === false"
+                class="data_input" id="dataNascita" name="dataNascita" required="" data-focus-mouse="false"
+                id="dataNascita" [ngClass]="{'input-invalid': validDataNascita === false}"/>
+        </div>
+        <div class="col select-wrapper">
+            <label for="isEsteroNascita">Stato di nascita</label>
+            <select type="text" [(ngModel)]="isEsteroNascita" [disabled]="isModifica === false" id="isEsteroNascita"
+                [value]="" class="data_input">
+                <option [value]="'false'">Italia</option>
+                <option [value]="'true'">Estero</option>
+            </select>
+        </div>
+    </div>
+    <div class="row margin-row-top">
+        <div class="col select-wrapper" *ngIf="isEsteroNascita === 'true'">
+            <label for="nomeStatoDiNasc" [ngClass]="{'active': !!statoNascita}" [ngClass]="{'color-invalid': validStatoNascita === false}">
+                Nome stato di nascita*
+            </label>
+            <input type="text" [(ngModel)]="statoNascita" (blur)="checkStatoNascita()" [disabled]="isModifica === false"
+                class="data_input" id="nomeStatoDiNasc" [ngClass]="{'input-invalid': validStatoNascita === false}"/>
+        </div>
+        <div class="col select-wrapper" *ngIf="isEsteroNascita === 'true'">
+            <label for="comuneNascitaEstero" [ngClass]="{'active': !!comuneNascitaEstero}" [ngClass]="{'color-invalid': validComuneNascitaEstero === false}">
+                Luogo di nascita*
+            </label>
+            <input type="text" [(ngModel)]="comuneNascitaEstero" (blur)="checkComuneNascitaEstero()"
+                [disabled]="isModifica === false" class="data_input" id="comuneNascitaEstero" [ngClass]="{'input-invalid': validComuneNascitaEstero === false}"/>
+        </div>
+        <div class="col select-wrapper" *ngIf="isEsteroNascita === 'false'">
+            <label for="comune" class="active" [ngClass]="{'color-invalid': validComuneSceltoNascita === false}">Luogo di nascita*</label>
+            <input aria-expanded="false" [(ngModel)]="comuneSceltoNascita" (blur)="checkComuneSceltoNascita()"
+                [disabled]="isModifica === false" (input)="loadComuneNascita($event)" class="data_input"
+                autocomplete="off" id="comune" type="text" [placeholder]="'Selezionare un comune'" [ngClass]="{'input-invalid': validComuneSceltoNascita === false}">
+
+            <ul *ngIf="showListComuneNascita"
+                class="autocomplete__menu autocomplete__menu--inline autocomplete__menu--inline select-liste-ul"
+                id="comuneNascitaAutocompleteListbox" role="listbox">
+                <li aria-selected="false" class="autocomplete__option" role="option" tabindex="-1" aria-posinset="1"
+                    aria-setsize="32" *ngFor="let comune of comuniNascita"
+                    (click)="selectComuneNascita(comune.idCodComune, comune.nomeComune + ' (' + comune.regioneProvince.siglaProvincia + ')')">
+                    {{comune.nomeComune + " (" + comune.regioneProvince.siglaProvincia + ")"}}
+                </li>
+            </ul>
+        </div>
+        <div class="col" *ngIf="isEsteroNascita === 'false'"></div>
+    </div>
+    <div class="row margin-row-top">
+        <div class="col select-wrapper">
+            <label for="codFiscaleRapLegale" [ngClass]="{'active': !!codiceFiscaleSS}" [ngClass]="{'color-invalid': validCodiceFiscale === false}">
+                Codice fiscale*
+            </label>
+            <input type="text" [(ngModel)]="codiceFiscaleSS" (blur)="checkCodiceFiscale()"
+                [disabled]="isModifica === false" class="data_input" id="codFiscaleRapLegale" [ngClass]="{'input-invalid': validCodiceFiscale === false}"/>
+        </div>
+        <div class="col select-wrapper">
+            <label for="cittaRapSoc" [ngClass]="{'active': !!cittadinanza}" [ngClass]="{'color-invalid': validCittadinanza === false}">
+                Cittadinanza*
+            </label>
+            <input type="text" [(ngModel)]="cittadinanza" (blur)="checkCittadinanza()" [disabled]="isModifica === false"
+                class="data_input" id="cittaRapSoc" [ngClass]="{'input-invalid': validCittadinanza === false}"/>
+        </div>
+    </div>
+    <div class="row margin-row-top">
+            <div class="col select-wrapper">
+                <label for="poTipoRappOdm" [ngClass]="{'color-invalid': validRapporto === false}">Rapporto giuridico ed economico con l'ente*</label>
+                <select type="text" [(ngModel)]="poTipoRappOdm" (change)="checkRapporto()"
+                    [disabled]="isModifica === false" id="poTipoRappOdm" class="data_input" [ngClass]="{'input-invalid': validRapporto === false}">
+                    <option [value]="''"></option>
+                    <option [value]="'A tempo indeterminato'">A tempo indeterminato</option>
+                    <option [value]="'Part-time a tempo indeterminato'">Part-time a tempo indeterminato</option>
+                </select>
+            </div>
+            <div class="col select-wrapper">
+                <label for="poDataAssunzione" class="active" [ngClass]="{'color-invalid': validDataAssunzione === false}">
+                    Data di assunzione
+                </label>
+                <input type="date" [(ngModel)]="poDataAssunzione" (blur)="checkDataAssunzione()"
+                    [disabled]="isModifica === false" class="data_input" id="poDataAssunzione" name="poDataAssunzione"
+                    required="" data-focus-mouse="false" id="poDataAssunzione" [ngClass]="{'input-invalid': validDataAssunzione === false}"/>
+            </div>
+    </div>
+    <div class="row margin-row-top">
+        <div class="col select-wrapper">
+            <label for="allegatoDocumento" [ngClass]="{'active': true}">
+                Allega copia documento
+            </label>
+            <input type="file" (change)="onFileDocumento($event)" data-bs-input class="data_input"
+                id="allegatoDocumento" accept=".pdf" />
+        </div>
+        <div class="col"></div>
+    </div>
+</div>
+
+<div class="p-2 clearfix mt-5">
+    
+</div>

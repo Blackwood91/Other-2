@@ -1,0 +1,370 @@
+<app-scheda-anagrafica-rappresentanti></app-scheda-anagrafica-rappresentanti>
+<app-scheda-anagrafica-rappresentante-riepilogo></app-scheda-anagrafica-rappresentante-riepilogo>
+<app-confirm-message></app-confirm-message>
+
+<div class="container mb-1 mt-1 pt-1">
+    <div class="row">
+        <div class="col-12" role="region" aria-label="E">
+            <h1 class="h6 fw-semibold color text-center">ELENCO RICHIESTE DI ISCRIZIONE
+            </h1>
+            <hr />
+        </div>
+    </div>
+</div>
+
+<!-- NON CANCELLARE SERVE PER CARICARE I COMUNI TRAMITE FILE CSV SUL COLLAUDO-->
+<!-- INIZIO
+<div class="row " role="region" aria-label="Caricamento file">
+    <div class="col text-end">
+        <input type="file" id="inputFileCsv" class="upload " multiple="multiple"
+            (change)="onFileSelectedCsv($event)" accept=".csv" />
+        <label for="inputFileCsv" class="upload-accessibility">
+            <svg class="icon icon-sm" aria-hidden="true" alt="carica file">
+                <use href="assets/svg/sprites.svg#it-upload"></use>
+            </svg>
+            <span>Carica file Csv</span>
+        </label>
+
+    </div>
+    <div class="col">
+        <ul class="upload-file-list" *ngIf=" nomeFile != '' ">
+            <li class="upload-file success">
+                <svg class="icon icon-sm color-icon" aria-hidden="true" alt="file">
+                    <use href="assets/svg/sprites.svg#it-file" ></use>
+                </svg>
+                <p class="line-height color">
+                    <span>{{nomeFile}}</span>
+                </p>
+            </li>
+        </ul>
+    </div>
+
+    <div class="col">
+        <button class="btn btn-sm btn-primary-min" type="button" (click)="caricaCSV()" data-bs-dismiss="modal">   	
+                Salva e Carica
+        </button>
+    </div>    
+
+</div>
+-->
+
+
+<div class="container text-left body">
+    <div class="container-filtro-ricerca background-color">
+        <div class="container-filtro-ricerca-basic">
+            <a class="container-filtro-ricerca-title" data-bs-toggle="collapse" href="#collapseAllFiltri"
+                aria-expanded="false" aria-controls="collapseAllFiltri">
+                <div class="container-filtro-ricerca-text">Ricerca per Categorie</div>
+                <div class="container-filtro-ricerca-navigation">
+                    <svg class="container-filtro-ricerca-icon text-collapsed" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24">
+                        <use href="\assets\svg\sprites.svg#it-expand"></use>
+                    </svg>
+                    <svg class="container-filtro-ricerca-icon text-expanded" style="display: none;">
+                        <use href="\assets\svg\sprites.svg#it-collapse"></use>
+                    </svg>
+                </div>
+            </a>
+        </div>
+    </div>
+
+    <div class="collapse" id="collapseAllFiltri">
+        <br>
+        <div class="collapseAllFiltri">
+            <div style="height: 60px !important;"></div>
+
+            <div class="div-filtri-ricerca" id="div-scelta-categoria" style="height: auto !important;">
+                <a class="div-filtri-ricerca-item" id="titleScelteCategoria" data-bs-toggle="collapse"
+                    href="#collapseScelteCategoria" aria-expanded="false" aria-controls="collapseScelteCategoria">
+                    <div class="div-filtri-ricerca-title-icon">
+                        <span class="div-filtri-ricerca-text">Categoria Richieste</span>
+                        <svg id="svg-collapsed-categoria-expanded" class="container-filtro-scelta-icon text-expanded" xmlns="http://www.w3.org/2000/svg"
+                             width="34" height="34" viewBox="0 0 100 100"><!--se scommentato il tipo richiedente sotto rimettere 0-->
+                            <use href="\assets\svg\sprites.svg#it-expand"></use>
+                        </svg>
+                        <svg id="svg-collapsed-categoria-collapsed" class="container-filtro-scelta-icon text-collapsed" 
+                             width="34" height="34" viewBox="0 0 100 100"   style="display: none;">
+                            <use href="\assets\svg\sprites.svg#it-collapse"></use>
+                        </svg>
+                    </div>
+                </a>
+                <div class="collapse collapseScelte" id="collapseScelteCategoria">
+                    <div class="div-scelta-filtro">
+                        <label class="form-check">
+                            <input id="categoria1" type="checkbox" class="checkbox-filtri-ricerca categoria" value="1">
+                            <span class="span-checkbox-filtri-ricerca">Organismo di mediazione</span>
+                        </label>
+                    </div>
+                    <!-- <div class="div-scelta-filtro">
+                        <label class="form-check">
+                            <input id="categoria2" type="checkbox" class="checkbox-filtri-ricerca categoria" value="2">
+                            <span class="span-checkbox-filtri-ricerca">Ente di formazione</span>
+                        </label>
+                    </div>
+                    <div class="div-scelta-filtro">
+                        <label class="form-check">
+                            <input id="categoria3" type="checkbox" class="checkbox-filtri-ricerca categoria" value="3">
+                            <span class="span-checkbox-filtri-ricerca">Organismo ADR</span>
+                        </label>
+                    </div> -->
+                </div>
+            </div>
+
+            <div class="div-filtri-ricerca" id="div-scelta-stato">
+                <a class="div-filtri-ricerca-item" id="titleScelteStato" data-bs-toggle="collapse"
+                    href="#collapseScelteStato" aria-expanded="false" aria-controls="collapseScelteStato">
+                    <div class="div-filtri-ricerca-title-icon">
+                        <span class="div-filtri-ricerca-text">Stato Richieste</span>
+                        <svg id="svg-collapsed-stato-expanded" class="container-filtro-scelta-icon text-expanded" xmlns="http://www.w3.org/2000/svg"
+                             width="34" height="34" viewBox="0 0 100 100">
+                            <use href="\assets\svg\sprites.svg#it-expand"></use>
+                        </svg>
+                        <svg id="svg-collapsed-stato-collapsed" class="container-filtro-scelta-icon text-collapsed" style="display: none;"
+                             width="34" height="34" viewBox="0 0 100 100">
+                            <use href="\assets\svg\sprites.svg#it-collapse"></use>
+                        </svg>
+                    </div>
+                </a>
+                <div class="collapse collapseScelte" id="collapseScelteStato">
+                    <div class="div-scelta-filtro">
+                        <label class="form-check">
+                            <input id="stato1" type="checkbox" class="checkbox-filtri-ricerca stato" value="1">
+                            <span class="span-checkbox-filtri-ricerca">In Compilazione</span>
+                        </label>
+                    </div>
+                    <div class="div-scelta-filtro">
+                        <label class="form-check">
+                            <input id="stato2" type="checkbox" class="checkbox-filtri-ricerca stato" value="2">
+                            <span class="span-checkbox-filtri-ricerca">Inviata</span>
+                        </label>
+                    </div>
+                    <div class="div-scelta-filtro">
+                        <label class="form-check">
+                            <input id="stato3" type="checkbox" class="checkbox-filtri-ricerca stato" value="3">
+                            <span class="span-checkbox-filtri-ricerca">In Validazione</span>
+                        </label>
+                    </div>
+                    <div class="div-scelta-filtro">
+                        <label class="form-check">
+                            <input id="stato4" type="checkbox" class="checkbox-filtri-ricerca stato" value="4">
+                            <span class="span-checkbox-filtri-ricerca">Iscritta</span>
+                        </label>
+                    </div>
+                    <!-- <div class="div-scelta-filtro">
+                        <label class="form-check">
+                            <input id="stato5" type="checkbox" class="checkbox-filtri-ricerca stato" value="5">
+                            <span class="span-checkbox-filtri-ricerca">Non Iscrivibile</span>
+                        </label>
+                    </div>
+                    <div class="div-scelta-filtro">
+                        <label class="form-check">
+                            <input id="stato6" type="checkbox" class="checkbox-filtri-ricerca stato" value="6">
+                            <span class="span-checkbox-filtri-ricerca">Sospeso</span>
+                        </label>
+                    </div>
+                    <div class="div-scelta-filtro">
+                        <label class="form-check">
+                            <input id="stato7" type="checkbox" class="checkbox-filtri-ricerca stato" value="7">
+                            <span class="span-checkbox-filtri-ricerca">Cancellata</span>
+                        </label>
+                    </div> 
+                    <div class="div-scelta-filtro">
+                        <label class="form-check">
+                            <input id="stato8" type="checkbox" class="checkbox-filtri-ricerca stato" value="8">
+                            <span class="span-checkbox-filtri-ricerca">In Iscrizione</span>
+                        </label>
+                    </div>-->
+                </div>
+            </div>
+
+            <!--SE VIENE SCOMMENTATO METTERE IN .div-filtri-ricerca IL WIDTH A 33.3 e scommentare div-filtri-ricerca-title-icon il justify content
+    container-filtro-scelta-icon vedere anche questo commento
+    -->
+
+
+            <!--   <div class="div-filtri-ricerca" id="div-scelta-tipo">
+        <a class="div-filtri-ricerca-item" id="titleScelteTipo" data-bs-toggle="collapse" href="#collapseScelteTipo" aria-expanded="false" aria-controls="collapseScelteTipo">
+            <div class="div-filtri-ricerca-title-icon">
+                <span class="div-filtri-ricerca-text">Tipo Richieste</span>
+                <svg class="container-filtro-scelta-icon text-collapsed" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <use href="\assets\svg\sprites.svg#it-expand"></use>
+                </svg>
+                <svg class="container-filtro-scelta-icon text-expanded" style="display: none;">
+                    <use href="\assets\svg\sprites.svg#it-collapse"></use>
+                </svg>
+            </div>
+        </a>
+        <div class="collapse collapseScelte" id="collapseScelteTipo">
+
+        </div>
+    </div>-->
+
+        </div>
+
+    </div>
+
+    <!--<div class="collapse" id="collapseAllFiltri">
+        <div class="row mb-2">
+            <div class="col">
+                <div class="searchBubble bubble-width">
+                    <label for="categoriaRichieste" class="fw-bolder">Categoria Richieste</label>
+                    <select type="text" class="option" id="categoriaRichieste" [(ngModel)]="idTipoRichiesta" 
+                    (ngModelChange)="categorySelection()">
+                        <option [value]=""></option>
+                        <option [value]="1">Organismo di mediazione</option>
+                        <option [value]="2">Ente di formazione</option>
+                        <option [value]="3">Organismo ADR</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="searchBubble bubble-width">
+                    <label for="statoRichieste" class="fw-bolder">Stato Richieste</label>
+                    <select type="text" class="option" id="statoRichieste" [(ngModel)]="idStatoRichiesta" 
+                    (ngModelChange)="categorySelection()">
+                        <option [value]=""></option>
+                        <option [value]="1">In Compilazione</option>
+                        <option [value]="2">Inviata</option>
+                        <option [value]="3">In Validazione</option>
+                        <option [value]="4">Iscritta</option>
+                        <option [value]="5">Non Iscrivibile</option>
+                        <option [value]="6">Sospeso</option>
+                        <option [value]="7">Cancellata</option>
+                        <option [value]="8">In Iscrizione</option>
+                    </select>
+                </div>
+            </div>
+            <div class="col">
+                <div class="searchBubble bubble-width">
+                    <label for="tipoRichieste" class="fw-bolder">Tipo Richieste</label>
+                    <select type="text" class="option" id="tipoRichieste">
+                        <option value="" disabled selected hidden>Selezionare una tipologia</option>
+                        <option [value]="0"></option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> <|-->
+    <div class="container text-center body" style="margin-top: 1rem;">
+        <table class="table table-hover" style="border: 1px solid #E0E0E0;">
+            <thead class="thead-voto-estero">
+                <tr>
+                    <th scope="col" class="text-center">Id</th>
+                    <th scope="col" class="text-center">Numero Albo</th>
+                    <th scope="col" class="text-center" style="width: 102px !important">Data Richiesta</th>
+                    <th scope="col" class="text-center">Ragione Sociale</th>
+                    <th scope="col" class="text-center">P. Iva</th>
+                    <th scope="col" class="text-center">Codice Fiscale</th>
+                    <th scope="col" class="text-center">Stato Richiesta</th>
+                    <!--   <th scope="col" class="text-center">Tipo Richiesta</th>-->
+                    <th scope="col" class="text-center" style="width: 473px !important">Azioni Rapide</th>
+                </tr>
+            </thead>
+            <tbody class="tbody-empty-table">
+                <td *ngIf="tableResult.length == 0; else elseBlock" colspan="16">
+                    <p class="text-empty-table">Nessun risultato trovato</p>
+                </td>
+                <ng-template #elseBlock>
+                    <ng-container *ngFor="let item of tableResult; let i = index">
+                        <tr>
+                            <td class="text-center">{{ item.idRichiesta }}</td>
+                            <td class="text-center">{{ item.numIscrAlbo }}</td>
+                            <td class="text-center">{{ formatDate(item.dataRichiesta) }}</td>
+                            <td class="text-center">{{ item.ragioneSociale }}</td>
+                            <td class="text-center">{{ item.piva }}</td>
+                            <td class="text-center">{{ item.codFiscSocieta }}</td>
+                            <td class="text-center">{{ item.statoRichiesta }}</td>
+                            <!--  <td class="text-center"></td>-->
+                            <td class="text-center ">
+                                    <button type="button" (click)="emissionePdg(item.idRichiesta)" style="padding: 12px 10px !important;font-size: 12px !important;"
+                                        [disabled]="item.statoRichiesta == 'In Compilazione' || item.statoRichiesta == null"
+                                        [ngClass]="{'btn btn-menu-page-body btn-outline-primary-min': true, 'btn-disabled-min': item.statoRichiesta == 'In Compilazione' || item.statoRichiesta == null}">Emetti
+                                        PDG
+                                    </button>
+                                    <button type="button" (click)="modificaIntegr(item.idRichiesta)" style="padding: 12px 10px !important; font-size: 12px !important;"
+                                        [disabled]="item.statoRichiesta == 'In Compilazione' || item.statoRichiesta == null"
+                                        [ngClass]="{'btn btn-menu-page-body btn-primary-min': true, 'btn-disabled-min': item.statoRichiesta == 'In Compilazione' || item.statoRichiesta == null}">Modifica/Integrazione
+                                    </button>
+                                    <button type="button" (click)="routerDomandaIscrizione(item.idRichiesta)" style="padding: 12px 10px !important;font-size: 12px !important;"
+                                        [disabled]="item.statoRichiesta == 'In Compilazione' || item.statoRichiesta == null"
+                                        [ngClass]="{'btn btn-secondary-min btn-menu-page-body': true, 'btn-disabled-min': item.statoRichiesta == 'In Compilazione' || item.statoRichiesta == null}">Visualizza/Valida
+                                    </button>
+
+                                    <!--<button
+                                        [ngClass]="{'btn-outline-min': true, 'btn-gray-min': item.statoRichiesta == 'In Compilazione' || item.statoRichiesta == null}"
+                                        [disabled]="item.statoRichiesta == 'In Compilazione' || item.statoRichiesta == null"
+                                        (click)="emissionePdg(item.idRichiesta)">
+                                        <span class="">Emetti PDG</span>
+                                    </button>
+                                    <button
+                                        [ngClass]="{'btn-outline-min': true, 'btn-gray-min': item.statoRichiesta == 'In Compilazione' || item.statoRichiesta == null}"
+                                        [disabled]="item.statoRichiesta == 'In Compilazione' || item.statoRichiesta == null"
+                                        [routerLink]="['/richiestaIntegrazione']"
+                                        [queryParams]="{idRichiesta: item.idRichiesta}">
+                                        <span class="">Modifica/Integrazione</span>
+                                    </button>
+                                    <button
+                                        [ngClass]="{'btn-secondary-min': true, 'btn-gray-min': item.statoRichiesta == 'In Compilazione' || item.statoRichiesta == null}"
+                                        [disabled]="item.statoRichiesta == 'In Compilazione' || item.statoRichiesta == null"
+                                        (click)="routerDomandaIscrizione(item.idRichiesta)">
+                                        <span class="">V</span>
+                                    </button>-->
+                            </td>
+                        </tr>
+                    </ng-container>
+                </ng-template>
+            </tbody>
+        </table>
+        <div *ngIf="this.totalResult === 0">
+            <nav class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+                <td class="text-center">Totale: {{this.totalResult}}</td>
+            </nav>
+        </div>
+        <nav class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+            <ul *ngIf="totalPage != 0" class="pagination mt-2">
+                <li *ngIf="indexPage == 1; else elsePageBefore" class="page-item disabled">
+                    <a (click)="previousPage(indexPage)" class="page-link" style="color: #415559">Precedente
+                        <span class="visually-hidden">Pagina precedente disabilitata</span>
+                    </a>
+                </li>
+                <ng-template #elsePageBefore>
+                    <li class="page-item">
+                        <a (click)="previousPage(indexPage)" class="page-link" style="color: #415559">Precedente
+                            <span class="visually-hidden">Pagina precedente</span>
+                        </a>
+                    </li>
+                </ng-template>
+                <ng-container>
+                    <li *ngIf="(indexPage > 1)" class="page-item">
+                        <a (click)="cambiaPagina(indexPage - 1)" class="page-link">{{indexPage - 1}}</a>
+                    </li>
+                    <li class="page-item active" style="color: #0F3E75">
+                        <a class="page-link" (click)="cambiaPagina(indexPage)" aria-current="page">
+                            <span class="d-inline-block d-sm-none">Pagina</span>{{indexPage}}
+                        </a>
+                    </li>
+                    <li *ngIf="(indexPage + 1 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 1)"
+                            class="page-link">{{indexPage + 1}}</a></li>
+                    <li *ngIf="(indexPage + 2 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 2)"
+                            class="page-link">{{indexPage + 2}}</a></li>
+                    <li *ngIf="(indexPage + 3 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 3)"
+                            class="page-link">{{indexPage + 3}}</a></li>
+                </ng-container>
+                <li *ngIf="totalPage > 1 else elsePageNext" class="page-item">
+                    <a (click)="nextPage(indexPage)" class="page-link" style="color: #216FA3">Successiva
+                        <span class="visually-hidden">Pagina successiva</span>
+                    </a>
+                </li>
+                <ng-template #elsePageNext>
+                    <li class="page-item disabled">
+                        <a (click)="nextPage(indexPage)" class="page-link" style="color: #216FA3">Successiva
+                            <span class="visually-hidden">Pagina successiva disabilitata</span>
+                        </a>
+                    </li>
+                </ng-template>
+            </ul>
+            <!--<p style="color:#2F475E">Stai visualizzando {{totalPage}} di {{totalResult}} elementi </p>--><!--testo a sinistra-->
+        </nav>
+
+    </div>

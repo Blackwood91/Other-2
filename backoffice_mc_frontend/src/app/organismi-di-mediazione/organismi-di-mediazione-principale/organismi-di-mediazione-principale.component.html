@@ -1,0 +1,194 @@
+<div class="container container-mediazione-civile" id="main-container">
+    <section _ngcontent-luj-c53="" class="mt-0 ml-2 mr-2 mb-3">
+    <div class="cmp-breadcrumbs container" role="navigation" style="margin-top: 1em; margin-bottom: 1rem; margin-left: 28px;">
+        <div class="row">
+            <div class="col">
+                    <!-- <li class="breadcrumb-item"><a routerLink="/Home" data-focus-mouse="false">Home</a><span
+                        class="separator">/</span></li> -->
+                <nav class="breadcrumb-container" aria-label="Percorso di navigazione">
+                    <ol class="breadcrumb p-0" data-element="breadcrumb">
+                        <li class="breadcrumb-item ">
+                            <a routerLink="/homePage">
+                                Elenco Richieste Di Iscrizione
+                            </a>
+                            <span class="separator">/</span></li>
+                        <li class="breadcrumb-item">Richiesta di iscrizione Organismo di Mediazione</li>
+                    </ol>
+                </nav>
+            </div>
+            <!-- <div class="col">
+                <a _ngcontent-luj-c53="" href="#" data-bs-toggle="tab" role="tab" aria-controls="tab1b"
+                    aria-selected="true" class="nav-link active div-guida-comp float-end"> Guida alla compilazione
+                    <svg _ngcontent-luj-c53="" xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                        fill="currentColor" viewBox="0 0 16 16" class="bi bi-question-circle">
+                        <path _ngcontent-luj-c53=""
+                            d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"></path>
+                        <path _ngcontent-luj-c53=""
+                            d="M5.255 5.786a.237.237 0 0 0 .241.247h.825c.138 0 .248-.113.266-.25.09-.656.54-1.134 1.342-1.134.686 0 1.314.343 1.314 1.168 0 .635-.374.927-.965 1.371-.673.489-1.206 1.06-1.168 1.987l.003.217a.25.25 0 0 0 .25.246h.811a.25.25 0 0 0 .25-.25v-.105c0-.718.273-.927 1.01-1.486.609-.463 1.244-.977 1.244-2.056 0-1.511-1.276-2.241-2.673-2.241-1.267 0-2.655.59-2.75 2.286zm1.557 5.763c0 .533.425.927 1.01.927.609 0 1.028-.394 1.028-.927 0-.552-.42-.94-1.029-.94-.584 0-1.009.388-1.009.94z">
+                        </path>
+                    </svg></a>
+            </div> -->
+        </div>
+    </div>
+</section>
+    <div class="it-page-sections-container ">
+        <div class="tab-content">
+            <div class="tab-pane fade active show" id="data-ex-tab1" role="tabpanel">
+                <div class="row" id="div-menu-odm">
+                    <!-- Aggiunto un container per app-menu -->
+                    <!-- <div class="fixed-top"> -->
+                    <app-menu class="col-12 col-lg-3 d-lg-block mb-4 d-none container-menu"
+                        (componentSelezionato)="changeComponent($event)"></app-menu>
+                    <!-- </div> -->
+
+                    <!-- Il resto del contenuto -->
+                    <app-domanda-iscrizione *ngIf="component === 'domanda_di_iscrizione'"
+                        class="container-body-menu">
+                    </app-domanda-iscrizione>
+                    <app-atto-riepilogativo-mediazione-per-enti (autonomoCheck)="receiveAutonomo($event)"
+                        *ngIf="component === 'atto_riepilogativo_mediazione_per_enti'" class="container-body-menu">
+                    </app-atto-riepilogativo-mediazione-per-enti>
+                    <app-dichiarazione-polizza-assicurativa *ngIf="component === 'dichiarazione_polizza_assicurativa'"
+                        class="container-body-menu">
+                    </app-dichiarazione-polizza-assicurativa>
+                    <app-polizza-assicurativa *ngIf="component === 'polizza_assicurativa'"
+                        class="container-body-menu">
+                    </app-polizza-assicurativa>
+                    <app-sedi *ngIf="component === 'sedi'" class="container-body-menu">
+                    </app-sedi>
+                    <app-inserimento-sede *ngIf="component === 'inserimento_sedi'" class="container-body-menu">
+                    </app-inserimento-sede>
+                    <app-elenco-soci-prestatori-servizio *ngIf="component === 'elenco_prestatori_di_servizio_o_opera'"
+                        [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-elenco-soci-prestatori-servizio>
+                    <app-caricamento-file-odm *ngIf="component === 'atto_costitutivo_odm'"
+                        [component]="component" class="container-body-menu">
+                    </app-caricamento-file-odm>
+                    <app-caricamento-file-odm *ngIf="component === 'statuto_organismo'"
+                        [component]="component" class="container-body-menu">
+                    </app-caricamento-file-odm>
+                    <app-caricamento-file-odm *ngIf="component === 'regolamento_di_procedura'"
+                        [component]="component" class="container-body-menu">
+                    </app-caricamento-file-odm>
+                    <app-spese-mediazione *ngIf="component === 'spese_di_mediazione'"
+                        class="container-body-menu">
+                    </app-spese-mediazione>
+                    <app-caricamento-file-odm *ngIf="component === 'codice_etico'"
+                        [component]="component" class="container-body-menu">
+                    </app-caricamento-file-odm>
+                    <app-caricamento-file-odm *ngIf="component === 'bilancio_certificazione_bancaria'"
+                        [component]="component" class="container-body-menu">
+                    </app-caricamento-file-odm>
+                    <app-caricamento-file-odm *ngIf="component === 'atto_costitutivo_odm_non_autonomo'"
+                        [component]="component" class="container-body-menu">
+                    </app-caricamento-file-odm>
+                    <app-caricamento-file-odm *ngIf="component === 'statuto_organismo_non_autonomo'"
+                        [component]="component" class="container-body-menu">
+                    </app-caricamento-file-odm>
+                    <app-inserimento-scheda-prestatore-servizio *ngIf="component === 'inserimento-scheda-prestatore-servizio'"
+                        [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-inserimento-scheda-prestatore-servizio>
+                    <app-elenco-mediatori *ngIf="component === 'elenco_mediatori'"
+                        class="container-body-menu">
+                    </app-elenco-mediatori>
+                    <!-- appendice D -->
+                    <app-elenco-rappresentanti *ngIf="component === 'elenco-rappresentanti'"
+                        class="container-body-menu">
+                    </app-elenco-rappresentanti>
+                    <app-elenco-componenti-organo-amm *ngIf="component === 'elenco_componenti_organo_amm'"
+                        class="container-body-menu">
+                    </app-elenco-componenti-organo-amm>
+                    <app-rappresentante-legale *ngIf="component === 'rappresentante-legale'"
+                        class="container-body-menu">
+                    </app-rappresentante-legale>
+                    <app-documento-identita *ngIf="component === 'documento-identita'"
+                        class="container-body-menu">
+                    </app-documento-identita>
+                    <app-autocertificazione-onorabilita *ngIf="component === 'autocertificazione-onorabilita'"
+                        [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-autocertificazione-onorabilita>
+                    <app-gestione-mediatori-a *ngIf="component === 'gestione-mediatori-a'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-gestione-mediatori-a>
+                    <app-gestione-mediatori-b *ngIf="component === 'gestione-mediatori-b'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-gestione-mediatori-b>
+                    <app-gestione-mediatori-c *ngIf="component === 'gestione-mediatori-c'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-gestione-mediatori-c>
+                    <app-scheda-anagrafica-mediatore *ngIf="component === 'scheda-anagrafica-mediatore-generico-a'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-scheda-anagrafica-mediatore>
+                    <app-scheda-anagrafica-mediatore *ngIf="component === 'scheda-anagrafica-mediatore-generico-b'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-scheda-anagrafica-mediatore>
+                    <app-scheda-anagrafica-mediatore *ngIf="component === 'scheda-anagrafica-mediatore-generico-c'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-scheda-anagrafica-mediatore>
+                    <app-caricamento-file-appendici *ngIf="component === 'disponibilita-a'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-caricamento-file-appendici>
+                    <app-caricamento-file-appendici *ngIf="component === 'disponibilita-b'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-caricamento-file-appendici>
+                    <app-caricamento-file-appendici *ngIf="component === 'disponibilita-c'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-caricamento-file-appendici>
+                    <app-caricamento-file-appendici *ngIf="component === 'formazione-iniziale-a'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-caricamento-file-appendici>
+                    <app-caricamento-file-appendici *ngIf="component === 'formazione-iniziale-b'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-caricamento-file-appendici>
+                    <app-caricamento-file-appendici *ngIf="component === 'formazione-iniziale-c'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-caricamento-file-appendici>
+                    <app-caricamento-file-appendici *ngIf="component === 'formazione-specifica-b'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-caricamento-file-appendici>
+                    <app-caricamento-file-appendici *ngIf="component === 'formazione-specifica-c'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-caricamento-file-appendici>
+                    <app-caricamento-file-appendici *ngIf="component === 'certificazione-lingue-b'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-caricamento-file-appendici>
+                    <app-caricamento-file-appendici *ngIf="component === 'certificazione-lingue-c'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-caricamento-file-appendici>
+                    <app-caricamento-file-appendici *ngIf="component === 'ulteriori-requisiti-a'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-caricamento-file-appendici>
+                    <app-caricamento-file-appendici *ngIf="component === 'ulteriori-requisiti-b'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-caricamento-file-appendici>
+                    <app-caricamento-file-appendici *ngIf="component === 'ulteriori-requisiti-c'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-caricamento-file-appendici>
+                    <app-onorabilita-appendici *ngIf="component === 'onorabilita-a'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-onorabilita-appendici>
+                    <app-onorabilita-appendici *ngIf="component === 'onorabilita-b'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-onorabilita-appendici>
+                    <app-onorabilita-appendici *ngIf="component === 'onorabilita-c'"
+                        [component]="component" [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-onorabilita-appendici>
+                    <app-scheda-comp-org-am-and-comp-soc *ngIf="component === 'scheda-comp-org-am-and-comp-soc'" 
+                        class="container-body-menu">
+                    </app-scheda-comp-org-am-and-comp-soc>
+                    <app-autocertificazione-onorabilita-comp-org-am *ngIf="component === 'autocertificazione-onorabilita-comp-org-am-riepilogo'"
+                        [idRichiesta]="idRichiesta" class="container-body-menu">
+                    </app-autocertificazione-onorabilita-comp-org-am>
+                    <app-richieste-inviate *ngIf="component === 'richieste_inviate'"
+                        class="container-body-menu">
+                    </app-richieste-inviate>
+                    <app-lettura-pdg *ngIf="component === 'lettura_pdg'"
+                        class="container-body-menu">
+                    </app-lettura-pdg>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

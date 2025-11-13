@@ -1,0 +1,61 @@
+.logo-header {
+  margin-right: 7px !important;
+}
+
+.color-text {
+  color: black !important;
+}
+
+.color-text-header {
+  color: #216FA3 !important;
+}
+
+.logout-link {
+  cursor: pointer;
+}
+
+.log-in-image {
+  margin-top: 5px !important;
+  margin-left: 1px !important;
+  height: 21px !important;
+  width: 40px !important;
+}
+
+.color {
+  background: #216FA3 !important;
+}
+
+.color-header {
+  color: black !important;
+}
+
+.user-initials-circle {
+  height: 30px;
+  min-width: 30px;
+  /* Imposta una larghezza minima */
+  border-radius: 50%;
+  background-color: #216FA3;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.margin-iniziali {
+  margin-left: 1em !important;
+  color: #216FA3 !important;
+  ;
+
+}
+
+.icon-header-menu {
+  margin-bottom: 2px;
+  margin-right: 3px;
+}
+
+.item-clickable {
+  cursor: pointer;
+}
+
+
+.it-header-slim-wrapper.theme-light .it-header-slim-wrapper-content .it-header-slim-right-zone .dropdown-menu:before,.it-header-slim-wrapper.theme-light .it-header-slim-wrapper-content .header-slim-right-zone .dropdown-menu:before{background:#216FA3 !important}

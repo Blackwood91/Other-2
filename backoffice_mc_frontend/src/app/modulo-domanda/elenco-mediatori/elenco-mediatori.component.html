@@ -1,0 +1,379 @@
+<app-modal-mediatori></app-modal-mediatori>
+<app-update-mediatore (eventConfirmMessage)="getModalChildrenUpdate($event)"></app-update-mediatore>
+
+<div class="container mb-1 mt-1 pt-1">
+  <div class="row ">
+      <div class="col-12" role="region" aria-label="atto riepilogativo">
+          <h1 class="h6 fw-semibold color">ELENCO MEDIATORI</h1>
+          <hr />
+      </div>
+  </div>
+</div>
+
+<!--<div class="alert alert-info info-menu-top" role="alert">
+  <span class="span-menu-top">"<b>info</b>" Attenzione si necessita di almeno 5 mediatori.</span>
+</div>-->
+
+<p class="text-center mediator"><b> Mediatori Generici </b></p>
+<div class="container text-left body"  role="region" aria-label="tabella-societa">
+  <table class="table table-hover" style="border: 1px solid #E0E0E0;">
+    <thead class="thead-voto-estero">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col" class="text-center" > Cognome </th>
+        <th scope="col" class="text-center" > Nome </th>
+        <th scope="col" class="text-center" > Codice Fiscale </th>
+        <th scope="col" class="text-center" > N. Organismi </th>
+        <!-- <th scope="col" class="text-center" > Stato </th>
+        <th scope="col" class="text-center" > Lavorazione </th>
+        <th scope="col" class="text-center" > Data prima iscrizione </th>
+        <th scope="col" class="text-center" > Data cancellazione </th> -->
+        <th scope="col" class="text-center" > Azioni Rapide </th>
+      </tr>
+    </thead>
+    <tbody class="tbody-empty-table">
+      <td *ngIf="tableResultMG.length == 0; else elseBlockMG" colspan="16">
+        <p class="text-empty-table">Nessun risultato trovato</p>
+      </td>
+      <ng-template #elseBlockMG>
+        <ng-container *ngFor="let item of tableResultMG; let i = index">
+          <tr>
+            <td class="text-center">
+              <svg *ngIf="item.validato === 1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2eb20b"
+                class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                <path
+                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+              </svg>
+              <svg *ngIf="item.annullato === 1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#dc3545"
+                class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                <path
+                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
+              </svg>
+            </td>
+            <td class="text-center">{{ item.cognome }}</td>
+            <td class="text-center">{{ item.nome }}</td>
+            <td class="text-center">{{ item.codiceFiscale }}</td>
+            <td class="text-center">{{ item.medNumeroOrganismiDisp }}</td>
+            <!-- <td class="text-center">{{ item.dataNascita ? this.formatDate(item.dataNascita) : '' }}</td>
+            <td class="text-center">{{ item.comuneNascitaEstero ? item.comuneNascitaEstero : item.comune.nomeComune + ' ('+ item.comune.regioneProvince.siglaProvincia +')' }}</td>
+            <td class="text-center">{{ item.comuneResidenzaEstero ? item.comuneResidenzaEstero : item.comune.nomeComune + ' ('+ item.comune.regioneProvince.siglaProvincia +')' }}</td> -->
+            <!-- <td class="text-center">{{ item.stato }}</td>
+            <td class="text-center">{{ item.lavorazione }}</td>
+            <td class="text-center">{{ item.dataIscrizione | date: 'dd/MM/yyyy' }}</td>
+            <td class="text-center">{{ item.dataCancellazione | date: 'dd/MM/yyyy' }}</td> -->
+            <td class="text-center">
+              <div class="div-column-icon">
+              <a class="a-icon-table" (click)="riepilogoAnagrafica(item.idAnagrafica, 'gestione-mediatori-a')" data-toggle="tooltip" title="apri">
+                <svg class="bg-light icon align-middle svg-icon-table-td">
+                  <use href="\assets\svg\sprites.svg#it-search"></use>
+                </svg>
+              </a>
+              <a class="a-icon-table" [ngClass]="{'a-icon-table': true}"
+              (click)="updateAnagrafica(item.idAnagrafica, 'gestione-mediatori-a')" data-toggle="tooltip"
+              title="annulla/convalida">
+              <svg class="bg-light icon align-middle svg-icon-table-td">
+                <use href="\assets\svg\sprites.svg#it-pencil"></use>
+              </svg>
+            </a>
+            </div>
+            </td>
+          </tr>
+        </ng-container>
+      </ng-template>
+    </tbody>
+  </table>
+  <nav *ngIf="totalPageMG != 0" class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+    <ul class="pagination mt-2">
+      <li *ngIf="indexPageMG == 1; else elsePageBeforeMG" class="page-item disabled">
+        <a (click)="previousPageMG(indexPageMG)" class="page-link" style="color: #415559">Precedente
+          <span class="visually-hidden">Pagina precedente disabilitata</span>
+        </a>
+      </li>
+      <ng-template #elsePageBeforeMG>
+        <li class="page-item">
+          <a (click)="previousPageMG(indexPageMG)" class="page-link" style="color: #415559">Precedente
+            <span class="visually-hidden">Pagina precedente</span>
+          </a>
+        </li>
+      </ng-template>
+      <ng-container>
+        <li *ngIf="(indexPageMG > 1)" class="page-item"><a (click)="cambiaPaginaMG(indexPageMG - 1)"
+            class="page-link">{{indexPageMG - 1}}</a></li>
+        <li class="page-item active" style="color:#0F3E75">
+          <a class="page-link" (click)="cambiaPaginaMG(indexPageMG)" aria-current="page">
+            <span class="d-inline-block d-sm-none">Pagina </span>{{indexPageMG}}
+          </a>
+        </li>
+        <li *ngIf="(indexPageMG + 1 <= totalPageMG)" class="page-item"><a (click)="cambiaPaginaMG(indexPageMG + 1)"
+            class="page-link">{{indexPageMG + 1}}</a></li>
+        <li *ngIf="(indexPageMG + 2 <= totalPageMG)" class="page-item"><a (click)="cambiaPaginaMG(indexPageMG + 2)"
+            class="page-link">{{indexPageMG + 2}}</a></li>
+        <li *ngIf="(indexPageMG + 3 <= totalPageMG)" class="page-item"><a (click)="cambiaPaginaMG(indexPageMG + 3)"
+            class="page-link">{{indexPageMG + 3}}</a></li>
+      </ng-container>
+      <li *ngIf="totalPageMG > 1 else elsePageNextMG" class="page-item">
+        <a (click)="nextPageMG(indexPageMG)" class="page-link" style="color: #216FA3">Successiva
+          <span class="visually-hidden">Pagina successiva</span>
+        </a>
+      </li>
+      <ng-template #elsePageNextMG>
+        <li class="page-item disabled">
+          <a (click)="nextPageMG(indexPageMG)" class="page-link" style="color: #216FA3">Successiva
+            <span class="visually-hidden">Pagina successiva disabilitata</span>
+          </a>
+        </li>
+      </ng-template>
+    </ul>
+  </nav>
+  <nav *ngIf="totalPageMG === 0" class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+    <td class="text-center"> Totale: {{ this.totalPageMG }}</td>
+</nav>
+</div>
+
+<p class="text-center mediator"><b> Mediatori Internazionali </b></p>
+<div class="container text-left body"  role="region" aria-label="tabella-societa">
+  <table class="table table-hover" style="border: 1px solid #E0E0E0;">
+    <thead class="thead-voto-estero">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col" class="text-center" > Cognome </th>
+        <th scope="col" class="text-center" > Nome </th>
+        <th scope="col" class="text-center" > Codice Fiscale </th>
+        <th scope="col" class="text-center" > N. Organismi </th>
+        <!-- <th scope="col" class="text-center" > Stato </th>
+        <th scope="col" class="text-center" > Lavorazione </th>
+        <th scope="col" class="text-center" > Data prima iscrizione </th>
+        <th scope="col" class="text-center" > Data cancellazione </th> -->
+        <th scope="col" class="text-center" > Azioni Rapide </th>
+      </tr>
+    </thead>
+    <tbody class="tbody-empty-table">
+      <td *ngIf="tableResultII.length == 0; else elseBlockII" colspan="16">
+        <p class="text-empty-table">Nessun risultato trovato</p>
+      </td>
+      <ng-template #elseBlockII>
+        <ng-container *ngFor="let item of tableResultII; let i = index">
+          <tr>
+            <td class="text-center">
+              <svg *ngIf="item.validato === 1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2eb20b"
+                class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                <path
+                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+              </svg>
+              <svg *ngIf="item.annullato === 1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#dc3545"
+                class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                <path
+                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
+              </svg>
+            </td>
+            <td class="text-center">{{ item.cognome }}</td>
+            <td class="text-center">{{ item.nome }}</td>
+            <td class="text-center">{{ item.codiceFiscale }}</td>
+            <td class="text-center">{{ item.medNumeroOrganismiDisp }}</td>
+            <!-- <td class="text-center">{{ item.dataNascita ? this.formatDate(item.dataNascita) : '' }}</td>
+            <td class="text-center">{{ item.comuneNascitaEstero ? item.comuneNascitaEstero : item.comune.nomeComune + ' ('+ item.comune.regioneProvince.siglaProvincia +')' }}</td>
+            <td class="text-center">{{ item.comuneResidenzaEstero ? item.comuneResidenzaEstero : item.comune.nomeComune + ' ('+ item.comune.regioneProvince.siglaProvincia +')' }}</td> -->
+            <!-- <td class="text-center">{{ item.stato }}</td>
+            <td class="text-center">{{ item.lavorazione }}</td>
+            <td class="text-center">{{ item.dataIscrizione | date: 'dd/MM/yyyy' }}</td>
+            <td class="text-center">{{ item.dataCancellazione | date: 'dd/MM/yyyy' }}</td> -->
+            <td class="text-center">
+              <div class="div-column-icon">
+              <a class="a-icon-table" (click)="riepilogoAnagrafica(item.idAnagrafica, 'gestione-mediatori-b')" data-toggle="tooltip" title="apri">
+                <svg class="bg-light icon align-middle svg-icon-table-td">
+                  <use href="\assets\svg\sprites.svg#it-search"></use>
+                </svg>
+              </a>
+              <a class="a-icon-table" [ngClass]="{'a-icon-table': true}"
+              (click)="updateAnagrafica(item.idAnagrafica, 'gestione-mediatori-b')" data-toggle="tooltip"
+              title="annulla/convalida">
+              <svg class="bg-light icon align-middle svg-icon-table-td">
+                <use href="\assets\svg\sprites.svg#it-pencil"></use>
+              </svg>
+              </a>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </ng-template>
+    </tbody>
+  </table>
+  <nav *ngIf="totalPageII != 0" class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+    <ul class="pagination mt-2">
+      <li *ngIf="indexPageII == 1; else elsePageBeforeII" class="page-item disabled">
+        <a (click)="previousPageII(indexPageII)" class="page-link" style="color: #415559">Precedente
+          <span class="visually-hidden">Pagina precedente disabilitata</span>
+        </a>
+      </li>
+      <ng-template #elsePageBeforeII>
+        <li class="page-item">
+          <a (click)="previousPageII(indexPageII)" class="page-link" style="color: #415559">Precedente
+            <span class="visually-hidden">Pagina precedente</span>
+          </a>
+        </li>
+      </ng-template>
+      <ng-container>
+        <li *ngIf="(indexPageII > 1)" class="page-item"><a (click)="cambiaPaginaII(indexPageII - 1)"
+            class="page-link">{{indexPageII - 1}}</a></li>
+        <li class="page-item active" style="color:#0F3E75">
+          <a class="page-link" (click)="cambiaPaginaII(indexPageII)" aria-current="page">
+            <span class="d-inline-block d-sm-none">Pagina </span>{{indexPageII}}
+          </a>
+        </li>
+        <li *ngIf="(indexPageII + 1 <= totalPageII)" class="page-item"><a (click)="cambiaPaginaII(indexPageII + 1)"
+            class="page-link">{{indexPageII + 1}}</a></li>
+        <li *ngIf="(indexPageII + 2 <= totalPageII)" class="page-item"><a (click)="cambiaPaginaII(indexPageII + 2)"
+            class="page-link">{{indexPageII + 2}}</a></li>
+        <li *ngIf="(indexPageII + 3 <= totalPageII)" class="page-item"><a (click)="cambiaPaginaII(indexPageII + 3)"
+            class="page-link">{{indexPageII + 3}}</a></li>
+      </ng-container>
+      <li *ngIf="totalPageII > 1 else elsePageNextII" class="page-item">
+        <a (click)="nextPageII(indexPageII)" class="page-link" style="color: #216FA3">Successiva
+          <span class="visually-hidden">Pagina successiva</span>
+        </a>
+      </li>
+      <ng-template #elsePageNextII>
+        <li class="page-item disabled">
+          <a (click)="nextPageII(indexPageII)" class="page-link" style="color: #216FA3">Successiva
+            <span class="visually-hidden">Pagina successiva disabilitata</span>
+          </a>
+        </li>
+      </ng-template>
+    </ul>
+  </nav>
+  <nav *ngIf="totalPageII === 0" class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+    <td class="text-center"> Totale: {{ this.totalPageII }}</td>
+</nav>
+</div>
+
+<p class="text-center mediator"><b> Mediatori Materia di Consumo </b></p>
+<div class="container text-left body"  role="region" aria-label="tabella-societa">
+  <table class="table table-hover" style="border: 1px solid #E0E0E0;">
+    <thead class="thead-voto-estero">
+      <tr>
+        <th scope="col"></th>
+        <th scope="col" class="text-center" > Cognome </th>
+        <th scope="col" class="text-center" > Nome </th>
+        <th scope="col" class="text-center" > Codice Fiscale </th>
+        <th scope="col" class="text-center" > N. Organismi </th>
+        <!-- <th scope="col" class="text-center" > Stato </th>
+        <th scope="col" class="text-center" > Lavorazione </th>
+        <th scope="col" class="text-center" > Data prima iscrizione </th>
+        <th scope="col" class="text-center" > Data cancellazione </th> -->
+        <th scope="col" class="text-center" > Azioni Rapide </th>
+      </tr>
+    </thead>
+    <tbody class="tbody-empty-table">
+      <td *ngIf="tableResultMC.length == 0; else elseBlockMC" colspan="16">
+        <p class="text-empty-table">Nessun risultato trovato</p>
+      </td>
+      <ng-template #elseBlockMC>
+        <ng-container *ngFor="let item of tableResultMC; let i = index">
+          <tr>
+            <td class="text-center">
+              <svg *ngIf="item.validato === 1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2eb20b"
+                class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+                <path
+                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+              </svg>
+              <svg *ngIf="item.annullato === 1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#dc3545"
+                class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                <path
+                  d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
+              </svg>
+            </td>
+            <td class="text-center">{{ item.cognome }}</td>
+            <td class="text-center">{{ item.nome }}</td>
+            <td class="text-center">{{ item.codiceFiscale }}</td>
+            <td class="text-center">{{ item.medNumeroOrganismiDisp }}</td>
+            <!-- <td class="text-center">{{ item.dataNascita ? this.formatDate(item.dataNascita) : '' }}</td>
+            <td class="text-center">{{ item.comuneNascitaEstero ? item.comuneNascitaEstero : item.comune.nomeComune + ' ('+ item.comune.regioneProvince.siglaProvincia +')' }}</td>
+            <td class="text-center">{{ item.comuneResidenzaEstero ? item.comuneResidenzaEstero : item.comune.nomeComune + ' ('+ item.comune.regioneProvince.siglaProvincia +')' }}</td> -->
+            <!-- <td class="text-center">{{ item.stato }}</td>
+            <td class="text-center">{{ item.lavorazione }}</td>
+            <td class="text-center">{{ item.dataIscrizione | date: 'dd/MM/yyyy' }}</td>
+            <td class="text-center">{{ item.dataCancellazione | date: 'dd/MM/yyyy' }}</td> -->
+            <td class="text-center">
+              <div class="div-column-icon">
+              <a class="a-icon-table" (click)="riepilogoAnagrafica(item.idAnagrafica, 'gestione-mediatori-c')" data-toggle="tooltip" title="apri">
+                <svg class="bg-light icon align-middle svg-icon-table-td">
+                  <use href="\assets\svg\sprites.svg#it-search"></use>
+                </svg>
+              </a>
+              <a class="a-icon-table" [ngClass]="{'a-icon-table': true}"
+              (click)="updateAnagrafica(item.idAnagrafica, 'gestione-mediatori-c')" data-toggle="tooltip"
+              title="annulla/convalida">
+              <svg class="bg-light icon align-middle svg-icon-table-td">
+                <use href="\assets\svg\sprites.svg#it-pencil"></use>
+              </svg>
+              </a>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </ng-template>
+    </tbody>
+  </table>
+  <nav *ngIf="totalPageMC != 0" class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+    <ul class="pagination mt-2">
+      <li *ngIf="indexPageMC == 1; else elsePageBeforeMC" class="page-item disabled">
+        <a (click)="previousPageMC(indexPageMC)" class="page-link" style="color: #415559">Precedente
+          <span class="visually-hidden">Pagina precedente disabilitata</span>
+        </a>
+      </li>
+      <ng-template #elsePageBeforeMC>
+        <li class="page-item">
+          <a (click)="previousPageMC(indexPageMC)" class="page-link" style="color: #415559">Precedente
+            <span class="visually-hidden">Pagina precedente</span>
+          </a>
+        </li>
+      </ng-template>
+      <ng-container>
+        <li *ngIf="(indexPageMC > 1)" class="page-item"><a (click)="cambiaPaginaMC(indexPageMC - 1)"
+            class="page-link">{{indexPageMC - 1}}</a></li>
+        <li class="page-item active" style="color:#0F3E75">
+          <a class="page-link" (click)="cambiaPaginaMC(indexPageMC)" aria-current="page">
+            <span class="d-inline-block d-sm-none">Pagina </span>{{indexPageMC}}
+          </a>
+        </li>
+        <li *ngIf="(indexPageMC + 1 <= totalPageMC)" class="page-item"><a (click)="cambiaPaginaMC(indexPageMC + 1)"
+            class="page-link">{{indexPageMC + 1}}</a></li>
+        <li *ngIf="(indexPageMC + 2 <= totalPageMC)" class="page-item"><a (click)="cambiaPaginaMC(indexPageMC + 2)"
+            class="page-link">{{indexPageMC + 2}}</a></li>
+        <li *ngIf="(indexPageMC + 3 <= totalPageMC)" class="page-item"><a (click)="cambiaPaginaMC(indexPageMC + 3)"
+            class="page-link">{{indexPageMC + 3}}</a></li>
+      </ng-container>
+      <li *ngIf="totalPageMC > 1 else elsePageNextMC" class="page-item">
+        <a (click)="nextPageMC(indexPageMC)" class="page-link" style="color: #216FA3">Successiva
+          <span class="visually-hidden">Pagina successiva</span>
+        </a>
+      </li>
+      <ng-template #elsePageNextMC>
+        <li class="page-item disabled">
+          <a (click)="nextPageMC(indexPageMC)" class="page-link" style="color: #216FA3">Successiva
+            <span class="visually-hidden">Pagina successiva disabilitata</span>
+          </a>
+        </li>
+      </ng-template>
+    </ul>
+  </nav>
+  <nav *ngIf="totalPageMC === 0" class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+    <td class="text-center"> Totale: {{ this.totalPageMC }}</td>
+</nav>
+</div>
+
+<div class="p-2 clearfix mt-5">
+
+  <button type="button" (click)="validazione()"
+  [ngClass]="{'btn btn-secondary-min float-end btn-menu-page-body': true}"
+  >Convalida
+</button>
+<button type="button" (click)="openPdfFile()"
+[ngClass]="{'btn btn-primary-min float-end btn-menu-page-body': true}"
+>Visualizza Allegato
+</button>
+  <button type="button" (click)="annullazione()"
+  [ngClass]="{'btn btn-menu-page-body float-end btn-outline-primary-min': true}"
+  >Annulla
+  </button>
+</div>

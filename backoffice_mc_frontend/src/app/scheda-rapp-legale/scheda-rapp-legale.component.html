@@ -1,0 +1,147 @@
+<div class="container">
+
+    <div class="row">
+        <div class="form-group form-two-input">
+            <label for="codFiscale" [ngClass]="{'active': false}">
+                Codice fiscale
+            </label>
+            <input type="text" [(ngModel)]="codFiscSocieta" data-bs-input class="data_input" id="codFiscale" />
+        </div>
+        <div class="form-group form-two-input">
+            <label for="partIva" [ngClass]="{'active': false}">
+                Titolo
+            </label>
+            <input type="text" [(ngModel)]="pIva" data-bs-input class="data_input" id="partIva" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group form-two-input">
+            <label for="codFiscale" [ngClass]="{'active': false}">
+                Cognome
+            </label>
+            <input type="text" [(ngModel)]="codFiscSocieta" data-bs-input class="data_input" id="codFiscale" />
+        </div>
+        <div class="form-group form-two-input">
+            <label for="partIva" [ngClass]="{'active': false}">
+                Nome
+            </label>
+            <input type="text" [(ngModel)]="pIva" data-bs-input class="data_input" id="partIva" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group form-radio-intesta">
+            <p class="fw-semibold">Sesso</p>
+        </div>
+        <div class="form-check form-three-input">
+            <input name="gruppo3" type="radio" class="with-gap" id="radio7" checked>
+            <label for="radio7">Maschio</label>
+        </div>
+        <div class="form-check form-three-input">
+            <input name="gruppo3" type="radio" class="with-gap" id="radio8">
+            <label for="radio8">Femmina</label>
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group form-two-input">
+            <label for="dataAttoCost" class="active">
+                Data di nascita
+            </label>
+            <input class="data_input" [(ngModel)]="dataAttoCosti" type="date" id="date" name="date" required=""
+                data-focus-mouse="false" aria-invalid="false">
+        </div>
+        <div class="form-group form-two-input">
+            <label for="dataStatVig" class="active">
+                Stato di nascita
+            </label>
+            <input class="data_input" [(ngModel)]="dataStatutoVig" type="date" id="date" name="date" required=""
+                data-focus-mouse="false" aria-invalid="false">
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group form-two-input">
+            <label for="codFiscale" [ngClass]="{'active': false}">
+                Luogo di nascita
+            </label>
+            <input type="text" [(ngModel)]="codFiscSocieta" data-bs-input class="data_input" id="codFiscale" />
+        </div>
+        <div class="form-group form-two-input">
+            <label for="partIva" [ngClass]="{'active': false}">
+                Cittadinanza
+            </label>
+            <input type="text" [(ngModel)]="pIva" data-bs-input class="data_input" id="partIva" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group form-two-input">
+            <label for="codFiscale" [ngClass]="{'active': false}">
+                Luogo di nascita
+            </label>
+            <input type="text" [(ngModel)]="codFiscSocieta" data-bs-input class="data_input" id="codFiscale" />
+        </div>
+        <div class="form-group form-two-input">
+            <label for="partIva" [ngClass]="{'active': false}">
+                Cittadinanza
+            </label>
+            <input type="text" [(ngModel)]="pIva" data-bs-input class="data_input" id="partIva" />
+        </div>
+    </div>
+
+    <p class="fw-semibold">Residenza:</p>
+    <div class="row">
+        <div class="form-group form-two-input">
+            <label for="codFiscale" [ngClass]="{'active': false}">
+                Via/Piazza
+            </label>
+            <input type="text" [(ngModel)]="codFiscSocieta" data-bs-input class="data_input" id="codFiscale" />
+        </div>
+        <div class="form-group form-two-input">
+            <label for="partIva" [ngClass]="{'active': false}">
+                N.civico
+            </label>
+            <input type="text" [(ngModel)]="pIva" data-bs-input class="data_input" id="partIva" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group form-two-input">
+            <label for="codFiscale" [ngClass]="{'active': false}">
+                Stato di residenza
+            </label>
+            <input type="text" [(ngModel)]="codFiscSocieta" data-bs-input class="data_input" id="codFiscale" />
+        </div>
+        <div class="form-group form-two-input">
+            <label for="partIva" [ngClass]="{'active': false}">
+                Comune
+            </label>
+            <input type="text" [(ngModel)]="pIva" data-bs-input class="data_input" id="partIva" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group form-two-input">
+            <label for="codFiscale" [ngClass]="{'active': false}">
+                Cap
+            </label>
+            <input type="text" [(ngModel)]="codFiscSocieta" data-bs-input class="data_input" id="codFiscale" />
+        </div>
+        <div class="form-group form-two-input">
+            <label for="partIva" [ngClass]="{'active': false}">
+                Telefono
+            </label>
+            <input type="text" [(ngModel)]="pIva" data-bs-input class="data_input" id="partIva" />
+        </div>
+    </div>
+    <div class="row">
+        <div class="form-group form-two-input">
+            <label for="codFiscale" [ngClass]="{'active': false}">
+                Cellulare
+            </label>
+            <input type="text" [(ngModel)]="codFiscSocieta" data-bs-input class="data_input" id="codFiscale" />
+        </div>
+        <div class="form-group form-two-input">
+            <label for="partIva" [ngClass]="{'active': false}">
+                Fax
+            </label>
+            <input type="text" [(ngModel)]="pIva" data-bs-input class="data_input" id="partIva" />
+        </div>
+    </div>
+
+</div>

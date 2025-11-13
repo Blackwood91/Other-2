@@ -1,0 +1,151 @@
+<app-scheda-anagrafica-rappresentanti
+  (eventRappresentante)="getModalChildren($event)"></app-scheda-anagrafica-rappresentanti>
+<app-scheda-anagrafica-rappresentante-riepilogo></app-scheda-anagrafica-rappresentante-riepilogo>
+<app-confirm-message (eventConfirmMessage)="getModalChildrenConfirm($event)"></app-confirm-message>
+
+<div class="container mb-1 mt-1 pt-1">
+  <div class="row ">
+    <div class="col-12" role="region" aria-label="Spese di mediazione">
+      <h1 class="h6 fw-semibold color">ELENCO RAPPRESENTANTI E RESPONSABILI </h1>
+      <hr />
+    </div>
+  </div>
+</div>
+<div class="container text-left body">
+  <section id="Bottoni" class="mt-0 ml-2 mr-2 mb-1">
+    <div class="cmp-breadcrumbs container" role="navigation">
+      <!--  in css style="margin-top: 1em; margin-bottom: 1rem; margin-left: 28px;"> -->
+    </div>
+  </section>
+</div>
+
+<div class="container text-left body">
+  <table class="table table-hover" style="border: 1px solid #E0E0E0;">
+    <thead class="thead-voto-estero">
+      <tr>
+        <th scope="col" class="text-center"></th>
+        <th scope="col" class="text-center">Qualifica</th>
+        <th scope="col" class="text-center">Cognome </th>
+        <th scope="col" class="text-center">Nome</th>
+        <th scope="col" class="text-center">Codice Fiscale</th>
+        <!-- <th scope="col" class="text-center"> Stato </th>
+        <th scope="col" class="text-center"> Lavorazione </th>
+        <th scope="col" class="text-center"> Data prima iscrizione </th>
+        <th scope="col" class="text-center"> Data cancellazione </th> -->
+        <th scope="col" class="text-center actions">Azioni Rapide</th>
+      </tr>
+    </thead>
+    <tbody class="tbody-empty-table">
+      <ng-container *ngFor="let item of tableResult; let i = index">
+        <tr *ngIf="item.idQualifica != 1 || rapLegCloneRespOperativa == null">
+          <td class="text-center">
+            <svg *ngIf="item.validato === 1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#2eb20b"
+              class="bi bi-check-circle-fill" viewBox="0 0 16 16">
+              <path
+                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0m-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z" />
+            </svg>
+            <svg *ngIf="item.annullato === 1" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="#dc3545"
+              class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+              <path
+                d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
+            </svg>
+          </td>
+          <td class="text-center">
+            <ng-container
+              *ngIf="rapLegCloneRespOperativa != null && item.idAnagrafica == rapLegCloneRespOperativa.idAnagrafica else elseBoldQualNoClone">
+              <b [innerHTML]="getQualificaBreve(1)"></b> <br> {{getQualificaBreve(2)}}
+            </ng-container>
+            <ng-template #elseBoldQualNoClone>
+              {{getQualifica(item.idQualifica)}}
+            </ng-template>
+          </td>
+          <td class="text-center">{{ item.cognome }}</td>
+          <td class="text-center">{{ item.nome }}</td>
+          <td class="text-center">{{ item.codiceFiscale }}</td>
+          <!-- <td class="text-center"></td>
+          <td class="text-center"></td>
+          <td class="text-center"></td>
+          <td class="text-center"></td> -->
+          <td class="text-center">
+            <div class="div-column-icon">
+              <a [ngClass]="{'a-icon-table': true}" (click)="openModalRiepilogoScheda(item.idAnagrafica)"
+                data-toggle="tooltip" title="riepilogo scheda">
+                <svg class="bg-light icon align-middle svg-icon-table-td">
+                  <use href="\assets\svg\sprites.svg#it-search"></use>
+                </svg>
+              </a>
+              <a [ngClass]="{'a-icon-table': true}" (click)="openModalUpdateScheda(item.idAnagrafica)"
+                data-toggle="tooltip" title="annulla/convalida">
+                <svg class="bg-light icon align-middle svg-icon-table-td">
+                  <use href="\assets\svg\sprites.svg#it-pencil"></use>
+                </svg>
+              </a>
+            </div>
+          </td>
+        </tr>
+      </ng-container>
+    </tbody>
+  </table>
+  <nav class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+    <ul *ngIf="totalPage != 0" class="pagination mt-2">
+      <li *ngIf="indexPage == 1; else elsePageBefore" class="page-item disabled">
+        <a (click)="previousPageSO(indexPage)" class="page-link" style="color: #415559">Precedente
+          <span class="visually-hidden">Pagina precedente disabilitata</span>
+        </a>
+      </li>
+      <ng-template #elsePageBefore>
+        <li class="page-item">
+          <a (click)="previousPageSO(indexPage)" class="page-link" style="color: #415559">Precedente
+            <span class="visually-hidden">Pagina precedente</span>
+          </a>
+        </li>
+      </ng-template>
+      <ng-container>
+        <li *ngIf="(indexPage > 1)" class="page-item"><a (click)="cambiaPaginaSO(indexPage - 1)"
+            class="page-link">{{indexPage -
+            1}}</a></li>
+        <li class="page-item active" style="color:#0F3E75">
+          <a class="page-link" (click)="cambiaPaginaSO(indexPage)" aria-current="page">
+            <span class="d-inline-block d-sm-none">Pagina </span>{{indexPage}}
+          </a>
+        </li>
+        <li *ngIf="(indexPage + 1 <= totalPage)" class="page-item"><a (click)="cambiaPaginaSO(indexPage + 1)"
+            class="page-link">{{indexPage +
+            1}}</a></li>
+        <li *ngIf="(indexPage + 2 <= totalPage)" class="page-item"><a (click)="cambiaPaginaSO(indexPage + 2)"
+            class="page-link">{{indexPage +
+            2}}</a></li>
+        <li *ngIf="(indexPage + 3 <= totalPage)" class="page-item"><a (click)="cambiaPaginaSO(indexPage + 3)"
+            class="page-link">{{indexPage +
+            3}}</a></li>
+      </ng-container>
+      <li *ngIf="totalPage > 1 else elsePageNext" class="page-item">
+        <a (click)="nextPageSO(indexPage)" class="page-link" style="color: #216FA3">Successiva
+          <span class="visually-hidden">Pagina successiva</span>
+        </a>
+      </li>
+      <ng-template #elsePageNext>
+        <li class="page-item disabled">
+          <a (click)="nextPageSO(indexPage)" class="page-link" style="color: #216FA3">Successiva
+            <span class="visually-hidden">Pagina successiva disabilitata</span>
+          </a>
+        </li>
+      </ng-template>
+    </ul>
+    <!--<p style="color:#2F475E">Stai visualizzando {{totalPage}} di {{totalResult}} elementi </p>--><!--testo a sinistra-->
+  </nav>
+  <app-extra-info></app-extra-info>
+
+</div>
+
+<div class="container p-2 clearfix mt-3">
+  <button type="button" (click)="validazione()"
+    [ngClass]="{'btn btn-secondary-min float-end btn-menu-page-body': true}">Convalida
+</button>
+<button type="button" (click)="openPdfFile()"
+[ngClass]="{'btn btn-primary-min float-end btn-menu-page-body': true}">Visualizza Allegato
+</button>
+<button type="button" (click)="annullazione()"
+[ngClass]="{'btn btn-menu-page-body float-end btn-outline-primary-min': true}">Annulla
+</button>
+</div>

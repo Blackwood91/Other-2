@@ -1,0 +1,632 @@
+<button type="button" hidden id="activeModalUpdateMediatore" class="btn btn-primary " data-bs-toggle="modal"
+    data-bs-target="#modalUpdateMediatore"></button>
+
+<div class="modal fade bd-example-modal-xl" id="modalUpdateMediatore" tabindex="-1" role="dialog"
+    aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-insert-voto-estero ">
+        <div class=" modal-content ">
+            <div class="modal-header">
+                <h4 class="modal-title">{{titolo}}</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Chiudi finestra modale"></button>
+            </div>
+            <div class="modal-body modal-body-update">
+                <div class="container">
+                    <div class="row margin-row-top">
+                        <div class="col select-wrapper">
+                            <label for="titoloSS">Titolo*</label>
+                            <select [disabled]="true" type="text" [(ngModel)]="idTitolo" (change)="checkTitolo()"
+                                id="titoloSS" class="data_input">
+                                <option [value]=""></option>
+                                <option *ngFor="let titolo of titoliAnagrafiche" [value]="titolo.idTitoloAnagrafiche">
+                                    {{ titolo.descrizione }}
+                                </option>
+                            </select>
+                            <span style="color:red" *ngIf="validTitolo === false"> Obbligatorio </span>
+                        </div>
+                        <div class="col mb-5">
+                            <div class="form-group form-radio-intesta" style="margin-bottom: 2%;">
+                                <p class="fw-semibold">Sesso*</p>
+                            </div>
+                            <div class="form-check ">
+                                <input name="radio7" [(ngModel)]="sesso" [value]="'M'" [disabled]="true" type="radio"
+                                    class="with-gap" id="radio7" (blur)="checkSesso()">
+                                <label for="radio7">Maschio</label>
+                                <input name="radio8" [(ngModel)]="sesso" [value]="'F'" [disabled]="true" type="radio"
+                                    class="with-gap" id="radio8" (blur)="checkSesso()">
+                                <label for="radio8">Femmina</label>
+                            </div>
+                            <span style="color:red" *ngIf="validSesso === false"> Obbligatorio </span>
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="cognomeRapLegale" [ngClass]="{'active': !!cognome}">
+                                Cognome*
+                            </label>
+                            <input type="text" required [(ngModel)]="cognome" (blur)="checkCognome()" [disabled]="true"
+                                class="data_input" id="cognomeRapLegale" />
+                            <span style="color:red" *ngIf="validCognome === false"> Obbligatorio </span>
+                        </div>
+                    </div>
+                    <div class="row ">
+                        <div class="col select-wrapper">
+                            <label for="nomeRapLegale" [ngClass]="{'active': !!nome}">
+                                Nome*
+                            </label>
+                            <input type="text" [(ngModel)]="nome" (blur)="checkNome()" [disabled]="true"
+                                class="data_input" id="nomeRapLegale" />
+                            <span style="color:red" *ngIf="validNome === false"> Obbligatorio </span>
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="dataRapLegale" class="active">
+                                Data di nascita*
+                            </label>
+                            <input type="date" [(ngModel)]="dataNascita" (blur)="checkDataNascita()" [disabled]="true"
+                                class="data_input" id="dataNascita" name="dataNascita" required=""
+                                data-focus-mouse="false" id="dataNascita" />
+                            <span style="color:red" *ngIf="validDataNascita === false"> Obbligatorio </span>
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="isEsteroNascita">Stato di nascita</label>
+                            <select type="text" [(ngModel)]="isEsteroNascita" [disabled]="true" id="isEsteroNascita"
+                                [value]="" class="data_input">
+                                <option [value]="'false'">Italia</option>
+                                <option [value]="'true'">Estero</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row margin-row-top">
+                        <div class="col select-wrapper" *ngIf="isEsteroNascita === 'true'">
+                            <label for="nomeStatoDiNasc" [ngClass]="{'active': !!statoNascita}">
+                                Nome stato di nascita*
+                            </label>
+                            <input type="text" [(ngModel)]="statoNascita" (blur)="checkStatoNascita()" [disabled]="true"
+                                class="data_input" id="nomeStatoDiNasc" />
+                            <span style="color:red" *ngIf="validStatoNascita === false"> Obbligatorio </span>
+                        </div>
+                        <div class="col select-wrapper" *ngIf="isEsteroNascita === 'true'">
+                            <label for="comuneNascitaEstero" [ngClass]="{'active': !!comuneNascitaEstero}">
+                                Luogo di nascita*
+                            </label>
+                            <input type="text" [(ngModel)]="comuneNascitaEstero" (blur)="checkComuneNascitaEstero()"
+                                [disabled]="true" class="data_input" id="comuneNascitaEstero" />
+                            <span style="color:red" *ngIf="validComuneNascitaEstero === false"> Obbligatorio </span>
+                        </div>
+                        <div class="col select-wrapper" *ngIf="isEsteroNascita === 'false'">
+                            <label for="comune" class="active">Luogo di nascita*</label>
+                            <input aria-expanded="false" [(ngModel)]="comuneSceltoNascita"
+                                (blur)="checkComuneSceltoNascita()" [disabled]="true"
+                                (input)="loadComuneNascita($event)" class="data_input" autocomplete="off" id="comune"
+                                type="text" [placeholder]="'Selezionare un comune'">
+                            <span style="color:red" *ngIf="validComuneSceltoNascita === false"> Obbligatorio </span>
+
+                            <ul *ngIf="showListComuneNascita"
+                                class="autocomplete__menu autocomplete__menu--inline autocomplete__menu--inline select-liste-ul"
+                                id="comuneNascitaAutocompleteListbox" role="listbox">
+                                <li aria-selected="false" class="autocomplete__option" role="option" tabindex="-1"
+                                    aria-posinset="1" aria-setsize="32" *ngFor="let comune of comuniNascita"
+                                    (click)="selectComuneNascita(comune.idCodComune, comune.nomeComune + ' (' + comune.regioneProvince.siglaProvincia + ')')">
+                                    {{comune.nomeComune + " (" + comune.regioneProvince.siglaProvincia + ")"}}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="codFiscaleRapLegale" [ngClass]="{'active': !!codiceFiscaleSS}">
+                                Codice Fiscale*
+                            </label>
+                            <input type="text" [(ngModel)]="codiceFiscaleSS" (blur)="checkCodiceFiscale()"
+                                [disabled]="true" class="data_input" id="codFiscaleRapLegale" />
+                            <span style="color:red" *ngIf="validCodiceFiscale === false"> Codice fiscale valido
+                                obbligatorio </span>
+                        </div>
+                        <div class="col select-wrapper"  *ngIf="isEsteroNascita === 'false'">
+                            <label for="cittaRapSoc" [ngClass]="{'active': !!cittadinanza}">
+                                Cittadinanza*
+                            </label>
+                            <input type="text" [(ngModel)]="cittadinanza" (blur)="checkCittadinanza()" [disabled]="true"
+                                class="data_input" id="cittaRapSoc" />
+                            <span style="color:red" *ngIf="validCittadinanza === false"> Obbligatorio </span>
+                        </div>
+                    </div>
+                    <div class="row margin-row-top">
+                        <div class="col select-wrapper"  *ngIf="isEsteroNascita === 'true'">
+                            <label for="cittaRapSoc" [ngClass]="{'active': !!cittadinanza}">
+                                Cittadinanza*
+                            </label>
+                            <input type="text" [(ngModel)]="cittadinanza" (blur)="checkCittadinanza()" [disabled]="true"
+                                class="data_input" id="cittaRapSoc" />
+                            <span style="color:red" *ngIf="validCittadinanza === false"> Obbligatorio </span>
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="piva" [ngClass]="{'active': !!piva}">
+                                Partita Iva*
+                            </label>
+                            <input type="text" [(ngModel)]="piva" (blur)="checkPiva()" [disabled]="true"
+                                class="data_input" id="piva" />
+                            <span style="color:red" *ngIf="validPiva === false"> Obbligatorio </span>
+                        </div>
+                        <div class="col select-wrapper"></div>
+                        <div class="col select-wrapper" *ngIf="isEsteroNascita === 'false'"></div>
+                    </div>
+
+                    <div class="row margin-row-top">
+                        <p class="fw-semibold">Residenza:</p>
+                        <hr />
+                    </div>
+                    <div class="row margin-row-top">
+                        <div class="col select-wrapper">
+                            <label for="isEsteroResidenza">Stato di Residenza*</label>
+                            <select type="text" [(ngModel)]="isEsteroResidenza"
+                                [disabled]="true" id="isEsteroResidenza" class="data_input">
+                                <option [value]="'false'">Italia</option>
+                                <option [value]="'true'">Estero</option>
+                            </select>
+                        </div>
+                        <div class="col select-wrapper"  *ngIf="isEsteroResidenza == 'true'">
+                            <label for="statoDiResidenza" [ngClass]="{'active': !!statoResidenza}">
+                                Nome Stato di residenza*
+                            </label>
+                            <input type="text" [(ngModel)]="statoResidenza" (blur)="checkStatoResidenza()"
+                                [disabled]="true" class="data_input" id="statoDiResidenza" />
+                            <span style="color:red" *ngIf="validStatoResidenza === false"> Obbligatorio </span>
+                        </div>
+                        <div class="col select-wrapper"  *ngIf="isEsteroResidenza == 'true'">
+                            <label for="comuneResidenzaEstero" [ngClass]="{'active': !!comuneResidenzaEstero}">
+                                Luogo di residenza*
+                            </label>
+                            <input type="text" [(ngModel)]="comuneResidenzaEstero" (blur)="checkComuneResidenzaEstero()"
+                                [disabled]="true" class="data_input" id="comuneResidenzaEstero" />
+                            <span style="color:red" *ngIf="validComuneResidenzaEstero === false"> Obbligatorio
+                            </span>
+                        </div>
+                        <div class="col select-wrapper" *ngIf="isEsteroResidenza == 'false'">
+                            <label for="comune" class="active">Comune*</label>
+                            <input aria-expanded="false" [(ngModel)]="comuneSceltoResidenza"
+                                (blur)="checkComuneSceltoResidenza()" [disabled]="true"
+                                (input)="loadComuneResidenza($event)" class="data_input" autocomplete="off" id="comune"
+                                type="text" [placeholder]="'Digitare le iniziali di un Comune'">
+                            <span style="color:red" *ngIf="validComuneSceltoResidenza === false"> Obbligatorio
+                            </span>
+
+                            <ul *ngIf="showListComuneResidenza"
+                                class="autocomplete__menu autocomplete__menu--inline autocomplete__menu--inline select-liste-ul"
+                                id="comuneResidenzaAutocompleteListbox" role="listbox">
+                                <li aria-selected="false" class="autocomplete__option" role="option" tabindex="-1"
+                                    aria-posinset="1" aria-setsize="32" *ngFor="let comune of comuniResidenza"
+                                    (click)="selectComuneResidenza(comune.idCodComune, comune.nomeComune + ' (' + comune.regioneProvince.siglaProvincia + ')')">
+                                    {{comune.nomeComune + " (" + comune.regioneProvince.siglaProvincia + ")"}}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col select-wrapper" *ngIf="isEsteroResidenza == 'false'">
+                            <label for="indirizzoResidenza" [ngClass]="{'active': !!indirizzoResidenza}">
+                                Via/Piazza*
+                            </label>
+                            <input type="text" [(ngModel)]="indirizzoResidenza" [disabled]="true" class="data_input"
+                                id="indirizzoResidenza" (blur)="checkIndirizzoResidenza()" />
+                            <span style="color:red" *ngIf="validIndirizzoResidenza === false"> Obbligatorio </span>
+                        </div>
+                    </div>
+                    <div class="row margin-row-top">
+                        <div class="col select-wrapper" *ngIf="isEsteroResidenza == 'true'">
+                            <label for="indirizzoResidenza" [ngClass]="{'active': !!indirizzoResidenza}">
+                                Via/Piazza*
+                            </label>
+                            <input type="text" [(ngModel)]="indirizzoResidenza" [disabled]="true" class="data_input"
+                                id="indirizzoResidenza" (blur)="checkIndirizzoResidenza()" />
+                            <span style="color:red" *ngIf="validIndirizzoResidenza === false"> Obbligatorio </span>
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="numeroCivicoResidenza" [ngClass]="{'active': !!numeroCivicoResidenza}">
+                                Numero civico*
+                            </label>
+                            <input type="text" [(ngModel)]="numeroCivicoResidenza" [disabled]="true" class="data_input"
+                                id="numeroCivicoResidenza" (blur)="checkNumeroCivicoResidenza()" />
+                            <span style="color:red" *ngIf="validNumeroCivicoResidenza === false"> Obbligatorio
+                            </span>
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="capResidenza" [ngClass]="{'active': !!capResidenza}">
+                                Cap*
+                            </label>
+                            <input type="text" [(ngModel)]="capResidenza" [disabled]="true" class="data_input"
+                                id="capResidenza" (blur)="checkCapResidenza()" />
+                            <span style="color:red" *ngIf="validCapResidenza === false"> Obbligatorio </span>
+                        </div>
+                        <div class="col select-wrapper" *ngIf="isEsteroResidenza == 'false'"></div>
+                    </div>
+                    <div class="row margin-row-top">
+                        <div class="form-check">
+                            <input id="checkboxDomicilio" type="checkbox" [(ngModel)]="domicilio" [disabled]="true">
+                            <label for="checkboxDomicilio" class="fw-semibold">Domicilio (se diverso dalla
+                                residenza):</label>
+                        </div>
+                    </div>
+                    <hr />
+                    <div *ngIf="domicilio">
+                        <div class="row margin-row-top">
+                            <div class="col select-wrapper">
+                                <label for="indirizzoDomicilio" [ngClass]="{'active': !!indirizzoDomicilio}">
+                                    Via/Piazza
+                                </label>
+                                <input type="text" [(ngModel)]="indirizzoDomicilio" [disabled]="true" class="data_input"
+                                    id="indirizzoDomicilio" />
+                                <span style="color:red" *ngIf="validIndirizzoDomicilio === false"> Obbligatorio </span>
+                            </div>
+                            <div class="col select-wrapper">
+                                <label for="numeroDomicilio" [ngClass]="{'active': !!numeroCivicoDomicilio}">
+                                    Numero
+                                </label>
+                                <input type="text" [(ngModel)]="numeroCivicoDomicilio" [disabled]="true"
+                                    class="data_input" id="numeroDomicilio" />
+                                <span style="color:red" *ngIf="validNumeroDomicilio === false"> Obbligatorio </span>
+                            </div>
+                            <div class="col select-wrapper">
+                                <label for="isEsteroDomicilio">Stato di domicilio</label>
+                                <select type="text" [(ngModel)]="isEsteroDomicilio" [disabled]="true"
+                                    id="isEsteroDomicilio" class="data_input">
+                                    <option [value]="'false'">Italia</option>
+                                    <option [value]="'true'">Estero</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row margin-row-top">
+                            <div class="col select-wrapper" *ngIf="isEsteroDomicilio == 'false'">
+                                <label for="comuneDomicilio" class="active">Comune</label>
+                                <input aria-expanded="false" [(ngModel)]="comuneSceltoDomicilio" [disabled]="true"
+                                    (input)="loadComuneDomicilio($event)" class="data_input" autocomplete="off"
+                                    id="comuneDomicilio" type="text"
+                                    [placeholder]="'Digitare le iniziali di un Comune'">
+
+                                <ul *ngIf="showListComuneDomicilio"
+                                    class="autocomplete__menu autocomplete__menu--inline autocomplete__menu--inline select-liste-ul"
+                                    id="comuneDomicilioAutocompleteListbox" role="listbox">
+                                    <li aria-selected="false" class="autocomplete__option" role="option" tabindex="-1"
+                                        aria-posinset="1" aria-setsize="32" *ngFor="let comune of comuniDomicilio"
+                                        (click)="selectComuneDomicilio(comune.idCodComune, comune.nomeComune + ' (' + comune.regioneProvince.siglaProvincia + ')')">
+                                        {{comune.nomeComune + " (" + comune.regioneProvince.siglaProvincia + ")"}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col select-wrapper" *ngIf="isEsteroDomicilio == 'true'">
+                                <label for="statoDomicilio" [ngClass]="{'active': !!statoDomicilio}">
+                                    Nome Stato di domicilio
+                                </label>
+                                <input type="text" [(ngModel)]="statoDomicilio" [disabled]="true" class="data_input"
+                                    id="statoDomicilio" />
+                            </div>
+                            <div class="col select-wrapper" *ngIf="isEsteroDomicilio == 'true'">
+                                <label for="comuneDomicilioEstero" [ngClass]="{'active': !!comuneDomicilioEstero}">
+                                    Luogo di domicilio
+                                </label>
+                                <input type="text" [(ngModel)]="comuneDomicilioEstero" [disabled]="true"
+                                    class="data_input" id="comuneDomicilioEstero" />
+                            </div>
+                            <div class="col select-wrapper">
+                                <label for="capDomicilio" [ngClass]="{'active': !!capDomicilio}">
+                                    Cap
+                                </label>
+                                <input type="text" [(ngModel)]="capDomicilio" [disabled]="true" class="data_input"
+                                    id="capDomicilio" />
+                                <span style="color:red" *ngIf="validCapDomicilio === false"> Obbligatorio </span>
+                            </div>
+                            <div class="col select-wrapper" *ngIf="isEsteroDomicilio == 'false'"></div>
+                        </div>
+                    </div>
+                    <div class="row margin-row-top">
+                        <div class="col select-wrapper">
+                            <label for="pecRapLegale" [ngClass]="{'active': !!indirizzoPec}">
+                                Indirizzo PEC*
+                            </label>
+                            <input type="text" [(ngModel)]="indirizzoPec" (blur)="checkIndirizzoPec()" [disabled]="true"
+                                class="data_input" id="pecRapLegale" />
+                            <span style="color:red" *ngIf="validIndirizzoPec === false"> Obbligatorio </span>
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="emailRapLegale" [ngClass]="{'active': !!indirizzoEmail}">
+                                Altro indirizzo Email*
+                            </label>
+                            <input type="text" [(ngModel)]="indirizzoEmail" (blur)="checkIndirizzoEmail()"
+                                [disabled]="true" class="data_input" id="emailRapLegale" />
+                            <span style="color:red" *ngIf="validIndirizzoEmail === false"> Obbligatorio </span>
+                        </div>
+                        <div class="col select-wrapper"></div>
+                    </div>
+                    <div *ngIf="isModifica === true" class="row margin-row-top">
+                        <div class="col select-wrapper">
+
+                     <!--       <label for="allegatoDocumento" [ngClass]="{'active': true}">
+                                Allega copia documento
+                            </label>
+               
+                            <input type="file" [disabled]="true" (change)="onFileDocumento($event)" data-bs-input
+                                class="data_input" id="allegatoDocumento" accept=".pdf" />
+                        </div>
+                      -->
+                        <div class="col"></div>
+                    </div>
+
+
+                    <div class="accordion mt-5 shadow-sm p-3 mb-5 bg-white" id="collapseExample">
+                        <div class="accordion-item">
+                            <h2 class="accordion-header " id="heading1c">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse1c" aria-expanded="false" aria-controls="collapse1c">
+                                    Requisiti
+                                </button>
+                            </h2>
+                            <div id="collapse1c" class="accordion-collapse collapse" role="region"
+                                aria-labelledby="heading1c">
+                                <hr/>
+                                <div class="accordion-body">
+                                    <div class="row">
+                                        <div class="form-group" style="margin-bottom: 1%;">
+                                            <p class="fw-semibold">Riportare il titolo di studio e l'Università o
+                                                l'ordine/collegio a cui si
+                                                è iscritti
+                                                (Per gli avvocati selezionare "Ordine degli avvocati")</p>
+                                        </div>
+                                        <div class="form-check">
+                                            <input name="radio21" [(ngModel)]="requisito" [value]="'magistrale'"
+                                                [disabled]="true" type="radio" class="with-gap" id="radio21">
+                                            <label for="radio21">Titolo di studio posseduto (Laurea Universitaria
+                                                Magistrale
+                                                o a ciclo
+                                                unico)</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input name="radio22" [(ngModel)]="requisito" [value]="'triennale'"
+                                                [disabled]="true" type="radio" class="with-gap" id="radio22">
+                                            <label for="radio22">Iscrizione ad un ordine o collegio
+                                                professionale</label>
+                                        </div>
+                                    </div>
+                                    <div *ngIf="requisito=='magistrale'" class="row" style="margin-top: 3%;">
+                                        <!-- [ngClass]="{'active': !!medTitoloDiStudio} -->
+                                        <div class="col select-wrapper">
+                                            <label for="medTitoloDiStudio" class="active">
+                                                Titolo di Studio*
+                                            </label>
+                                            <input type="text" required [(ngModel)]="medTitoloDiStudio"
+                                                [disabled]="true" class="data_input" id="medTitoloDiStudio" />
+                                            <span style="color:red" *ngIf="validMedTitoloDiStudio === false">
+                                                Obbligatorio
+                                            </span>
+                                        </div>
+                                        <div class="col select-wrapper">
+                                            <label for="medUniversita" class="active">
+                                                presso l'università*
+                                            </label>
+                                            <input type="text" required [(ngModel)]="medUniversita" [disabled]="true"
+                                                class="data_input" id="medUniversita" />
+                                            <span style="color:red" *ngIf="validMedUniversita === false"> Obbligatorio
+                                            </span>
+                                        </div>
+
+                                        <!-- <label for="medTitoloDiStudio" class="active">
+                                        Titolo di Studio
+                                    </label>
+                                    <input type="text" required [(ngModel)]="medTitoloDiStudio" [disabled]="true" class="data_input" id="medRappGiuridicoEconomico"/>
+                                    <span style="color:red" *ngIf="validMedTitoloDiStudio === false"> Obbligatorio </span> -->
+                                    </div>
+                                    <div *ngIf="requisito=='triennale'" style="margin-top: 3%;">
+                                        <div class="row">
+                                            <div class="col select-wrapper">
+                                                <label for="medTitoloDiStudio" class="active">
+                                                    Titolo di Studio (Laurea Universitaria Triennale)*
+                                                </label>
+                                                <input type="text" required [(ngModel)]="medTitoloDiStudio"
+                                                    [disabled]="true" class="data_input" id="medTitoloDiStudio" />
+                                                <span style="color:red" *ngIf="validMedTitoloDiStudio === false">
+                                                    Obbligatorio </span>
+                                            </div>
+                                            <div class="col select-wrapper">
+                                                <label for="medUniversita" class="active">
+                                                    presso l'università*
+                                                </label>
+                                                <input type="text" required [(ngModel)]="medUniversita"
+                                                    [disabled]="true" class="data_input" id="medUniversita" />
+                                                <span style="color:red" *ngIf="validMedUniversita === false">
+                                                    Obbligatorio
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="row margin-row-top">
+                                            <div class="col select-wrapper">
+                                                <label for="idOrdiniCollegi" class="active">
+                                                    Ordine o Collegio Professionale:*
+                                                </label>
+                                                <select type="text" [(ngModel)]="idOrdiniCollegi" [disabled]="true"
+                                                    id="ordiniCollegi" class="data_input">
+                                                    <option [value]=""></option>
+                                                    <option *ngFor="let item of ordiniCollegi"
+                                                        [value]="item.idOrdiniCollegi">
+                                                        {{ item.descrizione }}
+                                                    </option>
+                                                </select>
+                                                <span style="color:red" *ngIf="validMedNumeroOrganismiDisp === false">
+                                                    Obbligatorio </span>
+                                            </div>
+                                            <div class="col select-wrapper">
+                                                <label for="dataOrdColProf" class="active">
+                                                    Data Iscrizione
+                                                </label>
+                                                <input type="date" [(ngModel)]="dataOrdColProf"
+                                                    (blur)="checkDataOrdColProf()" [disabled]="true" class="data_input"
+                                                    id="dataOrdColProf" name="dataOrdColProf" required=""
+                                                    data-focus-mouse="false" id="dataOrdColProf" />
+                                                <span style="color:red" *ngIf="validDataOrdColProf === false">
+                                                    Obbligatorio </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row margin-row-top" *ngIf="lingueStraniere != null">
+                                        <div class="form-group" style="margin-bottom: 3%;">
+                                            <p class="fw-semibold">Conoscenza linguistica attestata da certificato o autocertificazione allegata:</p>
+                                        </div>
+                                    </div>
+                                    <div class="row" *ngIf="lingueStraniere != null ">
+                                        <div class="col select-wrapper">
+                                            <label for="lingueStraniere" class="active">
+                                                Riportare lingue di cui si possiede un livello certificato non inferiore
+                                                a
+                                                B2:
+                                            </label>
+                                            <input type="text" required [(ngModel)]="lingueStraniere" [disabled]="true"
+                                                class="data_input" id="lingueStraniere" />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header " id="heading2c">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse2c" aria-expanded="false" aria-controls="collapse2c">
+                                    Rapporti con l'ente e/o organismo
+                                </button>
+                            </h2>
+                            <div id="collapse2c" class="accordion-collapse collapse" role="region"
+                                aria-labelledby="heading2c">
+                                <hr/>
+                                <div class="accordion-body">
+                                    <div class="row margin-row-top">
+                                        <div class="col select-wrapper">
+                                            <label for="medRappGiuridicoEconomico"
+                                                [ngClass]="{'active': !!medRappGiuridicoEconomico}">
+                                                Rapporto giuridico:*
+                                            </label>
+                                            <input type="text" required [(ngModel)]="medRappGiuridicoEconomico"
+                                                (blur)="checkCognome()" [disabled]="true" class="data_input mt-4"
+                                                id="medRappGiuridicoEconomico" />
+                                            <span style="color:red" *ngIf="validMedRappGiuridicoEconomico === false">
+                                                Obbligatorio </span>
+                                        </div>
+                                        <div class="col select-wrapper">
+                                            <label for="medNumeroOrganismiDisp"
+                                                [ngClass]="{'active': !!medNumeroOrganismiDisp}">
+                                                Numero di organismi (non superiore a cinque) ai quali ha dichiarato la
+                                                propria disponibilità
+                                                a svolgere l'attività di mediazione:*
+                                            </label>
+                                            <input type="text" [(ngModel)]="medNumeroOrganismiDisp" (blur)="checkNome()"
+                                                [disabled]="true" class="data_input mt-4" id="medNumeroOrganismiDisp" />
+                                            <small class="form-text riferimento-normativa">(art. 21 co. 1 decreto
+                                                ministeriale 24 ottobre
+                                                2023 n.150)</small>
+                                            <span style="color:red" *ngIf="validMedNumeroOrganismiDisp === false">
+                                                Obbligatorio </span>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header " id="heading3c">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse3c" aria-expanded="false" aria-controls="collapse3c">
+                                    Requisiti personali (art 4 d.m 150/2023)
+                                </button>
+                            </h2>
+                            <div id="collapse3c" class="accordion-collapse collapse" role="region"
+                                aria-labelledby="heading3c">
+                                <hr/>
+                                <div class="accordion-body fw-semibold">
+                                    Requisiti di onorabilità, come da allegato
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header " id="heading4c">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse4c" aria-expanded="false" aria-controls="collapse4c">
+                                    Consenso alla pubblicazione
+                                </button>
+                            </h2>
+                            <div id="collapse4c" class="accordion-collapse collapse" role="region"
+                                aria-labelledby="heading4c">
+                                <hr/>
+                                <div class="accordion-body fw-semibold">
+                                    Il mediatore dichiara di consentire alla pubblicazione dei propri dati sul sito
+                                    Internet
+                                    del Ministero
+                                    della Giustizia a pubblicità e garanzia della qualità del servizio offerto
+                                </div>
+                            </div>
+                        </div>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header " id="heading5c">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse5c" aria-expanded="false" aria-controls="collapse5c">
+                                    Allegati (art.8, co.2)
+                                </button>
+                            </h2>
+                            <div id="collapse5c" class="accordion-collapse collapse" role="region"
+                                aria-labelledby="heading5c">
+                                <hr/>
+                                <div class="accordion-body fw-semibold">
+                                    Il mediatore allega:
+                                    <ol type="a">
+                                        <li>dichiarazione di disponibilità, sottoscritta dal mediatore, a svolgere il
+                                            servizio presso
+                                            l'organismo richiedente e a essere inserito in uno o più elenchi di cui
+                                            all'articolo 3, comma 3,
+                                            lettere a), b) e c);</li>
+                                        <li>attestazione del possesso dei requisiti di onorabilità di cui all’articolo 4
+                                            del
+                                            decreto
+                                            ministeriale n. 150/2023;</li>
+                                        <li>attestazione del conseguimento della laurea magistrale o a ciclo unico,
+                                            oppure,
+                                            per il mediatore
+                                            iscritto a un ordine o collegio professionale, del conseguimento della
+                                            laurea
+                                            triennale;</li>
+                                        <li>attestazione o dichiarazione sostitutiva del conseguimento della
+                                            qualificazione
+                                            formativa
+                                            prevista dall'articolo 23 del decreto ministeriale n. 150/2023;</li>
+                                        <li>copia di un documento di identità in corso di validità;
+                                    </ol>
+                                    <hr *ngIf="isRiepilogo">
+                                    <div class="col select-wrapper" *ngIf="isRiepilogo">
+                                        <a class="read-more a-function" (click)="getFileDocumento()" data-focus-mouse="false">
+                                            <span class="text">Documento d'identità</span>
+                                        </a>
+                                        <a class="a-icon-table" (click)="getFileDocumento()" data-toggle="tooltip"
+                                            title="anteprima di stampa">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" 
+                                                [ngClass]="{'bg-light icon align-middle svg-icon-table-td': true}"
+                                                class="bg-light icon align-middle svg-icon-table-td" viewBox="0 0 19.5 19.5">
+                                                <path
+                                                    d="M5.523 12.424c.14-.082.293-.162.459-.238a7.878 7.878 0 0 1-.45.606c-.28.337-.498.516-.635.572a.266.266 0 0 1-.035.012.282.282 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548zm2.455-1.647c-.119.025-.237.05-.356.078a21.148 21.148 0 0 0 .5-1.05 12.045 12.045 0 0 0 .51.858c-.217.032-.436.07-.654.114zm2.525.939a3.881 3.881 0 0 1-.435-.41c.228.005.434.022.612.054.317.057.466.147.518.209a.095.095 0 0 1 .026.064.436.436 0 0 1-.06.2.307.307 0 0 1-.094.124.107.107 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256zM8.278 6.97c-.04.244-.108.524-.2.829a4.86 4.86 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.517.517 0 0 1 .145-.04c.013.03.028.092.032.198.005.122-.007.277-.038.465z">
+                                                </path>
+                                                <path fill-rule="evenodd"
+                                                    d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3zM4.165 13.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.651 11.651 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.856.856 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.844.844 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.76 5.76 0 0 0-1.335-.05 10.954 10.954 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.238 1.238 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a19.697 19.697 0 0 1-1.062 2.227 7.662 7.662 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103z">
+                                                </path>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="isRiepilogo === false" class="modal-footer">
+                <button type="button" (click)="annullazione()"
+                [ngClass]="{'btn btn-menu-page-body float-end btn-outline-primary-min': true}">Annulla
+                </button> 
+            <button class="btn btn-primary-min float-end btn-menu-page-body" data-bs-dismiss="modal"
+                type="button">Chiudi
+            </button>
+            <button id="closeModal" hidden type="button" data-bs-dismiss="modal">Close modal</button>
+ 
+            <button type="button" (click)="validazione()"
+                [ngClass]="{'btn btn-secondary-min float-end btn-menu-page-body': true}">Convalida
+            </button>
+ 
+            </div>
+        </div>
+    </div>
+</div>

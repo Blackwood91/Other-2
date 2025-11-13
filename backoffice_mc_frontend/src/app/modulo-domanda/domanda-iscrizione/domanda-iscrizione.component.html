@@ -1,0 +1,73 @@
+<div class="container mb-1 mt-1 pt-1">
+  <div class="row ">
+    <div class="col-12" role="region" aria-label="Domanda di iscrizione al registro">
+      <h1 class="h6 fw-semibold color">DOMANDA DI ISCRIZIONE AL REGISTRO DEGLI ORGANISMI DI MEDIAZIONE</h1>
+      <hr />
+    </div>
+  </div>
+
+  <div class="alert alert-info color-alert alert-bording alert-dismissible fade show"
+    style="border-radius: 4px !important" role="alert">
+    <h6 class="alert-heading">Note</h6>
+    <p>Ai sensi del decreto legislativo 4 marzo 2010 n. 28 e del regolamento di cui al decreto
+      ministeriale 24 ottobre 2023 n. 150</p>
+  </div>
+
+  <div class="container">
+    <div class="row">
+      <h5 class="title-body-menu-page-principal fw-bold text-center color">ENTE PRIVATO</h5>
+      <div class="col">
+        <div class="select-wrapper ">
+          <label for="cognome" [ngClass]="{'active': cognome !== ''}">Cognome</label>
+          <input [(ngModel)]="cognome" [disabled]="true" type="text" class="data_input " id="cognome" />
+        </div>
+      </div>
+      <div class="col">
+        <div class="select-wrapper">
+          <label for="nome" [ngClass]="{'active': nome !== ''}">Nome</label>
+          <input [(ngModel)]="nome" [disabled]="true" type="text" class="data_input " id="nome" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col mt-4 text-center">
+        <p class="fw-semibold">nella qualità di Rappresentante Legale di (Denominazione o Ragione Sociale):</p>
+      </div>
+      <div class="col">
+        <div class="select-wrapper margin-row-top">
+          <label for="ragioneSociale" [ngClass]="{'active': ragioneSociale !== ''}">Ragione Sociale</label>
+          <input [(ngModel)]="ragioneSociale" [disabled]="true" type="text" class="data_input " id="ragioneSociale" />
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col mt-4 text-center">
+        <p class="fw-semibold">Chiede l’iscrizione dell’organismo privato:</p>
+      </div>
+      <div class="col">
+        <div class="select-wrapper margin-row-top">
+          <label for="denominazioneOdm" [ngClass]="{'active': denominazioneOdm !== ''}">Denominazione
+            dell'organismo</label>
+          <input [(ngModel)]="denominazioneOdm" [disabled]="isModifica === false" type="text" class="data_input "
+            id="denominazioneOdm" />
+        </div>
+      </div>
+    </div>
+    <div class="row mt-3 text-center">
+      <p>nella Parte Seconda del Registro degli organismi di mediazione ai sensi dell’art. 3, commi 1 e 2 nonché
+        dell’art. 13, comma 1 del decreto ministeriale 24 ottobre 2023 n.150.</p>
+    </div>
+  </div>
+  <div class="container p-2 clearfix mt-3">
+    <button type="button" (click)="validazione()"
+      [ngClass]="{'btn btn-secondary-min float-end btn-menu-page-body': true}">Convalida
+    </button>
+    <button type="button" (click)="anteprimaPdf()"
+      [ngClass]="{'btn btn-primary-min float-end btn-menu-page-body': true}">Visualizza Allegato
+    </button>
+
+    <button type="button" (click)="annullazione()"
+    [ngClass]="{'btn btn-menu-page-body float-end btn-outline-primary-min': true}">Annulla
+  </button>
+  </div>
+</div>

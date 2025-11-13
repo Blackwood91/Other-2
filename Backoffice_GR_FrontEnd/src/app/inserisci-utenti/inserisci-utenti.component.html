@@ -1,0 +1,111 @@
+<form (ngSubmit)="salvaUtente()" [formGroup]="form">
+  <div class="container mb-1 mt-1 pt-1">
+    <div class="row mt-4 mb-4">
+      <div class="col-12">
+        <h6 class="fw-semibold primary-color">Crea nuova Utenza</h6>
+        <hr />
+      </div>
+    </div>
+
+    <div class="row mt-5">
+      <div class="col">
+        <div class="select-wrapper mb-4">
+          <label for="nomeUtente">Nome*</label>
+          <input type="text" class="form-control data_input" id="nomeUtente" formControlName="nomeUtente" autocomplete="nomeUtente"
+            [class.invalid]="form.get('nomeUtente')?.invalid && (form.get('nomeUtente')?.dirty || form.get('nomeUtente')?.touched)"
+            [class.valid]=" form.get('nomeUtente')?.valid" />
+            <div *ngIf="form.get('nomeUtente')?.touched && form.get('nomeUtente')?.hasError('required')">
+              Questo campo è obbligatorio e non può superare i 30 caratteri!.
+            </div>
+          <!--<span [hidden]="form.controls['nomeUtente'].valid || form.controls['nomeUtente'].pristine">Il nome è
+            obbligatorio e non può superare i 30 caratteri!</span>-->
+        </div>
+      </div>
+        <div class="col">
+          <div class="select-wrapper mb-4">
+            <label for="cognomeUtente">Cognome*</label>
+            <input type="text" class="form-control data_input" id="cognomeUtente" formControlName="cognomeUtente"
+              autocomplete="cognomeUtente"
+              [class.invalid]="form.get('cognomeUtente')?.invalid && (form.get('cognomeUtente')?.dirty || form.get('cognomeUtente')?.touched)"
+              [class.valid]=" form.get('cognomeUtente')?.valid" />
+              <div *ngIf="form.get('cognomeUtente')?.touched && form.get('cognomeUtente')?.hasError('required')">
+                Questo campo è obbligatorio e non può superare i 30 caratteri!.
+              </div>
+          </div>
+        </div>
+     
+      <div class="col">
+        <div class="select-wrapper mb-4">
+          <label for="codiceFiscaleUtente">Codice Fiscale*</label>
+          <input type="text" class="form-control data_input" id="codiceFiscaleUtente" formControlName="codiceFiscaleUtente"
+            autocomplete="codiceFiscaleUtente"
+            [class.invalid]="form.get('codiceFiscaleUtente')?.invalid && (form.get('codiceFiscaleUtente')?.dirty || form.get('codiceFiscaleUtente')?.touched)"
+            [class.valid]=" form.get('codiceFiscaleUtente')?.valid"  [(ngModel)]="searchText" (blur)="verificaCodiceFiscaleUtenti()"/>
+            <div *ngIf="form.get('codiceFiscale')?.touched && form.get('codiceFiscale')?.hasError('required')">
+              Questo campo è obbligatorio!.
+            </div>
+            <div *ngIf="form.get('codiceFiscale')?.hasError('codiceFiscaleInvalido')">
+              Il codice fiscale non è nel formato corretto.
+            </div>
+            <div *ngIf="messageFromServer" class="error">
+              {{ messageFromServer }}
+              </div>
+            </div>
+        </div>
+      </div>
+    
+
+    <div class="row mt-5">
+      <div class="col">
+        <div class="select-wrapper mb-4">
+          <label for="enteAppartenenza">Ente di appartenenza*</label>
+          <input type="text" class="form-control data_input" id="enteAppartenenza" formControlName="enteAppartenenza"
+            autocomplete="enteAppartenenza"
+            [class.invalid]="form.get('enteAppartenenza')?.invalid && (form.get('enteAppartenenza')?.dirty || form.get('enteAppartenenza')?.touched)"
+            [class.valid]=" form.get('enteAppartenenza')?.valid" />
+            <div *ngIf="form.get('enteAppartenenza')?.touched && form.get('enteAppartenenza')?.hasError('required')">
+              Questo campo è obbligatorio e non può superare i 30 caratteri!.
+            </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="select-wrapper mb-4">
+          <label for="idRuoloUtente">Ruolo Utente*</label>
+          <select class="form-select data_input" id="idRuoloUtente" formControlName="idRuoloUtente"
+          [class.invalid]="form.get('idRuoloUtente')?.invalid && (form.get('idRuoloUtente')?.dirty || form.get('idRuoloUtente')?.touched)"
+          [class.valid]="form.get('idRuoloUtente')?.valid">
+          <option value="1" id="1">Amministratore</option>
+          <option value="2" id="2">Operatore</option>
+          <option value="3" id="3">Utente Esterno</option>
+          <option value="4" id="4">Responsabile del servizio</option>
+        </select>
+        <div *ngIf="form.get('idRuoloUtente')?.touched && form.get('idRuoloUtente')?.hasError('required')">
+          Questo campo è obbligatorio!.
+        </div>
+        </div>
+      </div>
+      <div class="col">
+        <div class="form-check mb-5">
+          <input *ngIf="form.value.isAbilitato; else elseBlock" id="checkbox2" type="checkbox"
+            (change)="handleCheckboxChange($event)" formControlName="isAbilitato">
+          <ng-template #elseBlock>
+            <input id="checkbox2" type="checkbox" (change)="handleCheckboxChange($event)" formControlName="isAbilitato">
+          </ng-template>
+          <label for="checkbox2" class="">Attivo</label>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="modal-footer mt-5">
+      <div class="modal-footer">
+        <button class="btn btn-secondary-min btn-sm" data-bs-dismiss="modal" type="button"
+          (click)="backClicked()">Annulla</button>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-sm btn-primary-min" data-bs-dismiss="modal" type="submit"
+          (click)="salvaUtente()">Salva</button>
+      </div>
+    </div>
+  </div>
+</form>

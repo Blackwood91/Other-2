@@ -1,0 +1,212 @@
+<!--<div class="container container-principal-voto-estero text-left">-->
+<div class="container text-left body">
+    <section id="Bottoni" class="mt-0 ml-2 mr-2 mb-1">
+        <div class="cmp-breadcrumbs container" role="navigation"
+            style="margin-top: 1em; margin-bottom: 1rem; margin-left: 28px;">
+            <nav class="breadcrumb-container" aria-label="breadcrumb">
+                <ol class="breadcrumb p-0" data-element="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/mediatori-interno" data-focus-mouse="false">Home</a><span
+                            class="separator">/</span></li>
+                    <li class="breadcrumb-item active fontg" aria-current="page">Elenco Mediatori</li>
+                </ol>
+            </nav>
+        </div>
+        <div class="d-flex justify-content-between bd-highlight mt-3">
+            <div class="p-2 bd-highlight">
+                <div class="col">
+                    <button type="button" title="Carica file CSV" class="btn btn-success width:14 height:14"
+                        style="padding: 8px 13px;" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                        id="btnCaricaCSV">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor" class=""
+                            viewBox="0 0 16 16" aria-label="CSV">
+                            <path fill-rule="evenodd"
+                                d="M14 4.5V14a2 2 0 0 1-2 2h-1v-1h1a1 1 0 0 0 1-1V4.5h-2A1.5 1.5 0 0 1 9.5 3V1H4a1 1 0 0 0-1 1v9H2V2a2 2 0 0 1 2-2h5.5L14 4.5ZM3.517 14.841a1.13 1.13 0 0 0 .401.823c.13.108.289.192.478.252.19.061.411.091.665.091.338 0 .624-.053.859-.158.236-.105.416-.252.539-.44.125-.189.187-.408.187-.656 0-.224-.045-.41-.134-.56a1.001 1.001 0 0 0-.375-.357 2.027 2.027 0 0 0-.566-.21l-.621-.144a.97.97 0 0 1-.404-.176.37.37 0 0 1-.144-.299c0-.156.062-.284.185-.384.125-.101.296-.152.512-.152.143 0 .266.023.37.068a.624.624 0 0 1 .246.181.56.56 0 0 1 .12.258h.75a1.092 1.092 0 0 0-.2-.566 1.21 1.21 0 0 0-.5-.41 1.813 1.813 0 0 0-.78-.152c-.293 0-.551.05-.776.15-.225.099-.4.24-.527.421-.127.182-.19.395-.19.639 0 .201.04.376.122.524.082.149.2.27.352.367.152.095.332.167.539.213l.618.144c.207.049.361.113.463.193a.387.387 0 0 1 .152.326.505.505 0 0 1-.085.29.559.559 0 0 1-.255.193c-.111.047-.249.07-.413.07-.117 0-.223-.013-.32-.04a.838.838 0 0 1-.248-.115.578.578 0 0 1-.255-.384h-.765ZM.806 13.693c0-.248.034-.46.102-.633a.868.868 0 0 1 .302-.399.814.814 0 0 1 .475-.137c.15 0 .283.032.398.097a.7.7 0 0 1 .272.26.85.85 0 0 1 .12.381h.765v-.072a1.33 1.33 0 0 0-.466-.964 1.441 1.441 0 0 0-.489-.272 1.838 1.838 0 0 0-.606-.097c-.356 0-.66.074-.911.223-.25.148-.44.359-.572.632-.13.274-.196.6-.196.979v.498c0 .379.064.704.193.976.131.271.322.48.572.626.25.145.554.217.914.217.293 0 .554-.055.785-.164.23-.11.414-.26.55-.454a1.27 1.27 0 0 0 .226-.674v-.076h-.764a.799.799 0 0 1-.118.363.7.7 0 0 1-.272.25.874.874 0 0 1-.401.087.845.845 0 0 1-.478-.132.833.833 0 0 1-.299-.392 1.699 1.699 0 0 1-.102-.627v-.495Zm8.239 2.238h-.953l-1.338-3.999h.917l.896 3.138h.038l.888-3.138h.879l-1.327 4Z" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+            <div class="p-2 bd-highlight">
+                <div class="row ">
+                    <div class="col image text-end mt-2">
+                        <a href="/inserimentoMediatore">
+                            <svg class="bg-light icon align-middle" fill="#216FA3">
+                                <use href="assets/svg/sprites.svg#it-plus-circle"></use>
+                            </svg>
+                        </a>
+                    </div>
+                    <div class="col col-width">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <div class="input-group-text "><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                            height="16" class="bi bi-search" viewBox="0 0 16 16" aria-label="Ricerca"
+                                            fill="#415559">
+                                            <path
+                                                d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                                            </path>
+                                        </svg></div>
+                                </div>
+                                <label class="visually-hidden" for="input-group-3 ">Testo da cercare</label>
+                                <input type="search " [(ngModel)]="searchTextTable" (ngModelChange)="attivaRicerca()" type="text"
+                                    class="form-control" id="Ricerca" placeholder="Testo da cercare">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row mt-0">
+            <div class="col text-end">
+                <div>
+                    <p ngModelChange="caricaData()">Elenco aggiornato al: {{dateResult | date:'dd/MM/yyyy  HH:mm'}}</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div class="modal fade body" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fontU" id="exampleModalLabel">Carica file CSV</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <label>
+                        <input type="file" id="input-file-csv" (change)="onFileSelectedCsv($event)" accept=".csv">
+                        <p>Il file deve essere in formato CSV.</p>
+                    </label>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary-min btn-sm" id="closeLoadCsv"
+                        data-bs-dismiss="modal">Annulla</button>
+                    <button type="button" class="btn btn-sm btn-primary-min"
+                        (click)="inserimentoMediatoriCsv()">Carica</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="container text-left body">
+    <table class="table table-hover" style="border: 1px solid #E0E0E0;">
+        <thead class="thead-voto-estero">
+            <tr>
+                <th scope="col">Cognome</th>
+                <th scope="col">Nome</th>
+                <th scope="col" class="text-center">Codice Fiscale</th>
+                <th scope="col" class="text-center">N. Iscrizione</th>
+                <th scope="col" class="text-center">Data Iscrizione</th>
+                <th scope="col" class="text-center">Qualifica di Formatore</th>
+                <th scope="col" class="text-center">Stato </th>
+                <th scope="col" class="text-center">Azioni rapide</th>
+            </tr>
+        </thead>
+        <tbody class="tbody-empty-table">
+            <td *ngIf="tableResult.length == 0; else elseBlock" colspan="16">
+                <p class="text-empty-table">Nessun risultato trovato</p>
+            </td>
+            <ng-template #elseBlock>
+                <ng-container *ngFor="let item of tableResult; let i = index">
+                    <tr>
+                        <td>{{item.cognomeMediatore}}</td>
+                        <td>{{item.nomeMediatore}}</td>
+                        <td class="text-center">{{item.codiceFiscale}}</td>
+                        <td class="text-center">{{item.numeroIscrizioneElenco}}</td>
+                        <td class="text-center">{{item.dataIscrizioneElenco | date: 'dd/MM/yyyy'}}</td>
+                        <td class="text-center">{{item.isFormatore == 1?'SI':'NO'}}</td>
+                       <!-- <td>
+                            <a type="#" class="giustizia-tooltip" data-toggle="tooltip" data-placement="bottom"
+                                data-original-title="Tooltip on bottom"
+                                title="Nome Ente:  {{item.enteAttestato +'\n'}}Tipologia Ente: {{item.tipologiaEnte +'\n'}}Convenzionato: {{item.isConvenzionato == 1 ? 'SI' : 'NO'}}">
+                                {{item.enteAttestato}}
+                            </a>
+                        </td>-->
+                        <td class="text-center">
+                            <div *ngIf="item.stato == 'Iscritto'">
+                                <a type="#" class="giustizia-tooltip" data-toggle="tooltip" data-placement="bottom"
+                                    data-original-title="Tooltip on bottom"
+                                    title="{{item.data_stato == null ? '\n' : 'Data Inizio: '+item.data_stato  +'\n'}}">
+                                    {{item.stato}}
+                                </a>
+                            </div>
+                            <div *ngIf="item.stato == 'Sospeso'">
+                                <a type="#" class="giustizia-tooltip" data-toggle="tooltip" data-placement="bottom"
+                                    data-original-title="Tooltip on bottom"
+                                    title=" {{item.motivazioneStato == null ? '\n' : 'Motivazione: '+item.motivazioneStato  +'\n'}} {{item.tipologiaStato == null ? '\n' : 'Tipologia: ' + item.tipologiaStato +'\n'}} {{item.data_stato == null ? '\n' : 'Data Inizio: '+item.data_stato  +'\n'}} {{item.data_stato == null ? '\n' : 'Data Fine:: '+item.data_fine}}">
+                                    {{item.stato}}
+                                </a>
+                            </div>
+                            <div *ngIf="item.stato == 'Cancellato'">
+                                <a type="#" class="giustizia-tooltip" data-toggle="tooltip" data-placement="bottom"
+                                    data-original-title="Tooltip on bottom"
+                                    title="{{item.motivazioneStato == null ? '\n' : 'Motivazione: '+item.motivazioneStato  +'\n'}} {{item.tipologiaStato == null ? '\n' : 'Tipologia: ' + item.tipologiaStato +'\n'}} {{item.data_stato == null ? '\n' : 'Data Inizio: '+item.data_stato  +'\n'}}">
+                                    {{item.stato}}
+                                </a>
+                            </div>
+                            <div *ngIf="item.stato == 'Iscritto- sospeso da Formatore'">
+                                <a type="#" class="giustizia-tooltip" data-toggle="tooltip" data-placement="bottom"
+                                    data-original-title="Tooltip on bottom"
+                                    title="{{item.motivazioneStato == null ? '\n' : 'Motivazione: '+item.motivazioneStato  +'\n'}} {{item.tipologiaStato == null ? '\n' : 'Tipologia: ' + item.tipologiaStato +'\n'}} {{item.data_stato == null ? '\n' : 'Data Inizio: '+item.data_stato  +'\n'}}">
+                                    {{item.stato}}
+                                </a>
+                            </div>
+                        </td>
+                        <td class="text-center">
+                            <a class="a-icon-table" id="ModificaMediatore">
+                                <svg class="bg-light icon align-middle svg-icon-table-td" fill="#216FA3"
+                                    aria-label="ModificaMediatore" (click)="openUpdateMediatore(item.idMediatore)">>
+                                    <use href="assets/svg/sprites.svg#it-pencil"></use>
+                                </svg>
+                            </a>
+                        </td>
+                    </tr>
+                </ng-container>
+            </ng-template>
+        </tbody>
+    </table>
+    <nav class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+        <ul *ngIf="totalPage != 0" class="pagination mt-2">
+            <li *ngIf="indexPage == 1; else elsePageBefore" class="page-item disabled">
+                <a (click)="previousPage(indexPage)" class="page-link" style="color: #415559">Precedente
+                    <span class="visually-hidden">Pagina precedente disabilitata</span>
+                </a>
+            </li>
+            <ng-template #elsePageBefore>
+                <li class="page-item">
+                    <a (click)="previousPage(indexPage)" class="page-link" style="color: #415559">Precedente
+                        <span class="visually-hidden">Pagina precedente</span>
+                    </a>
+                </li>
+            </ng-template>
+            <ng-container>
+                <li *ngIf="(indexPage > 1)" class="page-item"><a (click)="cambiaPagina(indexPage - 1)"
+                        class="page-link">{{indexPage - 1}}</a></li>
+                <li class="page-item active" style="color:#0F3E75">
+                    <a class="page-link" (click)="cambiaPagina(indexPage)" aria-current="page">
+                        <span class="d-inline-block d-sm-none">Pagina </span>{{indexPage}}
+                    </a>
+                </li>
+                <li *ngIf="(indexPage + 1 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 1)"
+                        class="page-link">{{indexPage + 1}}</a></li>
+                <li *ngIf="(indexPage + 2 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 2)"
+                        class="page-link">{{indexPage + 2}}</a></li>
+                <li *ngIf="(indexPage + 3 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 3)"
+                        class="page-link">{{indexPage + 3}}</a></li>
+            </ng-container>
+            <li *ngIf="totalPage > 1 else elsePageNext" class="page-item">
+                <a (click)="nextPage(indexPage)" class="page-link" style="color: #216FA3">Successiva
+                    <span class="visually-hidden">Pagina successiva</span>
+                </a>
+            </li>
+            <ng-template #elsePageNext>
+                <li class="page-item disabled">
+                    <a (click)="nextPage(indexPage)" class="page-link" style="color: #216FA3">Successiva
+                        <span class="visually-hidden">Pagina successiva disabilitata</span>
+                    </a>
+                </li>
+            </ng-template>
+        </ul>
+        <!--<p style="color:#2F475E">Stai visualizzando {{totalPage}} di {{totalResult}} elementi </p>--><!--testo a sinistra-->
+    </nav>
+</div>
+<app-aggiornamento-mediatore [mediatore]="mediatore"
+    (onMediatore)="onAggiornamentoMediatore()"></app-aggiornamento-mediatore>

@@ -1,0 +1,22 @@
+stages: 
+  - build
+  - deploy
+
+build-job:       
+  stage: build
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "sviluppo"'
+  script:
+    - export PATH="$PATH:/root/.nvm/versions/node/v16.10.0/bin"
+    - npm install
+    - npm run build
+
+deploy-job:     
+  stage: deploy  
+  variables:
+    GIT_STRATEGY: none
+  rules:
+    - if: '$CI_COMMIT_REF_NAME == "sviluppo"'
+  script:
+    - rm -rf /home/ubuntu/root/backup/backoffice_giustizia_riparativa && cp -r /home/ubuntu/root/latest/backoffice_giustizia_riparativa /home/ubuntu/root/backup/backoffice_giustizia_riparativa
+    - cp -r dist/giustizia_riparativa/* /home/ubuntu/root/latest/backoffice_giustizia_riparativa/

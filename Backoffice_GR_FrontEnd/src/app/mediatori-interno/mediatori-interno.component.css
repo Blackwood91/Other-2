@@ -1,0 +1,23 @@
+table-responsive{
+	padding: 1% !important;
+}
+
+.updateData{
+	font-size: 18px;
+}
+
+
+.tooltip-arrow,
+.giustizia-tooltip + .tooltip > .tooltip-inner {
+	padding: 7px 3px !important;
+    background-color: #003270 !important;
+    position: relative !important;
+	display: inline-block !important;
+	cursor: help !important;/*change the cursor symbol to a question mark on mouse over*/
+	color: inherit !important;/*inherit text color*/
+	text-decoration: none !important; /*remove underline*/
+}
+
+.col-width{
+width: 320px !important;
+}

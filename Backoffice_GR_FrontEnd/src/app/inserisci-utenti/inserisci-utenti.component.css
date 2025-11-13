@@ -1,0 +1,46 @@
+.row-2-elements, .row-2-elements-descrizione {
+    display: flex ;
+    justify-content: space-between ;
+}
+
+.row-2-elements .form-group{
+    width: 45% ;
+}
+
+.row-2-elements-descrizione .form-group{
+    width: 85% ;
+}
+
+.row-2-elements-descrizione .form-check{
+    width: 15% ;
+}
+
+.inputH{
+    width: 66%  !important;
+    border: 1px solid #216FA3  !important;
+    border-radius: 4px !important;
+}
+
+.data_input {
+	width: 101%  !important;
+    border: 1px solid #216FA3  !important;
+    border-radius: 4px !important;
+}
+
+.form-check-color [type=checkbox]:checked+label::after{border-color:#216FA3 !important ;background-color:#216FA3 !important;z-index:0}
+
+.invalid {
+  border: 1px solid #C0284D  !important;
+}
+
+.error {
+  color: #C0284D  !important;
+}
+
+.valid {
+  border: 1px solid #068650  !important;	
+}
+
+.rounded {
+  border: 1px solid #216FA3  !important;
+}

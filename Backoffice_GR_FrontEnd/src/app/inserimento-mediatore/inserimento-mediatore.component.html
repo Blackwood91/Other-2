@@ -1,0 +1,445 @@
+<!-- Button trigger modal -->
+<form (ngSubmit)="sendMediatore()" [formGroup]="form">
+	<input hidden type="file" id="inputFilePdf" (change)="onFileSelectedPDF($event)" accept=".pdf">
+	<div class="container mb-1 mt-1 pt-1">
+		<div class="row mt-4 mb-4">
+			<div class="col-12">
+				<h6 class="fw-semibold primary-color">Mediatore</h6>
+				<hr />
+			</div>
+		</div>
+		<div class="row mt-4">
+			<div class="col ">
+				<div class="form-group">
+					<label for="nomeMediatore">Nome*</label>
+					<input type="text" class="form-control data_input" id="nomeMediatore"
+						formControlName="nomeMediatore" autocomplete="nomeMediatore"
+						[class.invalid]="form.get('nomeMediatore')?.invalid && (form.get('nomeMediatore')?.dirty || form.get('nomeMediatore')?.touched)"
+						[class.valid]=" form.get('nomeMediatore')?.valid" />
+					<div *ngIf="form.get('nomeMediatore')?.touched && form.get('nomeMediatore')?.hasError('required')">
+						Questo campo è obbligatorio!.
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<label for="cognomeMediatore">Cognome*</label>
+					<input type="text" class="form-control data_input" id="cognomeMediatore"
+						formControlName="cognomeMediatore" autocomplete="cognomeMediatore"
+						[class.invalid]="form.get('cognomeMediatore')?.invalid && (form.get('cognomeMediatore')?.dirty || form.get('cognomeMediatore')?.touched)"
+						[class.valid]=" form.get('cognomeMediatore')?.valid" />
+					<div
+						*ngIf="form.get('cognomeMediatore')?.touched && form.get('cognomeMediatore')?.hasError('required')">
+						Questo campo è obbligatorio!.
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<label for="codiceFiscale">
+						Codice Fiscale*</label>
+					<input type="text" (blur)="verificaCodiceFiscale($event)" class="form-control data_input"
+						id="codiceFiscale" formControlName="codiceFiscale" autocomplete="codiceFiscale"
+						[class.invalid]="form.get('codiceFiscale')?.invalid && (form.get('codiceFiscale')?.dirty || form.get('codiceFiscale')?.touched)"
+						[class.valid]=" form.get('codiceFiscale')?.valid" />
+					<div *ngIf="form.get('codiceFiscale')?.touched && form.get('codiceFiscale')?.hasError('required')">
+						Questo campo è obbligatorio!.
+					</div>
+					<div *ngIf="form.get('codiceFiscale')?.hasError('codiceFiscaleInvalido')">
+						Il codice fiscale non è nel formato corretto.
+					</div>
+					<div *ngIf="existCodFiscale">
+						Il codice fiscale già è presente in banca dati.
+					</div>
+					<div *ngIf="messageFromServer">
+						{{ messageFromServer }}
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-4">
+			<div class="col">
+				<div class="form-group">
+					<label for="indirizzoPec">
+						PEC*</label>
+					<input type="text" class="form-control data_input" id="indirizzoPec" formControlName="indirizzoPec"
+						autocomplete="indirizzoPec"
+						[class.invalid]="form.get('indirizzoPec')?.invalid && (form.get('indirizzoPec')?.dirty || form.get('indirizzoPec')?.touched)"
+						[class.valid]=" form.get('indirizzoPec')?.valid" />
+					<div *ngIf="form.get('indirizzoPec')?.touched && form.get('indirizzoPec')?.hasError('required')">
+						Questo campo è obbligatorio!.
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<label for="luogoDiNascita">Luogo di nascita* </label>
+					<input type="text" class="form-control data_input" id="luogoDiNascita"
+						formControlName="luogoDiNascita" autocomplete="luogoDiNascita"
+						[class.invalid]="form.get('luogoDiNascita')?.invalid && (form.get('luogoDiNascita')?.dirty || form.get('luogoDiNascita')?.touched)"
+						[class.valid]=" form.get('luogoDiNascita')?.valid" />
+					<div
+						*ngIf="form.get('luogoDiNascita')?.touched && form.get('luogoDiNascita')?.hasError('required')">
+						Questo campo è obbligatorio!.
+					</div>
+				</div>
+			</div>
+
+			<div class="col">
+				<div class="form-group">
+					<label for="dataDiNascita" [ngClass]="'active'">Data di nascita*</label>
+					<input type="date" class="form-control data_input" id="dataDiNascita"
+						formControlName="dataDiNascita" autocomplete="dataDiNascita"
+						[class.invalid]="form.get('dataDiNascita')?.invalid && (form.get('dataDiNascita')?.dirty || form.get('dataDiNascita')?.touched)"
+						[class.valid]=" form.get('dataDiNascita')?.valid" />
+					<div *ngIf="form.get('dataDiNascita')?.touched && form.get('dataDiNascita')?.hasError('required')">
+						Questo campo è obbligatorio!.
+					</div>
+					<div *ngIf="form.get('dataDiNascita')?.hasError('minorenni')">
+						Devi essere maggiorenne.
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row mt-4">
+			<div class="col">
+				<div class="form-group">
+					<label for="indirizzo">Indirizzo*</label>
+					<input type="text" class="form-control data_input" id="indirizzo" formControlName="indirizzo"
+						autocomplete="indirizzo"
+						[class.invalid]="form.get('indirizzo')?.invalid && (form.get('indirizzo')?.dirty || form.get('indirizzo')?.touched)"
+						[class.valid]=" form.get('indirizzo')?.valid" />
+					<div *ngIf="form.get('indirizzo')?.touched && form.get('indirizzo')?.hasError('required')">
+						Questo campo è obbligatorio!.
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<label for="numeroCivico">Civico*</label>
+					<input type="text" class="form-control data_input" id="numeroCivico" formControlName="numeroCivico"
+						autocomplete="numeroCivico"
+						[class.invalid]="form.get('numeroCivico')?.invalid && (form.get('numeroCivico')?.dirty || form.get('numeroCivico')?.touched)"
+						[class.valid]=" form.get('numeroCivico')?.valid" />
+					<div *ngIf="form.get('numeroCivico')?.touched && form.get('numeroCivico')?.hasError('required')">
+						Questo campo è obbligatorio!.
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="row mt-4">
+			<div class="col">
+				<div class="form-group">
+					<label for="cittaDiResidenza">Comune*</label>
+					<input type="text" class="form-control data_input" id="cittaDiResidenza"
+						formControlName="cittaDiResidenza" autocomplete="cittaDiResidenza"
+						[class.invalid]="form.get('cittaDiResidenza')?.invalid && (form.get('cittaDiResidenza')?.dirty || form.get('cittaDiResidenza')?.touched)"
+						[class.valid]=" form.get('cittaDiResidenza')?.valid" />
+					<div
+						*ngIf="form.get('cittaDiResidenza')?.touched && form.get('cittaDiResidenza')?.hasError('required')">
+						Questo campo è obbligatorio!.
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<label for="provinciaDiResidenza">Provincia*</label>
+					<input type="text" class="form-control data_input" id="provinciaDiResidenza"
+						formControlName="provinciaDiResidenza" autocomplete="provinciaDiResidenza"
+						[class.invalid]="form.get('provinciaDiResidenza')?.invalid && (form.get('provinciaDiResidenza')?.dirty || form.get('provinciaDiResidenza')?.touched)"
+						[class.valid]=" form.get('provinciaDiResidenza')?.valid" />
+					<div
+						*ngIf="form.get('provinciaDiResidenza')?.touched && form.get('provinciaDiResidenza')?.hasError('required')">
+						Questo campo è obbligatorio!.
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<label for="cap">CAP*</label>
+					<input type="text" class="form-control data_input" id="cap" formControlName="cap" autocomplete="cap"
+						[class.invalid]="form.get('cap')?.invalid && (form.get('cap')?.dirty || form.get('cap')?.touched)"
+						[class.valid]=" form.get('cap')?.valid" />
+					<div *ngIf="form.get('cap')?.touched && form.get('cap')?.hasError('required')">
+						Questo campo è obbligatorio!.
+					</div>
+					<div *ngIf="form.get('cap')?.invalid && (form.get('cap')?.dirty || form.get('cap')?.touched)">
+						<div *ngIf="form.get('cap')?.hasError('minlength') || form.get('cap')?.hasError('maxlength')">
+							Il CAP deve contenere esattamente 5 numeri.
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-4 mb-4">
+			<div class="col-12">
+				<h6 class="fw-semibold primary-color">Iscrizione</h6>
+				<hr />
+			</div>
+		</div>
+		<div class="row mt-4">
+			<div class="col">
+				<div class="form-group">
+					<label for="isFormatore" [ngClass]="'active'">Qualifica di formatore*</label>
+					<select class="form-select data_input" (change)="cambioQualificaFormatore($event)" id="isFormatore"
+						formControlName="isFormatore">
+						<option [value]="0">NO</option>
+						<option [value]="1">SI</option>
+					</select>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<label for="numeroIscrizioneElenco">Numero di Iscrizione*</label>
+					<input type="number" class="form-control data_input" id="numeroIscrizioneElenco"
+						formControlName="numeroIscrizioneElenco" autocomplete="numeroIscrizioneElenco"
+						[class.invalid]="form.get('numeroIscrizioneElenco')?.invalid && (form.get('numeroIscrizioneElenco')?.dirty || form.get('numeroIscrizioneElenco')?.touched)"
+						[class.valid]=" form.get('numeroIscrizioneElenco')?.valid" />
+					<div
+						*ngIf="form.get('numeroIscrizioneElenco')?.touched && form.get('numeroIscrizioneElenco')?.hasError('required')">
+						Questo campo è obbligatorio!.
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group mb-4">
+					<label for="requisitiIscrizioneElenco">Requisiti di Iscrizione*</label>
+					<input type="text" class="form-control data_input" id="requisitiIscrizioneElenco"
+						formControlName="requisitiIscrizioneElenco" autocomplete="requisitiIscrizioneElenco"
+						[class.invalid]="form.get('requisitiIscrizioneElenco')?.invalid && (form.get('requisitiIscrizioneElenco')?.dirty || form.get('requisitiIscrizioneElenco')?.touched)"
+						[class.valid]=" form.get('requisitiIscrizioneElenco')?.valid" />
+					<div
+						*ngIf="form.get('requisitiIscrizioneElenco')?.touched && form.get('requisitiIscrizioneElenco')?.hasError('required')">
+						Questo campo è obbligatorio!.
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<div class="row mt-5">
+			<div class="col">
+				<div class="form-group mb-4">
+					<label for="dataIscrizioneElenco" [ngClass]="'active'">Data*</label>
+					<input type="date" class="form-control data_input" id="dataIscrizioneElenco"
+						formControlName="dataIscrizioneElenco" autocomplete="dataIscrizioneElenco"
+						[class.invalid]="form.get('dataIscrizioneElenco')?.invalid && (form.get('dataIscrizioneElenco')?.dirty || form.get('dataIscrizioneElenco')?.touched)"
+						[class.valid]=" form.get('dataIscrizioneElenco')?.valid" />
+					<div
+						*ngIf="form.get('dataIscrizioneElenco')?.touched && form.get('dataIscrizioneElenco')?.hasError('required')">
+						Questo campo è obbligatorio!.
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<label for="idStatoMediatore" [ngClass]="'active'">Stato*</label>
+					<select class="form-select data_input" [attr.disabled]="true" id="idStatoMediatore"
+					formControlName="idStatoMediatore" autocomplete="idStatoMediatore"
+					Value=Iscritto>
+					<!--<select formControlName="idStatoMediatore" (change)="cambioStato($event)"
+						class="form-select data_input" id="stato">-->
+						<option [value]="1">Iscritto</option>
+						<option [value]="4">Iscritto - Sospeso da formatore </option>
+						<option [value]="2">Sospeso</option>
+						<option [value]="3">Cancellato</option>
+					</select>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="row mt-5">
+			<div class="col"
+				*ngIf="form.value.idStatoMediatore === 2 || form.value.idStatoMediatore === 3 || form.value.idStatoMediatore === 4">
+				<div class="form-group">
+					<label for="dataStato" [ngClass]="'active'">Data Da*</label>
+					<input type="date" class="form-control data_input" id="dataStato" formControlName="dataStato"
+						autocomplete="dataStato"
+						[class.invalid]="form.get('dataStato')?.invalid && (form.get('dataStato')?.dirty || form.get('dataStato')?.touched)"
+						[class.valid]=" form.get('dataStato')?.valid" />
+					<div *ngIf="form.get('dataStato')?.touched && form.get('dataStato')?.hasError('required')">
+						Questo campo è obbligatorio!.
+					</div>
+				</div>
+			</div>
+			<div class="col" *ngIf="form.value.idStatoMediatore !== 1 && form.value.idStatoMediatore !== 3">
+				<div class="form-group">
+					<label for="dataFine" [ngClass]="'active'">Data A</label>
+					<input type="date" class="form-control data_input" id="dataFine" formControlName="dataFine"
+						autocomplete="dataFine"
+						[class.invalid]="form.get('dataFine')?.invalid && (form.get('dataFine')?.dirty || form.get('dataFine')?.touched)"
+						[class.valid]=" form.get('dataFine')?.valid" />
+					<div *ngIf="form.get('dataFine')?.touched && form.get('dataFine')?.hasError('required')">
+						Questo campo è obbligatorio!.
+					</div>
+				</div>
+			</div>
+			<div class="col"
+				*ngIf="form.value.idStatoMediatore === 2 || form.value.idStatoMediatore === 3 || form.value.idStatoMediatore === 4">
+				<div class="form-group">
+					<label for="tipologia" [ngClass]="'active'">Tipologia</label>
+					<select class="form-select data_input" id="stato" formControlName="tipologia">
+						<option [value]="1">Volontaria</option>
+						<option [value]="2">D'ufficio</option>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="row mt-5">
+			<div class="col"
+				*ngIf="form.value.idStatoMediatore === 2 || form.value.idStatoMediatore === 3 || form.value.idStatoMediatore === 4">
+				<div class="select-wrapper">
+					<label for="motivazione" autocomplete="motivazione">Motivazione*</label>
+					<textarea id="motivazione" rows="10" class="rounded" style="border-radius: 4px !important;"
+						data-focus-mouse="false" formControlName="motivazione"
+						[class.invalid]="form.get('motivazione')?.invalid && (form.get('motivazione')?.dirty || form.get('motivazione')?.touched)"
+						[class.valid]=" form.get('motivazione')?.valid">></textarea>
+					<div *ngIf="form.get('motivazione')?.touched && form.get('motivazione')?.hasError('required')">
+						Questo campo è obbligatorio!.
+					</div>
+				</div>
+			</div>
+			<div class="col">
+				<div class="form-group">
+					<label for="dataProvvedimento" [ngClass]="'active'">Data Provvedimento*</label>
+					<input type="date" class="form-control data_input" id="dataProvvedimento"
+						formControlName="dataProvvedimento" autocomplete="dataProvvedimento"
+						[class.invalid]="form.get('dataProvvedimento')?.invalid && (form.get('dataProvvedimento')?.dirty || form.get('dataProvvedimento')?.touched)"
+						[class.valid]=" form.get('dataProvvedimento')?.valid" />
+					<div
+						*ngIf="form.get('dataProvvedimento')?.touched && form.get('dataProvvedimento')?.hasError('required')">
+						Questo campo è obbligatorio!.
+					</div>
+				</div>
+			</div>
+			<div class="col documento-top">
+				<button type="button" type="button" title="Carica file pdf"
+					class="btn btn-secondary-min btn-sm width:50 height:50" style="padding: 8px 13px;"
+					(click)="openInputFile()">
+					<svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" fill="currentColor"
+						class="bi bi-file-earmark-pdf-fill" viewBox="0 0 16 16">
+						<path
+							d="M5.523 12.424c.14-.082.293-.162.459-.238a7.878 7.878 0 0 1-.45.606c-.28.337-.498.516-.635.572a.266.266 0 0 1-.035.012.282.282 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548zm2.455-1.647c-.119.025-.237.05-.356.078a21.148 21.148 0 0 0 .5-1.05 12.045 12.045 0 0 0 .51.858c-.217.032-.436.07-.654.114zm2.525.939a3.881 3.881 0 0 1-.435-.41c.228.005.434.022.612.054.317.057.466.147.518.209a.095.095 0 0 1 .026.064.436.436 0 0 1-.06.2.307.307 0 0 1-.094.124.107.107 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256zM8.278 6.97c-.04.244-.108.524-.2.829a4.86 4.86 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.517.517 0 0 1 .145-.04c.013.03.028.092.032.198.005.122-.007.277-.038.465z">
+						</path>
+						<path fill-rule="evenodd"
+							d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3zM4.165 13.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.651 11.651 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.856.856 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.844.844 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.76 5.76 0 0 0-1.335-.05 10.954 10.954 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.238 1.238 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a19.697 19.697 0 0 1-1.062 2.227 7.662 7.662 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103z">
+						</path>
+					</svg>
+				</button>
+				<span>{{nomeFile}}</span>
+			</div>
+		</div>
+
+
+		<ng-container *ngIf="form.value.isFormatore === 1">
+			<div class="row mt-4 mb-4">
+				<div class="col-12">
+					<h6 class="fw-semibold primary-color">Ente</h6>
+					<hr />
+				</div>
+			</div>
+			<div class="col mb-4">
+				<div class="select-wrapper">
+					<label for="ente">Ente formatore*
+					</label>
+					<select class="form-select data_input" (change)="cambioTipoEnte($event)" id="ente"
+						formControlName="tipologiaEnteFormatore">
+						<option [value]=""> </option>
+						<option [value]="2">Università</option>
+						<option [value]="1">Centro per la giustizia riparativa</option>
+					</select>
+					<div
+						*ngIf="form.get('tipologiaEnteFormatore')?.touched && form.get('tipologiaEnteFormatore')?.hasError('required')">
+						Questo campo è obbligatorio !.
+					</div>
+				</div>
+			</div>
+
+			<div *ngIf="form.value?.tipologiaEnteFormatore === 2">
+				<div class="row mt-5">
+					<div class="col">
+						<div class="select-wrapper">
+							<label for="ente">Ente*</label>
+							<select class="form-select data_input" (change)="cambioEnte($event)" id="ente"
+								formControlName="enteAttestatoId">
+								<option [value]=""> </option>
+								<option [value]="1">NON PRESENTE</option>
+								<option *ngFor="let item of allEnti" [value]="item.enteAttestatoID">
+									{{item.nomeEnteAttestato}}
+								</option>
+							</select>
+							<div
+								*ngIf="form.get('enteAttestatoId')?.touched && form.get('enteAttestatoId')?.hasError('required')">
+								Questo campo è obbligatorio !.
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="row mt-5">
+					<div class="col">
+						<div class="select-wrapper mb-4">
+							<label for="nomeEnteAttestato">Nome*</label>
+							<input type="text" class="form-control data_input" id="nomeEnteAttestato"
+								[attr.disabled]="form.value.enteAttestatoId !== 1 ? true : null"
+								formControlName="nomeEnteAttestato" autocomplete="nomeEnteAttestato"
+								[value]='form.value.nomeEnteAttestato' />
+						</div>
+					</div>
+					<div class="col">	
+						<div class="select-wrapper">
+							<label for="tipologiaEnte">Tipologia*</label>
+							<select class="form-select data_input" id="tipologiaEnte"
+								[attr.disabled]="form.value.enteAttestatoId !== 1 ? true : null"
+								formControlName="tipologiaEnte" autocomplete="tipologiaEnte">
+								<option [value]=""> </option>
+								<option [value]="'Pubblico'">Pubblico</option>
+								<option [value]="'Privato'">Privato</option>
+							</select>
+						</div>
+					</div>
+					<div class="col">
+						<div class="select-wrapper">
+							<label for="isConvenzionato">Convenzionato*</label>
+							<select class="form-select data_input" id="isConvenzionato"
+								[attr.disabled]="form.value.enteAttestatoId !== 1 ? true : null"
+								formControlName="isConvenzionato" autocomplete="isConvenzionato"
+								[value]='form.value.isConvenzionato'>
+								<option [value]="" id=""> </option>
+								<option [value]="1" id="2">SI</option>
+								<option [value]="0" id="3">NO</option>
+							</select>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="row mt-5 mb-4" *ngIf="form.value?.tipologiaEnteFormatore === 1">
+				<div class="col">
+					<div class="select-wrapper">
+						<label for="tipologiaEnte">Tipologia*</label>
+						<select class="form-select data_input" [attr.disabled]="true" id="tipologiaEnte"
+							formControlName="tipologiaEnte" autocomplete="tipologiaEnte"
+							[value]='form.value.tipologiaEnte'>
+							<option [value]=""> </option>
+							<option [value]="'Pubblico'">Pubblico</option>
+							<option [value]="'Privato'">Privato</option>
+						</select>
+					</div>
+				</div>
+			</div>
+		</ng-container>
+
+		<div class="modal-footer">
+			<div class="modal-footer">
+				<button class="btn btn-secondary-min btn-sm" data-bs-dismiss="modal" (click)="backClicked()"
+					type="button">Annulla</button>
+				<button class="btn btn-sm btn-primary-min" (click)="sendMediatore()" type="button" [disabled]="!isBottoneInserisciAbilitato">Salva</button>
+				<button id="closeModal" hidden type="button" data-bs-dismiss="modal">Close modal</button>
+			</div>
+		</div>
+	</div>
+</form>

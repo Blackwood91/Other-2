@@ -1,0 +1,98 @@
+<!-- Button trigger modal -->
+
+<button type="button" hidden id="activeModalInsertUtenti" class="btn btn-primary " data-bs-toggle="modal"
+  data-bs-target="#modalInsertUtenti"></button>
+
+<div class="modal fade bd-example-modal-xl" id="modalInsertUtenti" tabindex="-1" role="dialog"
+  aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-insert-voto-estero">
+    <div class="modal-content">
+      <div class="modal-header mb-3">
+        <h2 class="modal-title h5" id="myExtraLargeModalLabel">Aggiornamento Utenza</h2>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi finestra modale"></button>
+      </div>
+      <div class="modal-body">
+        <form (ngSubmit)="sendUtenza()" [formGroup]="form">
+          <div class="row">
+            <div class="col">
+              <div class="form-group">
+                <label for="nomeUtente" [ngClass]="{'active': form.value.nomeUtente != ''}">
+                  Nome </label>
+                <input type="text" class="form-control data_input" id="nomeUtente" formControlName="nomeUtente"
+                  autocomplete="nomeUtente"
+                  [class.invalid]="form.get('nomeUtente')?.invalid && (form.get('nomeUtente')?.dirty || form.get('nomeUtente')?.touched)"
+                  [class.valid]=" form.get('nomeUtente')?.valid" />
+              </div>
+            </div>
+
+            <div class="col">
+              <div class="form-group">
+                <label for="cognomeUtente" [ngClass]="{'active': form.value.cognomeUtente != ''}">
+                  Cognome</label>
+                <input type="text" class="form-control data_input" id="cognomeUtente" formControlName="cognomeUtente"
+                  autocomplete="cognomeUtente"
+                  [class.invalid]="form.get('cognomeUtente')?.invalid && (form.get('cognomeUtente')?.dirty || form.get('cognomeUtente')?.touched)"
+                  [class.valid]=" form.get('cognomeUtente')?.valid" />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="codiceFiscaleUtente" [ngClass]="{'active': form.value.codiceFiscaleUtente != ''}">Codice
+                  Fiscale </label>
+                <input type="text" class="form-control data_input" id="codiceFiscaleUtente"
+                  formControlName="codiceFiscaleUtente" autocomplete="codiceFiscaleUtente"
+                  [class.invalid]="form.get('codiceFiscaleUtente')?.invalid && (form.get('codiceFiscaleUtente')?.dirty || form.get('codiceFiscaleUtente')?.touched)"
+                  [class.valid]=" form.get('codiceFiscaleUtente')?.valid" />
+              </div>
+            </div>
+          </div>
+          <div class="row mb-5">
+            <div class="col">
+              <div class="form-group">
+                <label for="enteAppartenenza" [ngClass]="{'active': form.value.enteAppartenenza != ''}">Ente di
+                  appartenenza</label>
+                <input type="text" class="form-control data_input" id="enteAppartenenza"
+                  formControlName="enteAppartenenza" autocomplete="enteAppartenenza"
+                  [class.invalid]="form.get('enteAppartenenza')?.invalid && (form.get('enteAppartenenza')?.dirty || form.get('enteAppartenenza')?.touched)"
+                  [class.valid]=" form.get('enteAppartenenza')?.valid" />
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-group">
+                <label for="label_idRuoloUtente" [ngClass]="{'active': form.value.idRuoloUtente != ''}">Ruolo Utente
+                </label>
+                <select class="form-select data_input" id="idRuoloUtente" formControlName="idRuoloUtente"
+                  [class.invalid]="form.get('idRuoloUtente')?.invalid && (form.get('idRuoloUtente')?.dirty || form.get('idRuoloUtente')?.touched)"
+                  [class.valid]="form.get('idRuoloUtente')?.valid">
+                  <option value="1" id="1">Amministratore</option>
+                  <option value="2" id="2">Operatore</option>
+                  <option value="3" id="3">Utente Esterno</option>
+                  <option value="4" id="4">Responsabile del servizio</option>
+                </select>
+                <span [hidden]="form.controls['idRuoloUtente'].valid || form.controls['idRuoloUtente'].pristine">Il
+                  ruolo è obbligatorio!</span>
+              </div>
+            </div>
+            <div class="col">
+              <div class="form-check mb-5">
+                <input *ngIf="form.value.isAbilitato; else elseBlock" id="checkbox2" type="checkbox"
+                  (change)="handleCheckboxChange($event)" formControlName="isAbilitato">
+                <ng-template #elseBlock>
+                  <input id="checkbox2" type="checkbox" (change)="handleCheckboxChange($event)" formControlName="isAbilitato">
+                </ng-template>
+                <label for="checkbox2" class="">Attivo</label>
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <div class="modal-footer">
+          <button class="btn btn-secondary-min btn-sm" data-bs-dismiss="modal" type="button">Annulla</button>
+          <button class="btn btn-sm btn-primary-min" (click)="sendUtenza()" type="button">Salva</button>
+          <button id="closeModal" hidden type="button" data-bs-dismiss="modal">Close modal</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

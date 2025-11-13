@@ -1,0 +1,91 @@
+.searchbar{
+    display: flex !important;
+    width: max-content !important;
+}
+
+.inlineButtons{
+    margin-right: 3% !important;
+}
+
+.inputField{
+    /* width: 413% !important; */
+    width: 300%;
+}
+
+.ricerca{
+    color:#06c
+}
+
+.ricerca[aria-expanded=false] .text-expanded{
+    display: none;
+}
+.ricerca[aria-expanded=true] .text-collapsed{
+    display: none;
+}
+
+.lockedDropdown{
+    display: none;
+    pointer-events: none;
+    cursor: not-allowed !important;
+}
+
+.visible{
+    margin-right: 10%;
+}
+
+.liningUp{
+    align-items: flex-end !important;
+    width: 200%;
+}
+
+.searchBubble{
+    /*display: flex;*/
+    margin-right: 1%;
+    resize: none;
+    padding: 8px 16px;
+    align-items: center;
+    gap: 8px;
+    border-radius: 16px;
+    background: var(--Background-01, #E8F2FC);
+}
+
+.option{
+    display: flex;
+    border: none;
+    padding: 0px 16px;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    border-radius: 4px;
+    background: var(--Background-01, #E8F2FC);
+}
+
+.fixImage{
+    flex-shrink: 0;
+    margin-right: 2%
+}
+
+.col-width{
+    width: 320px !important;
+    }
+
+.bubble-width{
+    width: 68%;
+}
+
+.bubble-width2{
+    width: 60%;
+}
+
+.modal-content-colossal {
+    width: 140% !important;
+}
+
+.modal-colossal {
+    margin-left: 3% !important;
+    margin-right: 30% !important;
+}
+
+.spacing-seleziona{
+    margin-bottom: 3px;
+}

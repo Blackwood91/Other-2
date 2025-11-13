@@ -1,0 +1,179 @@
+<button type="button" hidden id="activeModalMediatore" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#modalSaveFile"></button>
+
+<div class="modal fade bd-example-modal-xl" id="modalSaveFile" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-insert-voto-estero modal-colossal">
+    <div class=" modal-content modal-content-colossal">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi finestra modale"></button>
+      </div>
+      <div class="modal-body  modal-body-min">
+        <app-dettaglio-formatore-mediatore [page] = "page" [idAnagrafica]="idAnagrafica"></app-dettaglio-formatore-mediatore>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mb-1 mt-1 pt-1">
+  <div class="row ">
+      <div class="col-12" role="region" aria-label="atto riepilogativo">
+          <h1 class="h6 fw-semibold color text-center">ALBO DEI MEDIATORI</h1>
+          <hr />
+      </div>
+  </div>
+</div>
+<!-- *ngIf="this.getRows() > 0" -->
+<div class="container text-left body">
+  <div class="row">
+    <div class="col text-left">
+      <div class="dropdown dropend text-left">
+        <a class="btn btn-dropdown dropdown-toggle" role="button" id="dropdownMenuDropright" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Tipologia e Filtri per la ricerca 
+          <svg class="icon-expand icon icon-sm icon-primary"><use href="\assets\svg\sprites.svg#it-expand"></use></svg>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuDropright">
+          <div class="link-list-wrapper">
+            <ul class="link-list">
+              <li><a class="dropdown-item list-item" (click)="categorySelection(0)"><span>Ricerca del testo per Nome</span></a></li>
+              <li><a class="dropdown-item list-item" (click)="categorySelection(1)"><span>Ricerca del testo per Cognome</span></a></li>
+              <li><a class="dropdown-item list-item" (click)="categorySelection(2)"><span>Ricerca del testo per Codice Fiscale</span></a></li>
+              <li><a class="dropdown-item list-item" (click)="categorySelection(4)"><span>Filtro per Tipo Mediatore</span></a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="title-dropdown-custom">
+        <strong *ngIf="tipoRicerca === 0">Ricerca del testo per NOME</strong>
+        <strong *ngIf="tipoRicerca === 1">Ricerca del testo per COGNOME</strong>
+        <strong *ngIf="tipoRicerca === 2">Ricerca del testo per CODICE FISCALE</strong>
+        <strong *ngIf="tipoRicerca === 4">Filtro per TIPO MEDIATORE</strong>
+      </div>
+    </div> 
+    
+    <div class="col text-left" *ngIf="tipoRicerca === 4">
+      <div class="dropdown dropend text-left">
+        <a class="btn btn-dropdown dropdown-toggle" role="button" id="dropdownMenuDropright2" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Filtri per Tipologia Mediatore 
+          <svg class="icon-expand icon icon-sm icon-primary"><use href="\assets\svg\sprites.svg#it-expand"></use></svg>
+        </a>
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuDropright2" [ngClass]="tipoRicerca != 4 ? 'lockedDropdown' : 'visible'">
+        <div class="link-list-wrapper">
+          <ul class="link-list">
+            <li><a class="dropdown-item list-item" (click)="filterByMediatori(4); attivaRicerca()"><span>Generico</span></a></li>
+            <li><a class="dropdown-item list-item" (click)="filterByMediatori(5); attivaRicerca()"><span>Esperto Internazionale</span></a></li>
+            <li><a class="dropdown-item list-item" (click)="filterByMediatori(6); attivaRicerca()"><span>Esperto di Consumo</span></a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="title-dropdown-custom">
+      <strong *ngIf="tipoMed === 4">Filtro ricerca per Genericco</strong>
+      <strong *ngIf="tipoMed === 5">Filtro ricerca per Esperto Internazionale</strong>
+      <strong *ngIf="tipoMed === 6">Filtro ricerca per Esperto di Consumo</strong>
+    </div>
+    </div>
+    <div class="col col-width">
+      <div class="form-group">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <div class="input-group-text "><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                class="bi bi-search fixImage" viewBox="0 0 16 16" aria-label="Ricerca" fill="#415559">
+                <path
+                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                </path>
+              </svg></div>
+          </div>
+          <label class="visually-hidden" for="input-group-3 ">Testo da cercare</label>
+          <input type="search " [(ngModel)]="searchTextTable" (ngModelChange)="attivaRicerca()" type="text"
+            class="form-control" id="Ricerca" placeholder="Testo da cercare">
+        </div>
+      </div>
+    </div>
+
+  <table class="table table-hover" style="border: 1px solid #E0E0E0;">
+    <thead class="thead-voto-estero">
+      <tr>
+        <th scope="col" class="text-center"> </th>
+        <th scope="col" class="text-center"> Cognome </th>
+        <th scope="col" class="text-center"> Nome </th>
+        <th scope="col" class="text-center"> Codice Fiscale </th>
+        <th scope="col" class="text-center"> Data di Nascita </th>
+        <th scope="col" class="text-center"> N. Organismi </th>
+        <th scope="col" class="text-center actions"> Tipologia </th>
+      </tr>
+    </thead>
+    <tbody class="tbody-empty-table">
+      <td *ngIf="tableResult.length == 0; else elseBlock" colspan="16">
+          <p class="text-empty-table">Nessun risultato trovato</p>
+      </td>
+      <ng-template #elseBlock>
+          <ng-container *ngFor="let item of tableResult; let i = index">
+          <tr>
+          <td class="text-center">
+            <div class="div-column-icon">
+            <button type="button" class="btn btn-outline-primary btn-xs btn-me btn-min"
+              aria-expanded="false" (click)="openModal(item.idAnagrafica)">Seleziona</button>
+            </div>
+          </td>
+          <!-- <td class="text-center"><u><a (click)="viewAnagrafica(item.idAnagrafica)">{{ item.cognome }}</a></u></td> -->
+          <td class="text-center">{{ item.cognome }}</td>
+          <td class="text-center">{{ item.nome }}</td>
+          <td class="text-center">{{ item.codiceFiscale }}</td>
+          <td class="text-center">{{ item.dataNascita ? this.formatDate(item.dataNascita) : '' }}</td>
+          <td class="text-center">{{ item.medNumeroOrganismiDisp }}</td>
+          <td>{{ this.getTipoMediatore(item.idTipoAnagrafica) }}</td>
+        </tr>
+      </ng-container>
+      </ng-template>
+    </tbody>
+  </table>
+  <nav class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+    <div class="container text-center body noMediator" *ngIf="this.getRows() === 0">
+      <p class="noMediatorText"> Nessun mediatore generico presente </p>
+    </div>
+    <td class="text-center"> Totale: {{ this.totalResult }}</td>
+</nav>
+  <nav class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+    <ul *ngIf="totalPage != 0" class="pagination mt-2">
+      <li *ngIf="indexPage == 1; else elsePageBefore" class="page-item disabled">
+        <a (click)="previousPage(indexPage)" class="page-link" style="color: #415559">Precedente
+          <span class="visually-hidden">Pagina precedente disabilitata</span>
+        </a>
+      </li>
+      <ng-template #elsePageBefore>
+        <li class="page-item">
+          <a (click)="previousPage(indexPage)" class="page-link" style="color: #415559">Precedente
+            <span class="visually-hidden">Pagina precedente</span>
+          </a>
+        </li>
+      </ng-template>
+      <ng-container>
+        <li *ngIf="(indexPage > 1)" class="page-item"><a (click)="cambiaPagina(indexPage - 1)"
+            class="page-link">{{indexPage - 1}}</a></li>
+        <li class="page-item active" style="color:#0F3E75">
+          <a class="page-link" (click)="cambiaPagina(indexPage)" aria-current="page">
+            <span class="d-inline-block d-sm-none">Pagina </span>{{indexPage}}
+          </a>
+        </li>
+        <li *ngIf="(indexPage + 1 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 1)"
+            class="page-link">{{indexPage + 1}}</a></li>
+        <li *ngIf="(indexPage + 2 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 2)"
+            class="page-link">{{indexPage + 2}}</a></li>
+        <li *ngIf="(indexPage + 3 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 3)"
+            class="page-link">{{indexPage + 3}}</a></li>
+      </ng-container>
+      <li *ngIf="totalPage > 1 else elsePageNext" class="page-item">
+        <a (click)="nextPage(indexPage)" class="page-link" style="color: #216FA3">Successiva
+          <span class="visually-hidden">Pagina successiva</span>
+        </a>
+      </li>
+      <ng-template #elsePageNext>
+        <li class="page-item disabled">
+          <a (click)="nextPage(indexPage)" class="page-link" style="color: #216FA3">Successiva
+            <span class="visually-hidden">Pagina successiva disabilitata</span>
+          </a>
+        </li>
+      </ng-template>
+    </ul>
+    <!--<p style="color:#2F475E">Stai visualizzando {{totalPage}} di {{totalResult}} elementi </p>--><!--testo a sinistra-->
+  </nav>
+

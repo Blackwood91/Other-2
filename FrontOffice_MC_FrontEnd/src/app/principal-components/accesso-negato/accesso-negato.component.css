@@ -1,0 +1,17 @@
+
+.it-hero-text-wrapper{
+    padding: 0px 20% 144px 20% !important;
+}
+
+.btn-accesso-negato{
+    margin-top: 2rem;
+}
+
+.first-button-accesso-negato{
+    margin-right: 2rem;
+}
+
+
+div .img-responsive-wrapper:after {
+    background: rgb(35 50 60 / 85%) !important;
+}

@@ -1,0 +1,17 @@
+.riferimento-nomrmativa {
+    color: #ff0403;
+}
+
+.listItem {
+    word-wrap: break-word;
+    padding-left: 1%;
+}
+
+.btn-disabled-min {
+    background-color: #D9DADB !important;
+    color: #415559 !important;
+    padding: 16px, 32px, 16px, 32px !important;
+    border-radius: 4px !important;
+    pointer-events: none !important;
+    font-size: 14px !important;
+}

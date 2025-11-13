@@ -1,0 +1,39 @@
+.form-two-input {
+    width: 49% !important;
+}
+
+.form-three-input {
+    width: 33% !important;
+}
+
+.form-radio-intesta {
+    width: 12% !important;
+    padding-top: 3px;
+    width: 12% !important;
+}
+
+.riferimento-nomrmativa {
+    color: #ff0403;
+}
+
+.form-check-diverse-line {
+    margin-bottom: 0px;
+}
+
+.margin-rif-normativa-bottom {
+    margin-bottom: 3rem;
+}
+
+.liste_autocompilate {
+    position: absolute;
+    z-index: 2;
+}
+
+.card-space {
+    padding-top: 36px;
+}
+
+.div-p-intest-radio {
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+}

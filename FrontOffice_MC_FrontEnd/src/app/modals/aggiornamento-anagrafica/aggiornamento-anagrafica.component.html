@@ -1,0 +1,164 @@
+<button type="button" hidden id="activeModalUpdateAnagrafica" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#modalUpdateAnagrafica"></button>
+
+<div class="modal fade bd-example-modal-xl" id="modalUpdateAnagrafica" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-insert-voto-estero ">
+    <div class=" modal-content ">
+      <div class="modal-header">
+        <h4 class="modal-title">{{titolo}}</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi finestra modale"></button>
+      </div>
+      <div class="modal-body modal-body-update">
+        <form>
+            <div class="row">
+                <div class="form-group form-two-input">
+                    <div class="select-wrapper">
+                        <label for="titoloSS" [ngClass]="{'color-invalid': validTitolo === false}">Titolo*</label>
+                        <select type="text" [(ngModel)]="idTitolo" (change)="checkTitolo()" [ngClass]="{'input-invalid': validTitolo === false}" [ngModelOptions]="{standalone: true}" id="titoloSS">
+                            <option *ngFor="let titolo of titoliAnagrafiche"
+                                [value]="titolo.idTitoloAnagrafiche">
+                                {{ titolo.descrizione }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-radio-intesta">
+                    <p class="fw-semibold" [ngClass]="{'color-invalid': validSesso === false}">Sesso* </p>
+                </div>
+                <div class="form-check form-three-input">
+                    <input name="radio7" [(ngModel)]="sesso" [ngModelOptions]="{standalone: true}" [value]="'M'" 
+                        type="radio" class="with-gap" id="radio7" (blur)="checkSesso()">
+                    <label for="radio7">Maschio</label>
+                </div>
+                <div class="form-check form-three-input">
+                    <input name="radio8" [(ngModel)]="sesso" [ngModelOptions]="{standalone: true}" [value]="'F'"
+                        type="radio" class="with-gap" id="radio8" (blur)="checkSesso()">
+                    <label for="radio8">Femmina</label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-two-input">
+                    <label for="cognomeRapLegale" [ngClass]="{'active': !!cognome}" [ngClass]="{'color-invalid': validCognome === false}">
+                        Cognome*
+                    </label>
+                    <input type="text" [(ngModel)]="cognome" (blur)="checkCognome()" [ngModelOptions]="{standalone: true}" class="form-control" id="cognomeRapLegale" [ngClass]="{'input-invalid': validCognome === false}"/>
+                </div>
+                <div class="form-group form-two-input">
+                    <label for="nomeRapLegale" [ngClass]="{'active': !!nome}" [ngClass]="{'color-invalid': validNome === false}">
+                        Nome*
+                    </label>
+                    <input type="text" [(ngModel)]="nome" (blur)="checkNome()" [ngModelOptions]="{standalone: true}" [ngClass]="{'input-invalid': validNome === false}" class="form-control" id="nomeRapLegale" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-two-input">
+                    <label for="dataRapLegale" class="active" [ngClass]="{'color-invalid': validDataNascita === false}">
+                        Data di nascita*
+                    </label>
+                    <input type="date" [(ngModel)]="dataNascita" (blur)="checkDataNascita()" [ngModelOptions]="{standalone: true}" class="form-control" id="dataNascita"
+                        name="dataNascita" required="" data-focus-mouse="false" id="dataNascita" [ngClass]="{'input-invalid': validDataNascita === false}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-two-input">
+                    <div class="select-wrapper">
+                        <label for="isEsteroNascita">Stato di nascita</label>
+                        <select type="text" [(ngModel)]="isEsteroNascita" [ngModelOptions]="{standalone: true}" id="isEsteroNascita">
+                            <option [value]="'false'">Italia</option>
+                            <option [value]="'true'">Estero</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-two-input" *ngIf="isEsteroNascita === 'true'">
+                    <label for="nomeStatoDiNasc" [ngClass]="{'active': !!statoNascita}" [ngClass]="{'color-invalid': validStatoNascita === false}">
+                        Nome stato di nascita*
+                    </label>
+                    <input type="text" [(ngModel)]="statoNascita" (blur)="checkStatoNascita()" [ngModelOptions]="{standalone: true}" class="form-control"
+                        id="nomeStatoDiNasc" [ngClass]="{'input-invalid': validStatoNascita === false}"/>
+                </div>
+                <div class="form-group form-two-input" *ngIf="isEsteroNascita === 'true'">
+                    <label for="comuneNascitaEstero" [ngClass]="{'active': !!comuneNascitaEstero}" [ngClass]="{'color-invalid': validComuneNascitaEstero === false}">
+                        Luogo di nascita*
+                    </label>
+                    <input type="text" [(ngModel)]="comuneNascitaEstero" (blur)="checkComuneNascitaEstero()" [ngModelOptions]="{standalone: true}" class="form-control"
+                        id="comuneNascitaEstero" [ngClass]="{'input-invalid': validComuneNascitaEstero === false}"/>
+                </div>
+                <div class="form-group form-two-input" *ngIf="isEsteroNascita === 'false'">
+                    <label for="comune" class="active" [ngClass]="{'color-invalid': validComuneSceltoNascita === false}">Luogo di nascita*</label>
+                    <input aria-expanded="false" [(ngModel)]="comuneSceltoNascita" (blur)="checkComuneSceltoNascita()" [ngModelOptions]="{standalone: true}"
+                        (input)="loadComuneNascita($event)" class="form-control" autocomplete="off"
+                        id="comune" type="text" [placeholder]="'Selezionare un comune'" [ngClass]="{'input-invalid': validComuneSceltoNascita === false}">
+        
+                    <ul *ngIf="showListComuneNascita"
+                        class="autocomplete__menu autocomplete__menu--inline autocomplete__menu--inline select-liste-ul"
+                        id="comuneNascitaAutocompleteListbox" role="listbox">
+                        <li aria-selected="false" class="autocomplete__option" role="option" tabindex="-1"
+                            aria-posinset="1" aria-setsize="32" *ngFor="let comune of comuniNascita"
+                            (click)="selectComuneNascita(comune.idCodComune, comune.nomeComune + ' (' + comune.regioneProvince.siglaProvincia + ')')">
+                            {{comune.nomeComune + " (" + comune.regioneProvince.siglaProvincia + ")"}}
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-two-input">
+                    <label for="codFiscaleRapLegale" [ngClass]="{'active': !!codiceFiscale}" [ngClass]="{'color-invalid': validCodiceFiscale === false}">
+                        Codice fiscale*
+                    </label>
+                    <input type="text" [(ngModel)]="codiceFiscale" (blur)="checkCodiceFiscale()" [ngModelOptions]="{standalone: true}" class="form-control"
+                        id="codFiscaleRapLegale" [ngClass]="{'colinputor-invalid': validCodiceFiscale === false}"/>
+                        <span style="color:#C0284D" *ngIf="validCodiceFiscale === false">Il codice fiscale non è valido </span>
+                    </div>
+                <div class="form-group form-two-input">
+                    <label for="cittaRapSoc" [ngClass]="{'active': !!cittadinanza}" [ngClass]="{'color-invalid': validCittadinanza === false}">
+                        Cittadinanza*
+                    </label>
+                    <input type="text" [(ngModel)]="cittadinanza" (blur)="checkCittadinanza()" [ngClass]="{'input-invalid': validCittadinanza === false}" [ngModelOptions]="{standalone: true}" class="form-control" id="cittaRapSoc" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-two-input">
+                    <div class="select-wrapper">
+                        <label for="poTipoRappOdm" [ngClass]="{'color-invalid': validRapporto === false}">Rapporto giuridico ed economico con l'Ente*</label>
+                            <select type="text" [(ngModel)]="poTipoRappOdm" (change)="checkRapporto()" [ngModelOptions]="{standalone: true}" id="poTipoRappOdm" [ngClass]="{'input-invalid': validRapporto === false}">
+                                <option [value]="''"></option>
+                                <option [value]="'A tempo indeterminato'">A tempo indeterminato</option>
+                                <option [value]="'Part-time a tempo indeterminato'">Part-time a tempo indeterminato</option>
+                            </select>
+                    </div>
+                </div>
+            </div>    
+            <div class="row">
+                <div class="form-group form-two-input">
+                    <label for="poDataAssunzione" class="active" [ngClass]="{'color-invalid': validDataAssunzione === false}">
+                        Data di assunzione*
+                    </label>
+                    <input type="date" [(ngModel)]="poDataAssunzione" (blur)="checkDataAssunzione()" [ngModelOptions]="{standalone: true}" class="form-control" id="poDataAssunzione"
+                        name="poDataAssunzione" required="" data-focus-mouse="false" id="poDataAssunzione" [ngClass]="{'input-invalid': validDataAssunzione === false}"/>
+                </div>
+            </div>
+            <div class="row">
+                <div class="form-group form-two-input">
+                    <label for="allegatoDocumento" [ngClass]="{'active': true}">
+                        Allega copia documento*
+                    </label>
+                    <input type="file" (change)="testDoc()" data-bs-input class="form-control"
+                        id="allegatoPlanimetria" accept=".pdf" />
+                </div>
+            </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <div class="modal-footer">
+            <button class="btn float-end btn-menu-page-body btn-outline-primary-min" type="button" data-bs-dismiss="modal">Annulla</button>
+            <button class="btn btn-sm btn-primary-min" (click)="sendAnagrafica(idAnagrafica)"  type="button">Salva</button>
+            <button id="closeModal" hidden type="button" data-bs-dismiss="modal">Close modal</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

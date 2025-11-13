@@ -1,0 +1,240 @@
+<!-- Button trigger modal -->
+<button type="button" hidden id="activeModalSaveSede" class="btn btn-primary " data-bs-toggle="modal"
+    data-bs-target="#modalInsertMediatori"></button>
+
+<div class="modal fade bd-example-modal-xl" id="modalInsertMediatori" tabindex="-1" role="dialog"
+    aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-insert-voto-estero">
+        <div class="modal-content">
+            <div class="modal-header mb-2">
+                <h4 class="modal-title">Modifica Sede Operativa</h4>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                    aria-label="Chiudi finestra modale"></button>
+            </div>
+            <div class="modal-body modal-body-update">
+                <div class="container">
+                    <div class="row">
+                        <div class="col select-wrapper mt-5">
+                            <label>Inserire la sede legale e le eventuali ulteriori sedi operative
+                                dell’organismo di mediazione:</label>
+                            <div class="form-check mt-5">
+                                <input name="gruppo1" [checked]="isLegale === false" [disabled]="true" type="radio"
+                                    class="with-gap" id="radio1">
+                                <label for="radio1">Sede Legale</label>
+                                <input name="gruppo2" [checked]="isLegale === true" [disabled]="true" type="radio"
+                                    class="with-gap" id="radio2">
+                                <label for="radio2">Sede operativa</label>
+                            </div>
+                        </div>
+                        <div class="col mt-5 select-wrapper">
+                            <label for="soggRichiedente">
+                                Titolo in virtù del quale si ha disponibilità della sede
+                                (per ciascuna sede, ivi inclusa quella legale)
+                                <span class="form-text riferimento-nomrmativa">(art. 6, co. 1, lett. m):</span>
+                            </label>
+                            <select type="text" [(ngModel)]="idTitoloDetezione"
+                                [ngClass]="{'color-invalid': validIdTitoloDetenzione === false}" id="soggRichiedente"
+                                class="data_input mt-4" (change)="checkIdTitoloDetenzione()">
+                                <option *ngFor="let singTitolo of titoliDetenzione"
+                                    [value]="singTitolo.idTitoloDetenzione">
+                                    {{ singTitolo.descrizione }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col mt-5 select-wrapper">
+                            <label for="isEstero" class="mt-4">Stato</label>
+                            <select type="text" [(ngModel)]="isEstero" id="isEstero" [value]="" class="data_input mt-4">
+                                <option [value]="'false'">Italia</option>
+                                <option [value]="'true'">Estero</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="row margin-row-top">
+                        <div class="col select-wrapper" *ngIf="isEstero === 'false'">
+                            <label for="comune" class="active">Comune</label>
+                            <input aria-expanded="false" [(ngModel)]="comuneScelto" (blur)="checkComuneScelto()"
+                                (input)="loadComune($event)" class="data_input" autocomplete="off" id="comune"
+                                type="text" [placeholder]="'Selezionare un comune'">
+                            <span style="color: red;" *ngIf="validComuneScelto === false">Obbligatorio</span>
+
+                            <ul *ngIf="showListComuni"
+                                class="autocomplete__menu autocomplete__menu--inline select-liste-ul"
+                                id="comuneAutocompleteListbox" role="listbox">
+                                <li aria-selected="false" class="autocomplete__option" role="option" tabindex="-1"
+                                    aria-posinset="1" aria-setsize="32" *ngFor="let comune of comuni"
+                                    (click)="selectComune(comune.idCodComune, comune.nomeComune + '(' + comune.regioneProvince.siglaProvincia + ')')">
+                                    {{comune.nomeComune + "(" + comune.regioneProvince.siglaProvincia + ")"}}
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col select-wrapper" *ngIf="isEstero === 'true'">
+                            <label for="comuneEstero" [ngClass]="{'active': !!comuneEstero}">
+                                Luogo
+                            </label>
+                            <input type="text" [(ngModel)]="comuneEstero" (blur)="checkComuneEstero()"
+                                class="data_input" id="comuneEstero" />
+                            <span style="color: red;" *ngIf="validComuneEstero === false">Obbligatorio</span>
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="capAltraSede" [ngClass]="{'active': !!cap}"
+                                [ngClass]="{'color-invalid': validCap === false}">
+                                Cap*
+                            </label>
+                            <input type="text" [(ngModel)]="cap" data-bs-input class="data_input"
+                                [ngClass]="{'input-invalid': validCap === false}" id="capAltraSede"
+                                (blur)="checkCap()" />
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="indirizzoAltraSede" [ngClass]="{'active': !!indirizzo}"
+                                [ngClass]="{'color-invalid': validIndirizzo === false}">
+                                Via/Piazza*
+                            </label>
+                            <input type="text" [(ngModel)]="indirizzo" data-bs-input class="data_input"
+                                id="indirizzoAltraSede" (blur)="checkIndirizzo()"
+                                [ngClass]="{'input-invalid': validIndirizzo === false}" />
+                        </div>
+                    </div>
+                    <div class="row margin-row-top">
+                        <div class="col select-wrapper">
+                            <label for="numeroAltraSede" [ngClass]="{'active': !!numeroCivico}"
+                                [ngClass]="{'color-invalid': validNumeroCivico === false}">
+                                Numero civico*
+                            </label>
+                            <input type="text" [(ngModel)]="numeroCivico" data-bs-input class="data_input"
+                                id="numeroAltraSede" (blur)="checkNumeroCivico()"
+                                [ngClass]="{'input-invalid': validNumeroCivico === false}" />
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="telefonoAltraSede" [ngClass]="{'active': !!telefono}"
+                                [ngClass]="{'color-invalid': validTelefono === false}">
+                                Telefono*
+                            </label>
+                            <input type="text" [(ngModel)]="telefono" data-bs-input class="data_input"
+                                id="telefonoAltraSede" (blur)="checkTelefono()"
+                                [ngClass]="{'input-invalid': validTelefono === false}" />
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="faxAltraSede" [ngClass]="{'active': !!fax}"
+                                >
+                                Fax
+                            </label>
+                            <input type="text" [(ngModel)]="fax" data-bs-input class="data_input" id="faxAltraSede"
+                                />
+                        </div>
+                    </div>
+                    <div class="row margin-row-top">
+                        <div class="col select-wrapper">
+                            <label for="pec" [ngClass]="{'active': !!pec}"
+                                [ngClass]="{'color-invalid': validPec === false}">
+                                Posta elettronica certificata*
+                            </label>
+                            <input type="text" [(ngModel)]="pec" data-bs-input class="data_input" id="pec"
+                                (blur)="checkPec()" [ngClass]="{'input-invalid': validPec === false}" />
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="emailAltraSede" [ngClass]="{'active': !!email}"
+                                [ngClass]="{'color-invalid': validEmail === false}">
+                                Altro indirizzo di posta elettronica*
+                            </label>
+                            <input type="text" [(ngModel)]="email" data-bs-input class="data_input" id="emailAltraSede"
+                                (blur)="checkEmail()" [ngClass]="{'input-invalid': validEmail === false}" />
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="sitoWebAltraSede" [ngClass]="{'active': !!sitoWeb}"
+                                [ngClass]="{'input-invalid': validSitoWeb === false}">
+                                Sito Web*
+                            </label>
+                            <input type="text" [(ngModel)]="sitoWeb" data-bs-input class="data_input"
+                                id="sitoWebAltraSede" (blur)="checkSitoWeb()"
+                                [ngClass]="{'color-invalid': validSitoWeb === false}" />
+                        </div>
+                    </div>
+                    <div class="row margin-row-top">
+                        <div class="col select-wrapper">
+                            <label for="registrazioneContratto" [ngClass]="{'active': !!registrazioneContratto}"
+                                [ngClass]="{'color-invalid': validRegistrazioneContratto === false}">
+                                Numero registrazione atto/contratto*
+                            </label>
+                            <input type="text" [(ngModel)]="registrazioneContratto" data-bs-input class="data_input"
+                                id="registrazioneContratto" (blur)="checkRegistrazioneContratto()"
+                                [ngClass]="{'input-invalid': validRegistrazioneContratto === false}" />
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="dataContratto" [ngClass]="{'active': true}"
+                                [ngClass]="{'color-invalid': validDataContratto === false}">
+                                Data atto/contratto*
+                            </label>
+                            <input class="data_input" [(ngModel)]="dataContratto" type="date" id="dataContratto"
+                                name="numeroCompo" data-focus-mouse="false" aria-invalid="false"
+                                (blur)="checkDataContratto()"
+                                [ngClass]="{'input-invalid': validDataContratto === false}">
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="durataContratto" [ngClass]="{'active': !!durataContratto}"
+                                [ngClass]="{'color-invalid': validDataContratto === false}">
+                                {{ idTitoloDetezione == 1 ? 'Durata contratto' : 'Durata contratto*' }}
+                            </label>
+                            <input type="text" [(ngModel)]="durataContratto" data-bs-input class="data_input"
+                                id="durataContratto" (blur)="checkDurataContratto()"
+                                [disabled]= "false || idTitoloDetezione == 1"
+                                [ngClass]="{'input-invalid': validDataContratto === false}" />
+                        </div>
+                    </div>
+                    <div class="row margin-row-top">
+                        <div class=" col select-wrapper mt-3">
+                            <label>Struttura organizzativa e di segreteria:</label>
+                        <div class="form-check mt-4">
+                            <input name="gruppo3" [checked]="struttOrganizzativaInput == true"
+                                (change)="struttOrganizzativaCheckboxChange(true)" type="radio" class="with-gap"
+                                id="radio3">
+                            <label for="radio3">SI</label>
+                            <input name="gruppo4" [checked]="struttOrganizzativaInput == false"
+                                (change)="struttOrganizzativaCheckboxChange(false)" type="radio" class="with-gap"
+                                id="radio4">
+                            <label for="radio4">NO</label>
+                        </div>
+                    </div>
+                    <div class="col select-wrapper">
+                        <label for="struttOrganizzativa" [ngClass]="{'active': !!struttOrganizzativa}" class="mt-4">
+                            Indicare la struttura organizzativa e di segreteria
+                        </label>
+                        <input type="text" [(ngModel)]="struttOrganizzativa" [disabled]="struttOrganizzativaInput"
+                            (blur)="checkStrutt()" data-bs-input class="data_input mt-5" id="struttOrganizzativa" />
+
+                    </div>
+                    <div class="col select-wrapper"></div>
+                    </div>
+                    <hr>
+                    <div class="row margin-row-top">
+                        <div class="col select-wrapper">
+                            <label for="allegatoCopContratto" class="" [ngClass]="{'active': true}">
+                                allega copia atto/contratto*
+                            </label>
+                            <input type="file" (change)="onFileAllegatoCopContrat($event)" data-bs-input
+                                class="data_input" id="allegatoCopContratto" accept=".pdf" />
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="allegatoPlanimetria" [ngClass]="{'active': true}">
+                                Allega copia planimetria*
+                            </label>
+                            <input type="file" (change)="onFileAllegatoPlanimetria($event)" data-bs-input
+                                class="data_input" id="allegatoPlanimetria" accept=".pdf" />
+                        </div>
+                        <div class="col select-wrapper"></div>
+                    </div>
+
+                    <!--  <button type="button" (click)="anteprimaPdf()"
+                    class="btn btn-primary float-end btn-menu-page-body btn-outline-primary">Prova</button> -->
+
+                    <div class="modal-footer">
+                        <button class="btn float-end btn-menu-page-body btn-outline-primary-min" data-bs-dismiss="modal"
+                            type="button">Annulla</button>
+                        <button type="button" (click)="updateSede()"
+                            class="btn btn-primary-min float-end btn-menu-page-body">Salva</button>
+
+                        <button id="closeModal" hidden type="button" data-bs-dismiss="modal">Close modal</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

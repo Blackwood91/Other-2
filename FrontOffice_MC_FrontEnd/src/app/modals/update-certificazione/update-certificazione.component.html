@@ -1,0 +1,49 @@
+<button type="button" hidden id="activeModalUpdateCert" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#modalUpdateCert"></button>
+
+<div class="modal fade bd-example-modal-xl" id="modalUpdateCert" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl modal-insert-voto-estero ">
+      <div class=" modal-content ">
+        <div class="modal-header">
+          <h4 class="modal-title">{{titolo}}</h4>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi finestra modale"></button>
+        </div>
+        <div class="modal-body modal-body-update">
+  
+            <div class="row"> 
+                <div class="col select-wrapper">
+                    <input type="file" (change)="onFilePdf($event)" data-bs-input class="data_input"
+                    id="allegatoCopContratto" accept=".pdf" />
+                </div>
+                <div class="col select-wrapper"></div>
+            </div>
+            <div class="row margin-row-top">
+                <div class="col select-wrapper">
+                    <label for="dataCertificazione" class="active">
+                        Data di conseguimento della Certificazione*
+                    </label>
+                    <input type="date" [(ngModel)]="dataCertificazione"
+                        class="data_input" id="dataCertificazione" />
+                    <!-- <span style="color:red" *ngIf="validDataCertificazione === false"> Obbligatorio </span> -->
+                </div>
+                <div class="col select-wrapper">
+                    <label for="enteCertificazione" class="active">
+                        Nome dell'Ente Certificatore*
+                    </label>
+                    <input type="text" [(ngModel)]="enteCertificatore"
+                        class="data_input" id="enteCertificazione" />
+                    <!-- <span style="color:red" *ngIf="validEnteCertificazione === false"> Obbligatorio </span> -->
+                </div>
+            </div>
+  
+        </div>
+  
+        <div class="modal-footer">
+          <div class="modal-footer">
+              <button class="btn float-end btn-menu-page-body btn-outline-primary-min" type="button" data-bs-dismiss="modal">Annulla</button>
+              <button class="btn btn-sm btn-primary-min" (click)="sendCertificazione()" type="button">Salva</button>
+              <button id="closeModal" hidden type="button" data-bs-dismiss="modal">Close modal</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

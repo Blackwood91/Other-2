@@ -1,0 +1,111 @@
+<div class="container mb-1 mt-1 pt-1">
+    <div class="row mt-4 mb-4">
+        <div class="col-12" role="region" aria-label="Nuova Utenza">
+            <h1 class="h6 fw-semibold color">Registrazione nuova Utenza</h1>
+            <hr />
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="select-wrapper ">
+                <label for="nome" [ngClass]="{'active': !!nome}">Nome</label>
+                <input type="text" [disabled]="true" class="form-control data_input" id="nome"
+                    [(ngModel)]="nome" />
+
+            </div>
+        </div>
+        <div class="col">
+            <div class="select-wrapper">
+                <label for="cognome" [ngClass]="{'active': !!cognome}">
+                    Cognome
+                </label>
+                <input type="text" class="form-control data_input" [(ngModel)]="cognome" [disabled]="true" data-bs-input
+                    id="cognome" />
+            </div>
+        </div>
+        <div class="col">
+            <div class="select-wrapper">
+                <label for="codiceFiscale" [ngClass]="{'active': !!codiceFiscale}">
+                    Codice Fiscale
+                </label>
+                <input type="text" [(ngModel)]="codiceFiscale" [disabled]="true" data-bs-input
+                    class="form-control data_input" id="codiceFiscale" />
+            </div>
+        </div>
+    </div>
+<div class="row">
+    <div class="col"></div>
+    <div class="col mt-3 mb-3">
+        <!--<h5 class="fw-semibold mt-3 color text-center">RAGIONE SOCIALE</h5>--></div>
+    <div class="col"></div>
+    <hr />
+
+</div>
+ 
+    <div class="row mt-4">
+        <div class="col">
+            <div class="select-wrapper">
+                <label for="ragioneSociale" [ngClass]="{'active': !!ragioneSociale}">
+                    Ragione Sociale
+                </label>
+                <input type="text" [(ngModel)]="ragioneSociale" data-bs-input class="form-control data_input" id="ragioneSociale" />
+            </div>
+        </div>
+        <div class="col">
+            <div class="select-wrapper">
+                <label for="pIva" [ngClass]="{'active': !!pIva}">
+                    Partita iva o Codice fiscale Società
+                </label>
+                <input type="text" [(ngModel)]="pIva" data-bs-input class="form-control data_input" id="pIva" />
+            </div>
+        </div>
+        <div class="col">
+            <div class="select-wrapper">
+                <label for="ruolo" [ngClass]="{'active': !!ruolo}">
+                    Ruolo
+                </label>
+                <input type="text" [(ngModel)]="ruolo" [disabled]="true" data-bs-input class="form-control data_input"
+                    id="ruolo" />
+            </div>
+        </div>
+
+    </div>
+    <div class="row mt-5">
+        <div class="col">
+            <div class="select-wrapper">
+                <label for="email" [ngClass]="{'active': !!email}">
+                    Email
+                </label>
+                <input type="text" [(ngModel)]="email" data-bs-input class="form-control data_input" id="email" />
+            </div>
+        </div>
+        <div class="col">
+            <div class="select-wrapper">
+                <label for="pec" [ngClass]="{'active': !!pec}">
+                    Pec
+                </label>
+                <input type="text" [(ngModel)]="pec" data-bs-input class="form-control data_input" id="pec" />
+            </div>
+        </div>
+        <div class="col">
+            <div class="select-wrapper">
+                <label for="tipoRichiesta">Richiede l'iscrizione per*</label>
+                <select class="form-select data_input" type="text form-select data_input" [(ngModel)]="tipoRichiesta"
+                    id="tipoRichiesta">
+                    <option [value]="'Organismo di Mediazione'">Organismo di Mediazione</option>
+                 <!--   <option [value]="'Organismo ADR'">Organismo ADR</option>
+                    <option [value]="'Ente di Formazione'">Ente di Formazione</option> -->
+                </select>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-footer mt-4" role="region" aria-label="fine inserimento">
+        <button type="button" (click)="backHome()"
+        data-bs-dismiss="modal" class="btn float-end btn-menu-page-body btn-outline-primary-min ">Annulla
+        </button> 
+        <button type="button" (click)="insertRichiestaRegistrazioneUser()"
+            class="btn btn-primary-min float-end btn-menu-page-body">Invia
+        </button>
+    </div>
+</div>

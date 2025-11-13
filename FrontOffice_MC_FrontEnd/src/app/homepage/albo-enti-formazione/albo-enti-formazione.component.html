@@ -1,0 +1,175 @@
+<button type="button" hidden id="activeModalSaveFile" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#modalSaveFile"></button>
+
+<div class="modal fade bd-example-modal-xl" id="modalSaveFile" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-insert-voto-estero modal-colossal">
+    <div class=" modal-content modal-content-colossal">
+      <div class="modal-header">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi finestra modale"></button>
+      </div>
+      <div class="modal-body">
+        <app-registro-elenco-pdg *ngIf="tipoPage === 'pdg'" [page] = "page" [numReg] = "numReg"></app-registro-elenco-pdg>
+        <app-registro-elenco-sedi *ngIf="tipoPage === 'sedi'" [page] = "page" [numReg] = "numReg"></app-registro-elenco-sedi>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container mb-1 mt-1 pt-1">
+  <div class="row ">
+      <div class="col-12" role="region" aria-label="atto riepilogativo">
+          <h1 class="h6 fw-semibold color text-center">ALBO DEGLI ENTI DI FORMAZIONE</h1>
+          <hr />
+      </div>
+  </div>
+</div>
+<!-- *ngIf="this.getRows() > 0" -->
+<div class="container text-left body">
+  <p>
+    <a class="ricerca" data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      Ricerca per Categorie
+      <svg class="bg-light icon align-middle svg-icon-table-td text-collapsed">
+        <use href="\assets\svg\sprites.svg#it-expand"></use>
+      </svg>
+      <svg class="bg-light icon align-middle svg-icon-table-td text-expanded">
+        <use href="\assets\svg\sprites.svg#it-collapse"></use>
+      </svg>
+    </a>
+  </p>
+  <div class="collapse" id="collapseExample">
+    <div class="row">
+      <div class="col">
+        <div class="searchBubble bubble-width">
+          <!-- <label for="categoriaRicerca">Cerca per Categoria</label> -->
+          <select type="text" class="option" [(ngModel)]="tipoRicerca" id="categoria" [value]="0"
+            (ngModelChange)="categorySelection()">
+            <option [value]="0">Denominazione Organismo</option>
+            <option [value]="1">Numero Registro Organismo</option>
+          </select>
+        </div>
+    </div> 
+    <div class="col">
+        <!-- <div class="searchBubble bubble-width2" [ngClass]="tipoRicerca != 4 ? 'lockedDropdown' : 'visible'">
+          <select type="text" class="option" [(ngModel)]="tipoDocente" id="categoria" [value]=""
+            (ngModelChange)="filterByMediatori(tipoDocente); attivaRicerca()">
+            <option [value]="4">Teorico</option>
+            <option [value]="5">Pratico</option>
+            <option [value]="6">Teorico e Pratico</option>
+          </select>
+        </div> -->
+      </div>
+        <div class="col col-width">
+          <div class="form-group">
+              <div class="input-group">
+                  <div class="input-group-prepend">
+                      <div class="input-group-text "><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                              height="16" class="bi bi-search fixImage" viewBox="0 0 16 16" aria-label="Ricerca"
+                              fill="#415559">
+                              <path
+                                  d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                              </path>
+                          </svg></div>
+                  </div>
+                  <label class="visually-hidden" for="input-group-3 ">Testo da cercare</label>
+                  <input type="search " [(ngModel)]="searchTextTable" (ngModelChange)="attivaRicerca()" type="text"
+                      class="form-control" id="Ricerca" placeholder="Testo da cercare">
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+    <table class="table table-hover" style="border: 1px solid #E0E0E0;">
+      <thead class="thead-voto-estero">
+        <tr>
+          <th scope="col" class="text-center" > </th>
+          <th scope="col" class="text-center" > N. Registro </th>
+          <th scope="col" class="text-center" > Denominazione Ente </th>
+          <th scope="col" class="text-center" > Sito Web </th>
+          <th scope="col" class="text-center" > E-Mail </th>
+          <th scope="col" class="text-center" > Natura Ente </th>
+          <th scope="col" class="text-center" > Codice Fiscale </th>
+          <th scope="col" class="text-center" > Partita IVA </th>
+          <th scope="col" class="text-center" > Cancellato/Sospeso </th>
+          <th scope="col" class="text-center" > Data Cancellazione Sospensione </th>
+        </tr>
+      </thead>
+      <tbody class="tbody-empty-table">
+        <td *ngIf="tableResult.length == 0; else elseBlock" colspan="16">
+            <p class="text-empty-table">Nessun risultato trovato</p>
+        </td>
+        <ng-template #elseBlock>
+            <ng-container *ngFor="let item of tableResult; let i = index">
+                <tr>
+              <td class="text-center">
+                <div class="div-column-icon">
+                <button type="button" class="btn btn-outline-primary btn-xs btn-me btn-min inlineButtons"
+                    aria-expanded="false" (click)="selectSedi(); openModal(item.numeroRegistro)">Sedi</button>
+                <button type="button" class="btn btn-outline-primary btn-xs btn-me btn-min inlineButtons"
+                    aria-expanded="false" (click)="selectPdg(); openModal(item.numeroRegistro)">PDG</button>  
+                  </div>
+              </td>
+              <!-- <td class="text-center"><u><a (click)="viewAnagrafica(item.idAnagrafica)">{{ item.cognome }}</a></u></td> -->
+              <td class="text-center">{{ item.numeroRegistro }}</td>
+              <td>{{ item.denominazione}}</td>
+              <td>{{ item.sitoWeb }}</td>
+              <td>{{ item.email }}</td>
+              <td class="text-center">{{ item.natura }}</td>
+              <td class="text-center">{{ item.codiceFiscale }}</td>
+              <td class="text-center">{{ item.partitaIva }}</td>
+              <td class="text-center">{{ item.cancellato === 1 ? 'SI':'NO' }}</td>
+              <td class="text-center">{{ item.dataCancellazione ? this.formatDate(item.dataCancellazione) : '' }}</td>   
+            </tr>
+          </ng-container>
+          </ng-template>
+      </tbody>
+    </table>
+    <nav class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+      <td class="text-center"> Totale: {{ this.getRows() }}</td>
+  </nav>
+    <nav class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+        <ul *ngIf="totalPage != 0" class="pagination mt-2">
+          <li *ngIf="indexPage == 1; else elsePageBefore" class="page-item disabled">
+            <a (click)="previousPage(indexPage)" class="page-link" style="color: #415559">Precedente
+              <span class="visually-hidden">Pagina precedente disabilitata</span>
+            </a>
+          </li>
+          <ng-template #elsePageBefore>
+            <li class="page-item">
+              <a (click)="previousPage(indexPage)" class="page-link" style="color: #415559">Precedente
+                <span class="visually-hidden">Pagina precedente</span>
+              </a>
+            </li>
+          </ng-template>
+          <ng-container>
+            <li *ngIf="(indexPage > 1)" class="page-item"><a (click)="cambiaPagina(indexPage - 1)"
+                class="page-link">{{indexPage - 1}}</a></li>
+            <li class="page-item active" style="color:#0F3E75">
+              <a class="page-link" (click)="cambiaPagina(indexPage)" aria-current="page">
+                <span class="d-inline-block d-sm-none">Pagina </span>{{indexPage}}
+              </a>
+            </li>
+            <li *ngIf="(indexPage + 1 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 1)"
+                class="page-link">{{indexPage + 1}}</a></li>
+            <li *ngIf="(indexPage + 2 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 2)"
+                class="page-link">{{indexPage + 2}}</a></li>
+            <li *ngIf="(indexPage + 3 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 3)"
+                class="page-link">{{indexPage + 3}}</a></li>
+          </ng-container>
+          <li *ngIf="totalPage > 1 else elsePageNext" class="page-item">
+            <a (click)="nextPage(indexPage)" class="page-link" style="color: #216FA3">Successiva
+              <span class="visually-hidden">Pagina successiva</span>
+            </a>
+          </li>
+          <ng-template #elsePageNext>
+            <li class="page-item disabled">
+              <a (click)="nextPage(indexPage)" class="page-link" style="color: #216FA3">Successiva
+                <span class="visually-hidden">Pagina successiva disabilitata</span>
+              </a>
+            </li>
+          </ng-template>
+        </ul>
+        <!--<p style="color:#2F475E">Stai visualizzando {{totalPage}} di {{totalResult}} elementi </p>--><!--testo a sinistra-->
+      </nav>
+</div>
+
+<!-- <app-registro-elenco-pdg [page] = "page"></app-registro-elenco-pdg> -->
+<!-- style="display: none; pointer-events: none;" -->

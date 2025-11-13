@@ -1,0 +1,28 @@
+<button type="button" hidden id="activeModalSaveFile" class="btn btn-primary " data-bs-toggle="modal" data-bs-target="#modalSaveFile"></button>
+
+<div class="modal fade bd-example-modal-xl" id="modalSaveFile" tabindex="-1" role="dialog" aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-insert-voto-estero ">
+    <div class=" modal-content ">
+      <div class="modal-header">
+        <h4 class="modal-title">{{titolo}}</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi finestra modale"></button>
+      </div>
+      <div class="modal-body modal-body-update">
+
+            <div class="row">
+                  <div class="col">
+                    <input type="file" (change)="onFilePdf($event)" data-bs-input class="data_input"
+                      id="allegatoCopContratto" accept=".pdf" />
+                  </div>
+                  <div class="col"></div>
+            </div>
+
+      </div>
+        <div class="modal-footer">
+            <button class="btn float-end btn-menu-page-body btn-outline-primary-min" type="button" data-bs-dismiss="modal">Annulla</button>
+            <button class="btn btn-primary-min float-end btn-menu-page-body" (click)="sendFile()" type="button">Salva</button>
+            <button id="closeModal" hidden type="button" data-bs-dismiss="modal">Close modal</button>
+        </div>
+    </div>
+  </div>
+</div>

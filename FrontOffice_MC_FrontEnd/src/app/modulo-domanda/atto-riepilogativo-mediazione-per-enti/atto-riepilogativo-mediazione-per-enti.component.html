@@ -1,0 +1,949 @@
+<div class="container mb-1 mt-1 pt-1">
+    <div class="row ">
+        <div class="col-12" role="region" aria-label="atto riepilogativo">
+            <h1 class="h6 fw-semibold color">ATTO RIEPILOGATIVO DEI DATI E REQUISITI DEGLI ORGANISMI DI MEDIAZIONE DI
+                CUI SI CHIEDE
+                L'ISCRIZIONE PER ENTI PRIVATI</h1>
+            <hr />
+        </div>
+    </div>
+</div>
+
+<div class="alert alert-info color-alert alert-bording alert-dismissible fade show"
+    style="border-radius: 4px !important" role="alert">
+    <h6 class="alert-heading">Note</h6>
+    <p>L'atto si compone di n.4 sezioni e n.6 appendici e deve essere sottoscritto dal legale
+        rappresentante del
+        richiedente.</p>
+</div>
+<div class="container">
+    <div class="accordion shadow-sm p-3 mb-5 bg-white">
+
+        <div class="accordion-item">
+            <h2 class="accordion-header" id="heading1c">
+                <button class="accordion-button collapsed collapse-sezioni" (click)="openSezione(1)" type="button"
+                    data-bs-toggle="collapse" data-bs-target="#collapse1c" aria-expanded="false" aria-controls="">
+                    Sezione Prima - Dati dell’organismo di mediazione
+                </button>
+            </h2>
+
+            <div id="collapse1c" class="accordion-collapse collapse" role="region" aria-labelledby="heading1c">
+                <hr/>
+
+                <div class="container">
+
+                    <div class="row margin-row-top">
+                        <div class="col select-wrapper">
+                            <label for="soggRichiedente" [ngClass]="{'color-invalid': validSoggRichiedente === false}">
+                                Richiedente*
+                            </label>
+                            <select type="text" class="data_input" [(ngModel)]="soggRichiedente"
+                                (change)="checkSoggRichiedente()" [disabled]="isModifica === false" id="soggRichiedente"
+                                [ngClass]="{'input-invalid': validSoggRichiedente === false}">
+                                <option *ngFor="let singSogg of selectSoggRichiedenti" [value]="singSogg.id">
+                                    {{ singSogg.soggettoRichiedente }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col select-wrapper">
+                            <p class="fw-semibold">Specificazione della natura dell'organismo di cui è chiesta
+                                l'iscrizione:*</p>
+                            <div class="form-check mt-5">
+                                <input name="gruppo1" [checked]="autonomo === true" [disabled]="isModifica === false"
+                                    (change)="autonomoCheckboxChange(true); emitAutonomo()" type="radio"
+                                    class="with-gap" id="radio1">
+                                <label for="radio1">Autonomo</label>
+                                <input name="gruppo2" [checked]="autonomo === false" [disabled]="isModifica === false"
+                                    (change)="autonomoCheckboxChange(false); emitAutonomo()" type="radio"
+                                    class="with-gap " id="radio2">
+                                <label for="radio2">Non autonomo</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="select-wrapper">
+                            <label for="oggSociale">Oggetto sociale</label>
+                            <p>Oggetto sociale/scopo associativo dell’organismo: svolgimento in via esclusiva di servizi
+                                di
+                                mediazione,
+                                conciliazione o risoluzione alternativa delle controversie o di formazione nei medesimi
+                                ambiti (art. 5, co. 1,
+                                lett. b), come da atto costitutivo e/o statuto allegato.</p>
+
+                            <textarea type="text" [(ngModel)]="oggSociale" [disabled]="isModifica === false"
+                                id="oggSociale" class="data_input"></textarea>
+                        </div>
+                    </div>
+
+                    <div class="row margin-row-top">
+                        <div class="col select-wrapper">
+                            <label for="dataAttoCost" class="active"
+                                [ngClass]="{'color-invalid': validDataAttoCosti === false}">
+                                Data atto costitutivo*
+                            </label>
+                            <input class="data_input" [(ngModel)]="dataAttoCosti" (blur)="checkDataAttoCosti()"
+                                [disabled]="isModifica === false" type="date" id="date" name="date" required=""
+                                data-focus-mouse="false" aria-invalid="false"
+                                [ngClass]="{'input-invalid': validDataAttoCosti === false}">
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="dataStatVig" [ngClass]="{'color-invalid': validDataStatutoVig === false}"
+                                class="active">
+                                Data statuto vigente*
+                            </label>
+                            <input class="data_input" [ngClass]="{'input-invalid': validDataStatutoVig === false}"
+                                [(ngModel)]="dataStatutoVig" (blur)="checkDataStatutoVig()"
+                                [disabled]="isModifica === false" type="date" id="date" name="date" required=""
+                                data-focus-mouse="false" aria-invalid="false">
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="codFiscale" [ngClass]="{'color-invalid': validCodiceFiscaleUno === false}"
+                                [ngClass]="{'active': !!codFiscSocieta}">
+                                Codice fiscale*
+                            </label>
+                            <input type="text" [ngClass]="{'input-invalid': validCodiceFiscaleUno === false}"
+                                [(ngModel)]="codFiscSocieta" [disabled]="isModifica === false" class="data_input"
+                                id="codFiscale" (blur)="checkCodiceFiscaleUno()" />
+                        </div>
+                    </div>
+                    <div class="row margin-row-top">
+                        <div class="col select-wrapper">
+                            <label for="piva" [ngClass]="{'color-invalid': validPiva === false}"
+                                [ngClass]="{'active': !!piva}">
+                                Partita iva*
+                            </label>
+                            <input type="text" [(ngModel)]="piva" (blur)="checkPiva()" [disabled]="isModifica === false"
+                                class="data_input" id="piva" [ngClass]="{'input-invalid': validPiva === false}" />
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="formaGiuridica" [ngClass]="{'color-invalid': validIdNaturaSoc === false}">
+                                Forma giuridica*
+                            </label>
+                            <select class="data_input" [ngClass]="{'input-invalid': validIdNaturaSoc === false}"
+                                type="text" [(ngModel)]="idNaturaSoc" (blur)="checkIdNaturaSoc()"
+                                [disabled]="isModifica === false" id="formaGiuridica">
+                                <option *ngFor="let singSoc of societa" [value]="singSoc.idNaturaSoc">
+                                    {{ singSoc.descrizione }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col form-check">
+                            <input id="checkboxIstEntPub" type="checkbox" [(ngModel)]="istitutoEntePub"
+                                [disabled]="isModifica === false">
+                            <label for="checkboxIstEntPub">(eventuale) istituito dal seguente ente pubblico</label>
+                        </div>
+                    </div>
+                    <div *ngIf="istitutoEntePub" class="row margin-row-top ">
+                        <div class="col select-wrapper">
+                            <label for="denominaOdmPub" [ngClass]="{'color-invalid': validPiva === false}"
+                                [ngClass]="{'active': !!denominaOdmPub}">
+                                Denominazione o Ragione Sociale
+                            </label>
+                            <input type="text" [(ngModel)]="denominaOdmPub" [disabled]="isModifica === false"
+                                class="data_input mb-3" id="denominaOdmPub"
+                                [ngClass]="{'input-invalid': validPiva === false}" />
+                        </div>
+                        <div class="col select-wrapper">
+                            <label for="idNaturaGiu" [ngClass]="{'color-invalid': validIdNaturaSoc === false}">
+                                Natura giuridica
+                            </label>
+                            <select type="text" class="data_input mb-3" [(ngModel)]="idNaturaGiu"
+                                [ngClass]="{'input-invalid': validIdNaturaSoc === false}"
+                                [disabled]="isModifica === false" id="idNaturaGiu">
+                                <option *ngFor="let natGiu of natureGiuridiche" [value]="natGiu.idNaturaGiuridica">
+                                    {{ natGiu.descrizione }}
+                                </option>
+                            </select>
+                        </div>
+                        <div class="col select-wrapper"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="heading2c">
+                    <button class="accordion-button collapsed collapse-sezioni" (click)="openSezione(2)" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#collapse2c" aria-expanded="false"
+                        aria-controls="collapse2c">
+                        Sezione Seconda - Dati del Rappresentante Legale
+                    </button>
+                </h2>
+                <div id="collapse2c" class="accordion-collapse collapse" role="region" aria-labelledby="heading2c">
+                    <hr/>
+                    <div class="container margin-row-top">
+                        <div class="row" style="padding-bottom: 3%;">
+                            <div class="col select-wrapper">
+                                <label for="titoloSS"
+                                    [ngClass]="{'color-invalid': validTitolo === false}">Titolo*</label>
+                                <select class="data_input" [ngClass]="{'input-invalid': validTitolo === false}"
+                                    type="text" [(ngModel)]="idTitolo" (change)="checkTitolo()"
+                                    [disabled]="isModifica === false" id="titoloSS">
+                                    <option *ngFor="let titolo of titoliAnagrafiche"
+                                        [value]="titolo.idTitoloAnagrafiche">
+                                        {{ titolo.descrizione }}
+                                    </option>
+                                </select>
+                            </div>
+                            <div class="col select-wrapper">
+                                <!-- <div class="form-group form-radio-intesta">
+                                    <p class="fw-semibold">Sesso*</p>
+                                </div> -->
+                                <label [ngClass]="{'color-invalid': validSesso === false}">Sesso*</label>
+                                <div class="form-check" style="padding-top: 4% !important;">
+                                    <input name="radio7" [(ngModel)]="sesso" [value]="'M'"
+                                        [disabled]="isModifica === false" type="radio" class="with-gap" id="radio7"
+                                        (blur)="checkSesso()">
+                                    <label for="radio7">Maschio</label>
+                                    <input name="radio8" [(ngModel)]="sesso" [value]="'F'" type="radio" class="with-gap"
+                                        id="radio8" [disabled]="isModifica === false" (blur)="checkSesso()">
+                                    <label for="radio8">Femmina</label>
+                                </div>
+                            </div>
+                            <div class="col select-wrapper">
+                                <label for="cognomeRapLegale" [ngClass]="{'active': !!cognome}"
+                                    [ngClass]="{'color-invalid': validCognome === false}">
+                                    Cognome*
+                                </label>
+                                <input type="text" [(ngModel)]="cognome" (blur)="checkCognome()"
+                                    [disabled]="isModifica === false" class="data_input"
+                                    [ngClass]="{'input-invalid': validCognome === false}" id="cognomeRapLegale" />
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col select-wrapper">
+                                <label for="nomeRapLegale" [ngClass]="{'active': !!nome}"
+                                    [ngClass]="{'color-invalid': validNome === false}">
+                                    Nome*
+                                </label>
+                                <input type="text" [(ngModel)]="nome" (blur)="checkNome()"
+                                    [disabled]="isModifica === false" class="data_input" id="nomeRapLegale"
+                                    [ngClass]="{'input-invalid': validNome === false}" />
+                            </div>
+                            <div class="col select-wrapper">
+                                <label for="dataRapLegale" class="active"
+                                    [ngClass]="{'color-invalid': validDataNascita === false}">
+                                    Data di nascita*
+                                </label>
+                                <input type="date" [(ngModel)]="dataNascita" (blur)="checkDataNascita()"
+                                    [disabled]="isModifica === false" class="data_input" id="dataNascita"
+                                    name="dataNascita" required="" data-focus-mouse="false" id="dataNascita"
+                                    [ngClass]="{'input-invalid': validDataNascita === false}" />
+                            </div>
+                            <div class="col select-wrapper">
+                                <label for="isEsteroNascita">Stato di nascita*</label>
+                                <select class="data_input" type="text" [(ngModel)]="isEsteroNascita"
+                                    [disabled]="isModifica === false" id="isEsteroNascita">
+                                    <option [value]="'false'">Italia</option>
+                                    <option [value]="'true'">Estero</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row margin-row-top">
+                            <div class="col select-wrapper" *ngIf="isEsteroNascita === 'true'">
+                                <label for="nomeStatoDiNasc" [ngClass]="{'active': !!statoNascita}"
+                                    [ngClass]="{'color-invalid': validStatoNascita === false}">
+                                    Nome Stato di nascita*
+                                </label>
+                                <input type="text" [(ngModel)]="statoNascita" (blur)="checkStatoNascita()"
+                                    [disabled]="isModifica === false" class="data_input" id="nomeStatoDiNasc"
+                                    [ngClass]="{'input-invalid': validStatoNascita === false}" />
+                            </div>
+                            <div class="col select-wrapper" *ngIf="isEsteroNascita === 'true'">
+                                <label for="comuneNascitaEstero" [ngClass]="{'active': !!comuneNascitaEstero}"
+                                    [ngClass]="{'color-invalid': validComuneNascitaEstero === false}">
+                                    Luogo di nascita*
+                                </label>
+                                <input type="text" [(ngModel)]="comuneNascitaEstero" (blur)="checkComuneNascitaEstero()"
+                                    [disabled]="isModifica === false" class="data_input" id="comuneNascitaEstero"
+                                    [ngClass]="{'input-invalid': validComuneNascitaEstero === false}" />
+                            </div>
+                            <div class="col select-wrapper" *ngIf="isEsteroNascita === 'false'">
+                                <label for="comune" class="active"
+                                    [ngClass]="{'color-invalid': validComuneSceltoNascita === false}">Luogo di
+                                    nascita*</label>
+                                <input aria-expanded="false" [(ngModel)]="comuneSceltoNascita"
+                                    (blur)="checkComuneSceltoNascita()" [disabled]="isModifica === false"
+                                    (input)="loadComuneNascita($event)" class="data_input" autocomplete="off"
+                                    id="comune" type="text" [placeholder]="'Selezionare un comune'"
+                                    [ngClass]="{'input-invalid': validComuneSceltoNascita === false}">
+
+                                <ul *ngIf="showListComuneNascita"
+                                    class="autocomplete__menu autocomplete__menu--inline autocomplete__menu--inline select-liste-ul"
+                                    id="comuneNascitaAutocompleteListbox" role="listbox">
+                                    <li aria-selected="false" class="autocomplete__option" role="option" tabindex="-1"
+                                        aria-posinset="1" aria-setsize="32" *ngFor="let comune of comuniNascita"
+                                        (click)="selectComuneNascita(comune.idCodComune, comune.nomeComune + ' (' + comune.regioneProvince.siglaProvincia + ')')">
+                                        {{comune.nomeComune + " (" + comune.regioneProvince.siglaProvincia + ")"}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col select-wrapper">
+                                <label for="codFiscaleRapLegale" [ngClass]="{'active': !!codiceFiscaleSS}"
+                                    [ngClass]="{'color-invalid': validCodiceFiscale === false}">
+                                    Codice fiscale*
+                                </label>
+                                <input type="text" [(ngModel)]="codiceFiscaleSS" (blur)="checkCodiceFiscale()"
+                                    [disabled]="isModifica === false" class="data_input" id="codFiscaleRapLegale"
+                                    [ngClass]="{'input-invalid': validCodiceFiscale === false}" />
+                            </div>
+                            <div class="col select-wrapper" *ngIf="isEsteroNascita === 'false'">
+                                <label for="cittaRapSoc" [ngClass]="{'active': !!cittadinanza}"
+                                    [ngClass]="{'color-invalid': validCittadinanza === false}">
+                                    Cittadinanza*
+                                </label>
+                                <input type="text" [(ngModel)]="cittadinanza" (blur)="checkCittadinanza()"
+                                    [disabled]="isModifica === false" class="data_input" id="cittaRapSoc"
+                                    [ngClass]="{'input-invalid': validCittadinanza === false}" />
+                            </div>
+                        </div>
+                        <div class="row margin-row-top">
+                            <div class="col select-wrapper" *ngIf="isEsteroNascita === 'true'">
+                                <label for="cittaRapSoc" [ngClass]="{'active': !!cittadinanza}"
+                                    [ngClass]="{'color-invalid': validCittadinanza === false}">
+                                    Cittadinanza*
+                                </label>
+                                <input type="text" [(ngModel)]="cittadinanza" (blur)="checkCittadinanza()"
+                                    [disabled]="isModifica === false" class="data_input" id="cittaRapSoc"
+                                    [ngClass]="{'input-invalid': validCittadinanza === false}" />
+                            </div>
+                            <div class="col select-wrapper">
+                                <label for="pecRapLegale" [ngClass]="{'active': !!indirizzoPec}"
+                                    [ngClass]="{'color-invalid': validIndirizzoPec === false}">
+                                    Indirizzo PEC*
+                                </label>
+                                <input type="text" [(ngModel)]="indirizzoPec" (blur)="checkIndirizzoPec()"
+                                    [disabled]="isModifica === false" class="data_input" id="pecRapLegale"
+                                    [ngClass]="{'input-invalid': validIndirizzoPec === false}" />
+                            </div>
+                            <div class="col select-wrapper">
+                                <label for="emailRapLegale" [ngClass]="{'active': !!indirizzoEmail}"
+                                    [ngClass]="{'color-invalid': validIndirizzoEmail === false}">
+                                    Altro indirizzo Email*
+                                </label>
+                                <input type="text" [(ngModel)]="indirizzoEmail" (blur)="checkIndirizzoEmail()"
+                                    [disabled]="isModifica === false" class="data_input" id="emailRapLegale"
+                                    [ngClass]="{'input-invalid': validIndirizzoEmail === false}" />
+                            </div>
+                            <div class="col select-wrapper" *ngIf="isEsteroNascita === 'false'"></div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="container ">
+                        <p class="fw-semibold">Residenza:</p>
+                        <div class="row margin-row-top">
+                            <div class="col select-wrapper">
+                                <label for="isEsteroResidenza">Stato di Residenza*</label>
+                                <select type="text" [(ngModel)]="isEsteroResidenza" [disabled]="isModifica === false"
+                                    id="isEsteroResidenza" class="form-select data_input">
+                                    <option [value]="'false'">Italia</option>
+                                    <option [value]="'true'">Estero</option>
+                                </select>
+                            </div>
+                            <div class="col select-wrapper" *ngIf="isEsteroResidenza == 'false'">
+                                <label for="comune" class="active"
+                                    [ngClass]="{'color-invalid': validComuneSceltoResidenza === false}">Comune*</label>
+                                <input aria-expanded="false" [(ngModel)]="comuneSceltoResidenza"
+                                    (blur)="checkComuneSceltoResidenza()" [disabled]="isModifica === false"
+                                    (input)="loadComuneResidenza($event)" class="data_input" autocomplete="off"
+                                    id="comune" type="text" [placeholder]="'Digitare le iniziali di un Comune'"
+                                    [ngClass]="{'input-invalid': validComuneSceltoResidenza === false}">
+
+                                <ul *ngIf="showListComuneResidenza"
+                                    class="autocomplete__menu autocomplete__menu--inline autocomplete__menu--inline select-liste-ul"
+                                    id="comuneResidenzaAutocompleteListbox" role="listbox">
+                                    <li aria-selected="false" class="autocomplete__option" role="option" tabindex="-1"
+                                        aria-posinset="1" aria-setsize="32" *ngFor="let comune of comuniResidenza"
+                                        (click)="selectComuneResidenza(comune.idCodComune, comune.nomeComune + ' (' + comune.regioneProvince.siglaProvincia + ')')">
+                                        {{comune.nomeComune + " (" + comune.regioneProvince.siglaProvincia + ")"}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col select-wrapper" *ngIf="isEsteroResidenza == 'true'">
+                                <label for="comuneResidenzaEstero" [ngClass]="{'active': !!comuneResidenzaEstero}"
+                                    [ngClass]="{'color-invalid': validComuneResidenzaEstero === false}">
+                                    Luogo di residenza*
+                                </label>
+                                <input type="text" [(ngModel)]="comuneResidenzaEstero"
+                                    (blur)="checkComuneResidenzaEstero()" [disabled]="isModifica === false"
+                                    [ngClass]="{'input-invalid': validComuneResidenzaEstero === false}"
+                                    class="data_input" id="comuneResidenzaEstero" />
+                            </div>
+                            <div class="col select-wrapper" *ngIf="isEsteroResidenza == 'true'">
+                                <label for="statoDiResidenza" [ngClass]="{'active': !!statoResidenza}"
+                                    [ngClass]="{'color-invalid': validStatoResidenza === false}">
+                                    Nome Stato di residenza*
+                                </label>
+                                <input type="text" [(ngModel)]="statoResidenza" (blur)="checkStatoResidenza()"
+                                    [ngClass]="{'input-invalid': validStatoResidenza === false}"
+                                    [disabled]="isModifica === false" class="data_input" id="statoDiResidenza" />
+                            </div>
+                            <div class="col select-wrapper" *ngIf="isEsteroResidenza == 'false'">
+                                <label for="indirizzoResidenza" [ngClass]="{'active': !!indirizzoResidenza}"
+                                    [ngClass]="{'color-invalid': validIndirizzoResidenza === false}">
+                                    Via/Piazza*
+                                </label>
+                                <input type="text" [(ngModel)]="indirizzoResidenza" [disabled]="isModifica === false"
+                                    [ngClass]="{'input-invalid': validIndirizzoResidenza === false}" class="data_input"
+                                    id="indirizzoResidenza" (blur)="checkIndirizzoResidenza()" />
+                            </div>
+                        </div>
+                        <div class="row margin-row-top">
+                            <div class="col select-wrapper" *ngIf="isEsteroResidenza == 'true'">
+                                <label for="indirizzoResidenza" [ngClass]="{'active': !!indirizzoResidenza}"
+                                    [ngClass]="{'color-invalid': validIndirizzoResidenza === false}">
+                                    Via/Piazza*
+                                </label>
+                                <input type="text" [(ngModel)]="indirizzoResidenza" [disabled]="isModifica === false"
+                                    [ngClass]="{'input-invalid': validIndirizzoResidenza === false}" class="data_input"
+                                    id="indirizzoResidenza" (blur)="checkIndirizzoResidenza()" />
+                            </div>
+                            <div class="col select-wrapper">
+                                <label for="numeroCivicoResidenza" [ngClass]="{'active': !!numeroCivicoResidenza}"
+                                    [ngClass]="{'color-invalid': validNumeroCivicoResidenza === false}">
+                                    Numero civico*
+                                </label>
+                                <input type="text" [(ngModel)]="numeroCivicoResidenza" [disabled]="isModifica === false"
+                                    class="data_input" id="numeroCivicoResidenza"
+                                    [ngClass]="{'input-invalid': validNumeroCivicoResidenza === false}"
+                                    (blur)="checkNumeroCivicoResidenza()" />
+                            </div>
+                            <div class="col select-wrapper">
+                                <label for="capResidenza" [ngClass]="{'active': !!capResidenza}"
+                                    [ngClass]="{'color-invalid': validCapResidenza === false}">
+                                    Cap*
+                                </label>
+                                <input type="text" [(ngModel)]="capResidenza" [disabled]="isModifica === false"
+                                    class="data_input" id="capResidenza" (blur)="checkCapResidenza()"
+                                    [ngClass]="{'input-invalid': validCapResidenza === false}" />
+                            </div>
+                            <div class="col select-wrapper" *ngIf="isEsteroResidenza == 'false'"></div>
+                        </div>
+                        <hr>
+                    </div>
+                    <div class="row container margin-row-top">
+                        <div class="form-check">
+                            <input id="checkboxDomicilio" type="checkbox" [(ngModel)]="domicilio"
+                                [disabled]="isModifica === false">
+                            <label for="checkboxDomicilio" class="fw-semibold">Domicilio (se diverso dalla
+                                residenza):</label>
+                        </div>
+                    </div> 
+                    <div *ngIf="domicilio">
+                        <div class="row margin-row-top">
+                            <div class="col select-wrapper">
+                                <label for="isEsteroDomicilio">Stato di domicilio</label>
+                                <select type="text" [(ngModel)]="isEsteroDomicilio"
+                                    id="isEsteroDomicilio" class="data_input">
+                                    <option [value]="'false'">Italia</option>
+                                    <option [value]="'true'">Estero</option>
+                                </select>
+                            </div>
+                
+                            <div class="col select-wrapper" *ngIf="isEsteroDomicilio == 'false'">
+                                <label for="comuneDomicilio" class="active">Comune</label>
+                                <input aria-expanded="false" [(ngModel)]="comuneSceltoDomicilio"
+                                    (input)="loadComuneDomicilio($event)" class="data_input" autocomplete="off" id="comuneDomicilio"
+                                    type="text" [placeholder]="'Digitare le iniziali di un Comune'">
+                
+                                <ul *ngIf="showListComuneDomicilio"
+                                    class="autocomplete__menu autocomplete__menu--inline autocomplete__menu--inline select-liste-ul"
+                                    id="comuneDomicilioAutocompleteListbox" role="listbox">
+                                    <li aria-selected="false" class="autocomplete__option" role="option" tabindex="-1" aria-posinset="1"
+                                        aria-setsize="32" *ngFor="let comune of comuniDomicilio"
+                                        (click)="selectComuneDomicilio(comune.idCodComune, comune.nomeComune + ' (' + comune.regioneProvince.siglaProvincia + ')')">
+                                        {{comune.nomeComune + " (" + comune.regioneProvince.siglaProvincia + ")"}}
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col select-wrapper" *ngIf="isEsteroDomicilio == 'true'">
+                                <label for="comuneDomicilioEstero" [ngClass]="{'active': !!comuneDomicilioEstero}">
+                                    Luogo di domicilio
+                                </label>
+                                <input type="text" [(ngModel)]="comuneDomicilioEstero"
+                                    class="data_input" id="comuneDomicilioEstero" />
+                            </div>
+                            <div class="col select-wrapper" *ngIf="isEsteroDomicilio == 'true'">
+                                <label for="statoDomicilio" [ngClass]="{'active': !!statoDomicilio}">
+                                    Nome Stato di domicilio
+                                </label>
+                                <input type="text" [(ngModel)]="statoDomicilio" class="data_input"
+                                    id="statoDomicilio" />
+                            </div>
+                            <div *ngIf="isEsteroDomicilio === 'false'" class="col select-wrapper">
+                                <label for="indirizzoDomicilio" [ngClass]="{'active': !!indirizzoDomicilio}">
+                                    Via/Piazza*
+                                </label>
+                                <input type="text" [(ngModel)]="indirizzoDomicilio" class="data_input"
+                                    id="indirizzoDomicilio"/>
+                            </div>
+                        </div>
+                        
+                        <div class="row margin-row-top">
+                            <div *ngIf="isEsteroDomicilio === 'true'" class="col select-wrapper">
+                                <label for="indirizzoDomicilio" [ngClass]="{'active': !!indirizzoDomicilio}">
+                                    Via/Piazza*
+                                </label>
+                                <input type="text" [(ngModel)]="indirizzoDomicilio" class="data_input"
+                                    id="indirizzoDomicilio"/>
+                            </div>
+                            <div class="col select-wrapper">
+                                <label for="numeroDomicilio" [ngClass]="{'active': !!numeroCivicoDomicilio}">
+                                    Numero Civico*
+                                </label>
+                                <input type="text" [(ngModel)]="numeroCivicoDomicilio"
+                                    class="data_input" id="numeroDomicilio"/>
+                            </div>
+                            <div class="col select-wrapper">
+                                <label for="capDomicilio" [ngClass]="{'active': !!capDomicilio}">
+                                    Cap*
+                                </label>
+                                <input type="text" [(ngModel)]="capDomicilio" class="data_input"
+                                    id="capDomicilio"/>
+                            </div>
+                            <div class="col select-wrapper" *ngIf="isEsteroDomicilio == 'false'"></div>
+                        </div>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading3c">
+            <button class="accordion-button collapsed collapse-sezioni" (click)="openSezione(3)" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapse3c" aria-expanded="false" aria-controls="collapse3c">
+                Sezione Terza - Eventuali ulteriori sedi operative dell’organismo di mediazione
+            </button>
+        </h2>
+        <div id="collapse3c" class="accordion-collapse collapse" role="region" aria-labelledby="">
+            <hr/>
+            <div class="container text-left body margin-row-top">
+                <table class="table table-hover" style="border: 1px solid #E0E0E0;">
+                    <thead class="thead-voto-estero">
+                        <tr>
+                            <th scope="col" class="text-center">Sita in</th>
+                            <th scope="col" class="text-center">Detenuta a titolo</th>
+                            <th scope="col" class="text-center">Data contratto</th>
+                            <th scope="col" class="text-center">Planimetria</th>
+                            <th scope="col" class="text-center">Contratto</th>
+                            <th scope="col" class="text-center">Data inserimento</th>
+
+                        </tr>
+                    </thead>
+                    <tbody class="tbody-empty-table">
+                        <td *ngIf="tableResultSO.length == 0; else elseBlock" colspan="16">
+                            <p class="text-empty-table">Nessun risultato trovato</p>
+                        </td>
+                        <ng-template #elseBlock>
+                            <ng-container *ngFor="let item of tableResultSO; let i = index">
+                                <tr>
+                                    <td class="text-center">{{item.nomeComune + " " + "(" + item.siglaProvincia
+                                        + ")" + " " }}
+                                        <br>
+                                        {{item.indirizzo + " " + "n." + " " + item.numeroCivico}}
+                                        <br *ngIf="item.sedeLegale == '1'">
+                                        <b *ngIf="item.sedeLegale == '1'">{{item.sedeLegale == "1" ? " [SEDE LEGALE]" :
+                                            "" }}</b>
+                                    </td>
+                                    <td class="text-center">{{item.detenzioneTitolo}}</td>
+                                    <td class="text-center">{{formatDate(item.dataContratto)}}</td>
+                                    <td class="text-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                            (click)="getFilePlanimetria(item.idSede)"
+                                            [ngClass]="{'bg-light icon align-middle svg-icon-table-td': true}"
+                                            style="margin-top: 4% !important; margin-left: 7.5%;"
+                                            class="bg-light icon align-middle svg-icon-table-td"
+                                            viewBox="0 0 19.5 19.5">
+                                            <path
+                                                d="M5.523 12.424c.14-.082.293-.162.459-.238a7.878 7.878 0 0 1-.45.606c-.28.337-.498.516-.635.572a.266.266 0 0 1-.035.012.282.282 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548zm2.455-1.647c-.119.025-.237.05-.356.078a21.148 21.148 0 0 0 .5-1.05 12.045 12.045 0 0 0 .51.858c-.217.032-.436.07-.654.114zm2.525.939a3.881 3.881 0 0 1-.435-.41c.228.005.434.022.612.054.317.057.466.147.518.209a.095.095 0 0 1 .026.064.436.436 0 0 1-.06.2.307.307 0 0 1-.094.124.107.107 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256zM8.278 6.97c-.04.244-.108.524-.2.829a4.86 4.86 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.517.517 0 0 1 .145-.04c.013.03.028.092.032.198.005.122-.007.277-.038.465z">
+                                            </path>
+                                            <path fill-rule="evenodd"
+                                                d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3zM4.165 13.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.651 11.651 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.856.856 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.844.844 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.76 5.76 0 0 0-1.335-.05 10.954 10.954 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.238 1.238 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a19.697 19.697 0 0 1-1.062 2.227 7.662 7.662 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103z">
+                                            </path>
+                                        </svg>
+                                    </td>
+                                    <td class="text-center">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                            (click)="getFileCopiaContratto(item.idSede)"
+                                            [ngClass]="{'bg-light icon align-middle svg-icon-table-td': true}"
+                                            style="margin-top: 4% !important; margin-left: 7.5%;"
+                                            class="bg-light icon align-middle svg-icon-table-td"
+                                            viewBox="0 0 19.5 19.5">
+                                            <path
+                                                d="M5.523 12.424c.14-.082.293-.162.459-.238a7.878 7.878 0 0 1-.45.606c-.28.337-.498.516-.635.572a.266.266 0 0 1-.035.012.282.282 0 0 1-.026-.044c-.056-.11-.054-.216.04-.36.106-.165.319-.354.647-.548zm2.455-1.647c-.119.025-.237.05-.356.078a21.148 21.148 0 0 0 .5-1.05 12.045 12.045 0 0 0 .51.858c-.217.032-.436.07-.654.114zm2.525.939a3.881 3.881 0 0 1-.435-.41c.228.005.434.022.612.054.317.057.466.147.518.209a.095.095 0 0 1 .026.064.436.436 0 0 1-.06.2.307.307 0 0 1-.094.124.107.107 0 0 1-.069.015c-.09-.003-.258-.066-.498-.256zM8.278 6.97c-.04.244-.108.524-.2.829a4.86 4.86 0 0 1-.089-.346c-.076-.353-.087-.63-.046-.822.038-.177.11-.248.196-.283a.517.517 0 0 1 .145-.04c.013.03.028.092.032.198.005.122-.007.277-.038.465z">
+                                            </path>
+                                            <path fill-rule="evenodd"
+                                                d="M4 0h5.293A1 1 0 0 1 10 .293L13.707 4a1 1 0 0 1 .293.707V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2zm5.5 1.5v2a1 1 0 0 0 1 1h2l-3-3zM4.165 13.668c.09.18.23.343.438.419.207.075.412.04.58-.03.318-.13.635-.436.926-.786.333-.401.683-.927 1.021-1.51a11.651 11.651 0 0 1 1.997-.406c.3.383.61.713.91.95.28.22.603.403.934.417a.856.856 0 0 0 .51-.138c.155-.101.27-.247.354-.416.09-.181.145-.37.138-.563a.844.844 0 0 0-.2-.518c-.226-.27-.596-.4-.96-.465a5.76 5.76 0 0 0-1.335-.05 10.954 10.954 0 0 1-.98-1.686c.25-.66.437-1.284.52-1.794.036-.218.055-.426.048-.614a1.238 1.238 0 0 0-.127-.538.7.7 0 0 0-.477-.365c-.202-.043-.41 0-.601.077-.377.15-.576.47-.651.823-.073.34-.04.736.046 1.136.088.406.238.848.43 1.295a19.697 19.697 0 0 1-1.062 2.227 7.662 7.662 0 0 0-1.482.645c-.37.22-.699.48-.897.787-.21.326-.275.714-.08 1.103z">
+                                            </path>
+                                        </svg>
+                                    </td>
+                                    <td class="text-center">{{formatDate(item.dataInserimentoSede)}}</td>
+                                </tr>
+                            </ng-container>
+                        </ng-template>
+                    </tbody>
+                </table>
+                <nav class="pagination-wrapper justify-content-center color-pagination"
+                    aria-label="Navigazione centrata">
+                    <ul *ngIf="totalPageSO != 0" class="pagination mt-2">
+                        <li *ngIf="indexPageSO == 1; else elsePageBefore" class="page-item disabled">
+                            <a (click)="previousPageSO(indexPageSO)" class="page-link" style="color: #415559">Precedente
+                                <span class="visually-hidden">Pagina precedente disabilitata</span>
+                            </a>
+                        </li>
+                        <ng-template #elsePageBefore>
+                            <li class="page-item">
+                                <a (click)="previousPageSO(indexPageSO)" class="page-link"
+                                    style="color: #415559">Precedente
+                                    <span class="visually-hidden">Pagina precedente</span>
+                                </a>
+                            </li>
+                        </ng-template>
+                        <ng-container>
+                            <li *ngIf="(indexPageSO > 1)" class="page-item"><a (click)="cambiaPaginaSO(indexPageSO - 1)"
+                                    class="page-link">{{indexPageSO -
+                                    1}}</a></li>
+                            <li class="page-item active" style="color:#0F3E75">
+                                <a class="page-link" (click)="cambiaPaginaSO(indexPageSO)" aria-current="page">
+                                    <span class="d-inline-block d-sm-none">Pagina </span>{{indexPageSO}}
+                                </a>
+                            </li>
+                            <li *ngIf="(indexPageSO + 1 <= totalPageSO)" class="page-item"><a
+                                    (click)="cambiaPaginaSO(indexPageSO + 1)" class="page-link">{{indexPageSO +
+                                    1}}</a></li>
+                            <li *ngIf="(indexPageSO + 2 <= totalPageSO)" class="page-item"><a
+                                    (click)="cambiaPaginaSO(indexPageSO + 2)" class="page-link">{{indexPageSO +
+                                    2}}</a></li>
+                            <li *ngIf="(indexPageSO + 3 <= totalPageSO)" class="page-item"><a
+                                    (click)="cambiaPaginaSO(indexPageSO + 3)" class="page-link">{{indexPageSO +
+                                    3}}</a></li>
+                        </ng-container>
+                        <li *ngIf="totalPageSO > 1 else elsePageNext" class="page-item">
+                            <a (click)="nextPageSO(indexPageSO)" class="page-link" style="color: #216FA3">Successiva
+                                <span class="visually-hidden">Pagina successiva</span>
+                            </a>
+                        </li>
+                        <ng-template #elsePageNext>
+                            <li class="page-item disabled">
+                                <a (click)="nextPageSO(indexPageSO)" class="page-link" style="color: #216FA3">Successiva
+                                    <span class="visually-hidden">Pagina successiva disabilitata</span>
+                                </a>
+                            </li>
+                        </ng-template>
+                    </ul>
+                </nav>
+            </div>
+
+            <div style="display: flex; justify-content:end;"><button class="btn btn-secondary-min btn-sm mt-2 mb-2"
+                    (click)="routerGestioneSedi()" type="button">Gestione Sedi</button></div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="heading4c">
+            <button class="accordion-button collapsed collapse-sezioni" (click)="openSezione(4)" type="button"
+                data-bs-toggle="collapse" data-bs-target="#collapse4c" aria-expanded="false" aria-controls="collapse4c">
+                Sezione Quarta - Requisiti di iscrizione
+            </button>
+        </h2>
+        <div id="collapse4c" class="accordion-collapse collapse" role="region" aria-labelledby="">
+        <hr/>
+            <div class="container">
+                <div class="row ">
+                    <p class="text-justify">Il richiedente, nella sua qualità, al fine di dimostrare il possesso dei
+                        requisiti
+                        di cui al decreto ministeriale 24 ottobre 2023 n. 150, consapevole delle sanzioni penali
+                        previste per le ipotesi di dichiarazioni mendaci ai sensi degli articoli 48 e 76 del d.P.R.
+                        28 dicembre 2000 n. 445, sotto la propria responsabilità,</p>
+                </div>
+                <div class="row ">
+                    <h6 class="text-center fw-bold">DICHIARA</h6>
+                    <br><br><br>
+                    <div class="col select-wrapper mt-3">
+                        <label for="numeroComponentiOA" class='active label-long'
+                            [ngClass]="{'color-invalid': validNumeroComponentiOA === false}">
+                            Numero componenti organo amministrazione (se previsto):*
+                        </label>
+                        <input type="number" [(ngModel)]="numeroComponentiOA" [disabled]="isModifica === false"
+                            class="data_input" id="numeroComponentiOA" (blur)="checkNumeroComponentiOA()"
+                            [ngClass]="{'input-invalid': validNumeroComponentiOA === false}" />
+                    </div>
+                    <div class="col select-wrapper mt-3">
+                        <label for="numeroComponentiCS" class='active'
+                            [ngClass]="{'color-invalid': validNumeroComponentiCS === false}">
+                            Numero componenti compagine sociale:*
+                        </label>
+                        <input type="number" [(ngModel)]="numeroComponentiCS" [disabled]="isModifica === false"
+                            class="data_input" id="numeroComponentiCS" (blur)="checkNumeroComponentiCS()"
+                            [ngClass]="{'input-invalid': validNumeroComponentiCS === false}" />
+                    </div>
+                </div>
+                <div class="row margin-row-top">
+                    <div class="col select-wrapper">
+                        <label for="durataCarica" class='active'
+                            [ngClass]="{'color-invalid': validDurataCarica === false}">
+                            Durata della carica:*
+                        </label>
+                        <input type="text" [(ngModel)]="durataCarica" [disabled]="isModifica === false"
+                            class="data_input" id="durataCarica" (blur)="checkDurataCarica()"
+                            [ngClass]="{'input-invalid': validDurataCarica === false}" />
+                    </div>
+                    <div class="col select-wrapper">
+                        <label for="modCostOrg" class='active' [ngClass]="{'color-invalid': validModCostOrg === false}">
+                            Modalità di costituzione dell’organismo:*
+                        </label>
+                        <select type="text" [(ngModel)]="modCostOrg" (blur)="checkModCostOrg()"
+                            (change)="checkSoggRichiedente()" [disabled]="isModifica === false" id="modCostOrg"
+                            class="data_input" [ngClass]="{'input-invalid': validModCostOrg === false}">
+                            <option *ngFor="let modSing of listModCostOrg" [value]="modSing.id">
+                                {{ modSing.descrizione }}
+                            </option>
+                        </select>
+                    </div>
+                </div>
+                <div class="row margin-row-top">
+                    <div class="col select-wrapper">
+                        <label for="dataCostituzione" class='active'
+                            [ngClass]="{'color-invalid': validDataCostituzione === false}">
+                            Data di costituzione dell’organismo:*
+                        </label>
+                        <input class="data_input" [(ngModel)]="dataCostituzione" [disabled]="isModifica === false"
+                            type="date" id="dataCostituzione" name="dataCostituzione" data-focus-mouse="false"
+                            aria-invalid="false" (blur)="checkDataCostituzione()"
+                            [ngClass]="{'input-invalid': validDataCostituzione === false}">
+                    </div>
+                    <div class="col select-wrapper">
+                        <p class="fw-semibold">Società di nuova costituzione
+                            (non disponibile bilancio anno precedente):*</p>
+                        <div class="form-check mt-5">
+                            <input name="gruppo3" [checked]="autonomo === true" [disabled]="isModifica === false"
+                                (change)="autonomoCheckboxChange(true)" type="radio" class="with-gap" id="radio3">
+                            <label for="radio3">Si</label>
+                            <input name="gruppo4" [checked]="autonomo === false" [disabled]="isModifica === false"
+                                (change)="autonomoCheckboxChange(false)" type="radio" class="with-gap" id="radio4">
+                            <label for="radio4">No</label>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col select-wrapper">
+                        <label for="personaleServizio" class='active'
+                            [ngClass]="{'color-invalid': validNumPersonaleAddetto === false}">
+                            Personale addetto al servizio:*
+                        </label>
+                        <input type="number" [(ngModel)]="numPersonaleAdetto"
+                            [ngClass]="{'input-invalid': validNumPersonaleAddetto === false}"
+                            [disabled]="isModifica === false" class="data_input" id="personaleServizio"
+                            (blur)="checkNumPersonaleAddetto()" />
+                    </div>
+                    <div class="col select-wrapper">
+                        <label for="fontiFinanziamento" class='active'
+                            [ngClass]="{'color-invalid': validFontiFinanziamento === false}">
+                            Fonti di finanziamento:*
+                        </label>
+                        <input type="text" [(ngModel)]="fontiFinanziamento" [disabled]="isModifica === false"
+                            class="data_input" id="fontiFinanziamento" (blur)="checkFontiFinanziamento()"
+                            [ngClass]="{'input-invalid': validFontiFinanziamento === false}" />
+                        <small class="form-text riferimento-nomrmativa">(art. 6, co. 1, lett.
+                            b)</small>
+                    </div>
+                </div>
+                <div class="row margin-row-top">
+                    <div class="col select-wrapper">
+                        <label for="durataOrganismo" class='active label-long'>
+                            Durata costituzione Organismo (in particolare pari a):
+                        </label>
+                        <input type="text" [(ngModel)]="durataOrganismo" [disabled]="isModifica === false"
+                            class="data_input" id="durataOrganismo" (blur)="checkDurata()"
+                            [ngClass]="{'input-invalid': durataOK === false}" />
+                        <span style="color:red" *ngIf="durataOK === false"> Non inferiore a 5 anni </span>
+                        <!-- <span style="color:red" *ngIf="!checkCapResidenza()"> Obbligatorio </span> -->
+                        <small class="form-text riferimento-nomrmativa">(art. 6, co. 1,
+                            lett. d)</small>
+                    </div>
+                    <div class="col select-wrapper">
+                        <label for="respOrganismo" class='active'>
+                            Responsabile dell’organismo
+                        </label>
+                        <input type="text" [(ngModel)]="respOrganismo" [disabled]="true" class="data_input"
+                            id="respOrganismo" />
+                        <!-- <span style="color:red" *ngIf="!checkCapResidenza()"> Obbligatorio </span> -->
+                    </div>
+                </div>
+                <div class="row margin-row-top">
+                    <div class="col select-wrapper">
+                        <label for="modalitaGestioneContabile" class='active'
+                            [ngClass]="{'color-invalid': validModalitaGestioneContabile === false}">
+                            Modalità della gestione contabile:*
+                        </label>
+                        <input type="text" [(ngModel)]="modalitaGestioneContabile" [disabled]="isModifica === false"
+                            class="data_input" id="modalitaGestioneContabile" (blur)="checkModalitaGestioneContabile()"
+                            [ngClass]="{'input-invalid': validModalitaGestioneContabile === false}" />
+                        <small class="form-text riferimento-nomrmativa">(art. 6, co. 1, lett.
+                            f)</small>
+                    </div>
+                    <div class="col"></div>
+                    <!-- <div class="form-group form-two-input">
+                            <label for="numeroCompo" class='active'>
+                                Possesso, per ciascun mediatore dei requisiti
+                            </label>
+                            <input type="text" class="data_input" id="numeroCompo" />
+                            <small id="infoNumeroCampo" class="form-text riferimento-nomrmativa">requisiti di cui
+                                all’art. 8 del d.m. n. 150/2023
+                                (art.6, co. 1, lett.h)</small>
+                        </div>
+                    </div>
+                    <div class="row margin-row-top">
+                        <div class="form-group form-two-input">
+                            <label for="dispPersonale" class='active'>
+                                disponibilità di almeno una unità di personale addetta alle funzioni amministrative,
+                                comprese le attività di segreteria
+                            </label>
+                            <input type="text" class="data_input" id="dispPersonale" />
+                            <small id="infoDispPersonale" class="form-text riferimento-nomrmativa">(art. 6, co. 1, lett.
+                                l)</small>
+                        </div>
+                        <div class="form-group form-two-input">
+                            <label for="durataDispoStabile" class='active'>
+                                Durata disponibilità stabile
+                            </label>
+                            <input type="text" class="data_input" id="durataDispoStabile" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-two-input">
+                            <label for="PropitarioContrattoAtto" class='active'>
+                                in virtù di contratto/atto di
+                            </label>
+                            <input type="text" class="data_input" id="PropitarioContrattoAtto" />
+                        </div>
+                        <div class="form-group form-two-input">
+                            <label for="dataContrattoAtto" class='active'>
+                                Data contratto/atto
+                            </label>
+                            <input type="text" class="data_input" id="dataContrattoAtto" />
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group form-two-input">
+                            <label for="denRagSoc" class='active'>
+                                seguente struttura organizzativa e di segreteria
+                            </label>
+                            <input type="text" class="data_input" id="denRagSoc" />
+                        </div>
+                    </div> -->
+                    <ul>
+                        <li>Possesso di un capitale non inferiore a € 10.000,00
+                            <small class="form-text riferimento-nomrmativa">(art. 6, co. 1, lett. a);</small>
+                        </li>
+                        <li>Disponibilità di almeno 5 mediatori iscritti nell’elenco dell’organismo
+                            <small class="form-text riferimento-nomrmativa">(art. 6, co. 1, lett. f);</small>
+                        </li>
+                        <li>Possesso, per ciascun mediatore, dei requisiti di cui all’art. 8 del d.m. n.
+                            150/2023
+                            <small class="form-text riferimento-nomrmativa">(art. 6, co. 1, lett. h);</small>
+                        </li>
+                        <li>Disponibilità di almeno una unità di personale addetta alle funzioni amministrative,
+                            comprese le
+                            attività di segreteria
+                            <small class="form-text riferimento-nomrmativa">(art. 6, co. 1, lett. l);</small>
+                        </li>
+                        <li>Disponibilità di registri informatizzati idonei a ricevere, conservare e registrare
+                            le annotazioni
+                            relative ai dati identificativi delle parti, il numero d'ordine progressivo dei
+                            procedimenti, l'oggetto
+                            della mediazione, il mediatore designato, la durata del procedimento, il suo esito,
+                            l'eventuale
+                            proposta del mediatore formulata ai sensi dell'articolo 11, commi 1 e 2, del decreto
+                            legislativo,
+                            l'eventuale rifiuto a tale proposta, il verbale di conciliazione, il verbale
+                            attestante il mancato
+                            raggiungimento dell'accordo, l'accordo di conciliazione, o il verbale dal quale
+                            risulta la
+                            conciliazione, tutti completi di data
+                            <small class="form-text riferimento-nomrmativa">(art. 6, co. 1, lett. p);</small>
+                        </li>
+                        <li>Disponibilità di un sistema per lo svolgimento telematico della procedura di
+                            mediazione idoneo ad
+                            assicurare le funzionalità previste dall'articolo 8-bis del decreto legislativo n.
+                            28/2010
+                            <small class="form-text riferimento-nomrmativa">(art. 6, co. 1, lett. q);</small>
+                        </li>
+                        <li>Titolarità di un sito web idoneo a conservare, per un periodo non inferiore a cinque
+                            anni, la
+                            storicizzazione e l'archiviazione dei contenuti e la loro consultazione mediante
+                            link permanenti
+                            <small class="form-text riferimento-nomrmativa">(art. 6, co. 1, lett. u);</small>
+                        </li>
+                        <li> Di aver ricevuto disponibilità di:</li>
+                    </ul>
+                    <div class="row ">
+
+                        <div class="col">
+                            <p class="fw-semibold">n. mediatori da iscrivere nella sezione A - mediatori generici*:</p>
+                        </div>
+                        <div class="col">
+                            <input type="number" [(ngModel)]="numMediatori" [disabled]="isModifica === false"
+                                class="data_input" [ngClass]="{'input-invalid': numMediatoriOK === false}">
+                        </div>
+                    </div>
+                    <div class="row margin-row-top">
+                        <div class="col">
+                            <p class="fw-semibold">n. mediatori da iscrivere nella sezione B - mediatori esperti
+                                nella materia internazionale e transfrontaliera*:</p>
+                        </div>
+                        <div class="col">
+                            <input type="number" [(ngModel)]="numMediatoriInter" [disabled]="isModifica === false"
+                                data-bs-input class="data_input"
+                                [ngClass]="{'input-invalid': numMediatoriOK === false}">
+                        </div>
+                    </div>
+                    <div class="row margin-row-top">
+                        <div class="col">
+                            <p class="fw-semibold">n. mediatori da iscrivere nella sezione C - mediatori esperti
+                                nella materia di rapporti di consumo*:</p>
+                        </div>
+                        <div class="col ">
+                            <input type="number" [(ngModel)]="numMediatoriCons" [disabled]="isModifica === false"
+                                data-bs-input class="data_input"
+                                [ngClass]="{'input-invalid': numMediatoriOK === false}">
+                        </div>
+                    </div>
+                    <div class="row margin-row-top">
+                        <div class="col">
+                            <span style="color:red" *ngIf="numMediatoriOK === false">
+                                Disponibilità di almeno 5 mediatori iscritti nell’elenco dell’organismo (art. 6, co. 1,
+                                lett. f);
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<app-extra-info></app-extra-info>
+
+<div class="container p-2 clearfix mt-3">
+
+    <button type="button" (click)="activeModifica()" *ngIf="isModifica == false"
+        class="btn float-end btn-menu-page-body btn-secondary-min ">Modifica
+    </button>
+    <button type="button" (click)="saveSezione()" 
+        class="btn btn-primary-min float-end btn-menu-page-body">Salva
+    </button>
+    <button type="button" class="btn btn-primary-min float-end btn-menu-page-body" (click)="convalidazione()"
+         [ngClass]="{'btn btn-primary-min float-end btn-menu-page-body': true}">Convalida
+    </button>
+    <button type="button" (click)="getAnteprimaFileAttoRiepOdm()" 
+        [ngClass]="{'btn btn-primary-min float-end btn-outline-primary-min': true}">Anteprima di Stampa
+    </button>
+
+
+
+</div>

@@ -1,0 +1,92 @@
+<div class="container-title-menu-page">
+    <h4 class="title-menu-page"> {{ this.decideTitle() }} </h4>
+</div>
+
+<!-- *ngIf="this.getRows() > 0" -->
+<div class="container text-left body">
+    <table class="table table-hover" style="border: 1px solid #E0E0E0;">
+        <thead class="thead-voto-estero">
+            <tr>
+                <th scope="col" class="text-center"> Sede Legale </th>
+                <th scope="col" class="text-center"> Indirizzo </th>
+                <th scope="col" class="text-center"> Comune </th>
+                <th scope="col" class="text-center"> CAP </th>
+                <th scope="col" class="text-center"> Prov. </th>
+                <th scope="col" class="text-center"> Regione </th>
+                <th scope="col" class="text-center"> Telefono </th>
+                <th scope="col" class="text-center"> Fax </th>
+                <th scope="col" class="text-center"> Email </th>
+                <th scope="col" class="text-center"> Pec </th>
+            </tr>
+        </thead>
+        <tbody class="tbody-empty-table">
+            <td *ngIf="tableResult.length == 0; else elseBlock" colspan="16">
+                <p class="text-empty-table">Nessun risultato trovato</p>
+            </td>
+            <ng-template #elseBlock>
+                <ng-container *ngFor="let item of tableResult; let i = index">
+                    <tr>
+                    <td class="text-center">{{ item.sedeLegale == 1 ? 'SI':'NO' }}</td>
+                    <td>{{ item.indirizzo }}</td>
+                    <td>{{ item.comune }}</td>
+                    <td class="text-center">{{ item.cap }}</td>
+                    <td class="text-center">{{ item.nomeProvincia }}</td>
+                    <td class="text-center">{{ item.nomeRegione }}</td>
+                    <td class="text-center">{{ item.telefono }}</td>
+                    <td>{{ item.fax }}</td>
+                    <td>{{ item.mail }}</td>
+                    <td>{{ item.pec }}
+                    </td>
+                </tr>
+            </ng-container>
+            </ng-template>
+        </tbody>
+    </table>
+    <nav class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+        <td class="text-center"></td>
+    </nav>
+    <nav class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+        <ul *ngIf="totalPage != 0" class="pagination mt-2">
+          <li *ngIf="indexPage == 1; else elsePageBefore" class="page-item disabled">
+            <a (click)="previousPage(indexPage)" class="page-link" style="color: #415559">Precedente
+              <span class="visually-hidden">Pagina precedente disabilitata</span>
+            </a>
+          </li>
+          <ng-template #elsePageBefore>
+            <li class="page-item">
+              <a (click)="previousPage(indexPage)" class="page-link" style="color: #415559">Precedente
+                <span class="visually-hidden">Pagina precedente</span>
+              </a>
+            </li>
+          </ng-template>
+          <ng-container>
+            <li *ngIf="(indexPage > 1)" class="page-item"><a (click)="cambiaPagina(indexPage - 1)"
+                class="page-link">{{indexPage - 1}}</a></li>
+            <li class="page-item active" style="color:#0F3E75">
+              <a class="page-link" (click)="cambiaPagina(indexPage)" aria-current="page">
+                <span class="d-inline-block d-sm-none">Pagina </span>{{indexPage}}
+              </a>
+            </li>
+            <li *ngIf="(indexPage + 1 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 1)"
+                class="page-link">{{indexPage + 1}}</a></li>
+            <li *ngIf="(indexPage + 2 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 2)"
+                class="page-link">{{indexPage + 2}}</a></li>
+            <li *ngIf="(indexPage + 3 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 3)"
+                class="page-link">{{indexPage + 3}}</a></li>
+          </ng-container>
+          <li *ngIf="totalPage > 1 else elsePageNext" class="page-item">
+            <a (click)="nextPage(indexPage)" class="page-link" style="color: #216FA3">Successiva
+              <span class="visually-hidden">Pagina successiva</span>
+            </a>
+          </li>
+          <ng-template #elsePageNext>
+            <li class="page-item disabled">
+              <a (click)="nextPage(indexPage)" class="page-link" style="color: #216FA3">Successiva
+                <span class="visually-hidden">Pagina successiva disabilitata</span>
+              </a>
+            </li>
+          </ng-template>
+        </ul>
+        <!--<p style="color:#2F475E">Stai visualizzando {{totalPage}} di {{totalResult}} elementi </p>--><!--testo a sinistra-->
+      </nav>
+</div>

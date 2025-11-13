@@ -1,0 +1,51 @@
+<button type="button" hidden id="activeModalSede" class="btn btn-primary " data-bs-toggle="modal"
+	data-bs-target="#modalDettaglioSede"></button>
+
+<div class="modal fade bd-example-modal-xl" id="modalDettaglioSede" tabindex="-1" role="dialog"
+	aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl modal-insert-voto-estero">
+		<div class="modal-content shrink">
+			<div class="modal-header mb-2">
+				<h4 class="modal-title">Dettaglio</h4>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Chiudi finestra modale"></button>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col select-wrapper">
+						<label for="idTitoloDefinizione" [ngClass]="{'active': !!idTitoloDefinizione}">
+							Detenuta a titolo:
+						</label>
+						<input [disabled]="true" type="text" [value]="titoloDetenzione(idTitoloDefinizione)" data-bs-input class="data_input" id="idTitoloDefinizione" />
+					</div>
+					<div class="col select-wrapper">
+						<label for="dataContratto" [ngClass]="{'active': !!dataContratto}">
+							Data contratto:
+						</label>
+						<input [disabled]="true" type="text" [(ngModel)]="dataContratto" data-bs-input class="data_input" id="dataContratto" />
+					</div>
+				</div>
+				<!-- <div class="row margin-row-top">
+					<div class="col select-wrapper">
+						<label for="dataInserimentoSede" [ngClass]="{'active': !!dataInserimentoSede}">
+							Data inserimento:
+						</label>
+						<input [disabled]="true" type="text" [(ngModel)]="dataInserimentoSede" data-bs-input class="data_input" id="dataInserimentoSede" />
+					</div>
+					<div class="col select-wrapper">
+						<label for="dataCancellazione" [ngClass]="{'active': !!dataCancellazione}">
+							Data cancellazione:
+						</label>
+						<input [disabled]="true" type="text" [(ngModel)]="dataCancellazione" data-bs-input class="data_input" id="dataCancellazione" />
+					</div>
+				</div> -->
+			</div>
+			<div class="modal-footer">
+				<div class="modal-footer">
+					<button class="btn float-end btn-menu-page-body btn-outline-primary-min " data-bs-dismiss="modal" type="button">Chiudi</button>
+					<button id="closeModal" hidden type="button" data-bs-dismiss="modal">Close modal</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

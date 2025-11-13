@@ -1,0 +1,351 @@
+<app-aggiornamento-societa (eventSocieta)="getModalSaveSocieta($event)"></app-aggiornamento-societa>
+<app-finalizza-richiesta (eventFinalizza)="getModalFinalizza($event)"></app-finalizza-richiesta>
+
+<div class="container text-left body">
+  <section id="Bottoni" class="mt-0 ml-2 mr-2 mb-1">
+    <div class="cmp-breadcrumbs container" role="navigation"
+      style="margin-top: 1em; margin-bottom: 1rem; margin-left: 28px;">
+      <nav class="breadcrumb-container" aria-label="breadcrumb">
+        <ol class="breadcrumb p-0" data-element="breadcrumb">
+          <!-- <li class="breadcrumb-item"><a routerLink="/Home" data-focus-mouse="false">Home</a><span
+              class="separator">/</span></li> -->
+          <li class="breadcrumb-item active " aria-current="page">Elenco delle Società collegate all'account utente
+          </li>
+        </ol>
+      </nav>
+    </div>
+    <div class="d-flex justify-content-between bd-highlight mt-3">
+      <div class="p-2 bd-highlight">
+        <div class="col image text-end mt-2">
+          <a class="a-icon-table" (click)="openModalSaveSocieta(0, '', '', '')">
+            <svg class="bg-light icon align-middle svg-icon-table-td" fill="#216FA3">
+              <use href="assets/svg/sprites.svg#it-plus-circle"></use>
+            </svg>
+          </a>
+        </div>
+      </div>
+      <div class="p-2 bd-highlight">
+        <div class="row ">
+          <div class="col col-width">
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <div class="input-group-text "><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                      class="bi bi-search" viewBox="0 0 16 16" aria-label="Ricerca" fill="#415559">
+                      <path
+                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                      </path>
+                    </svg></div>
+                </div>
+                <label class="visually-hidden" for="input-group-3 ">Testo da cercare</label>
+                <input type="search " [(ngModel)]="searchTextTable" (ngModelChange)="attivaRicerca()" type="text"
+                  class="form-control" id="Ricerca" placeholder="Testo da cercare">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<div class="container text-left body" role="region" aria-label="tabella-societa">
+  <table class="table table-hover" style="border: 1px solid #E0E0E0;">
+    <thead class="thead-voto-estero">
+      <tr>
+        <th scope="col" class="text-center">Denominazione sociale
+        </th>
+        <th scope="col" class="text-center">P.iva
+        </th>
+        <!-- <th scope="col" class="text-center">Attiva -->
+        <th scope="col" class="text-center">Codice Fiscale
+        </th>
+        <th scope="col" class="text-center">Stato richiesta iscrizione registro (OdM)
+        </th>
+        <!-- <th scope="col" class="text-center">Stato richiesta accreditamento (EF)
+        </th>
+        <th scope="col" class="text-center">Stato richiesta iscrizione registro (ADR)
+        </th> -->
+        <th scope="col" class="text-center">Azioni rapide
+        </th>
+      </tr>
+    </thead>
+    <tbody class="tbody-empty-table">
+      <td *ngIf="tableResult.length == 0; else elseBlock" colspan="16">
+        <p class="text-empty-table">Nessun risultato trovato</p>
+      </td>
+      <ng-template #elseBlock>
+        <ng-container *ngFor="let item of tableResult; let i = index">
+          <tr>
+            <td class="text-center">{{item.ragioneSociale}}</td>
+            <td class="text-center">{{item.partitaIva}}</td>
+            <!-- <td class="text-center">{{item.flagAttivo == 1 ?' SI' : 'NO'}}</td> -->
+            <td class="text-center">{{item.codiceFiscaleSocieta}}</td>
+            <td class="text-center">{{item.statoRichiesta}}</td>
+            <!-- <td class="text-center">{{item.statoRichiestaEf}}</td>
+            <td class="text-center">{{item.statoRichiestaOdm}}</td> -->
+            <td class="text-center">
+              <div class="div-column-icon">
+              <button type="button" class="btn btn-outline-primary-min btn-xs btn-me btn-min"
+                (click)="openPanelRichieste(item)" aria-expanded="false">Seleziona</button>
+              <a class="a-icon-table"
+                (click)="openModalSaveSocieta(item.id, item.ragioneSociale, item.partitaIva, item.codiceFiscaleSocieta)">
+                <svg class="bg-light icon align-middle svg-icon-table-td">
+                  <use href="\assets\svg\sprites.svg#it-pencil"></use>
+                </svg>
+              </a>
+              </div>
+            </td>
+          </tr>
+        </ng-container>
+      </ng-template>
+    </tbody>
+  </table>
+  <nav class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+    <ul *ngIf="totalPage != 0" class="pagination mt-2">
+      <li *ngIf="indexPage == 1; else elsePageBefore" class="page-item disabled">
+        <a (click)="previousPage(indexPage)" class="page-link" style="color: #415559">Precedente
+          <span class="visually-hidden">Pagina precedente disabilitata</span>
+        </a>
+      </li>
+      <ng-template #elsePageBefore>
+        <li class="page-item">
+          <a (click)="previousPage(indexPage)" class="page-link" style="color: #415559">Precedente
+            <span class="visually-hidden">Pagina precedente</span>
+          </a>
+        </li>
+      </ng-template>
+      <ng-container>
+        <li *ngIf="(indexPage > 1)" class="page-item"><a (click)="cambiaPagina(indexPage - 1)"
+            class="page-link">{{indexPage - 1}}</a></li>
+        <li class="page-item active" style="color:#0F3E75">
+          <a class="page-link" (click)="cambiaPagina(indexPage)" aria-current="page">
+            <span class="d-inline-block d-sm-none">Pagina </span>{{indexPage}}
+          </a>
+        </li>
+        <li *ngIf="(indexPage + 1 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 1)"
+            class="page-link">{{indexPage + 1}}</a></li>
+        <li *ngIf="(indexPage + 2 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 2)"
+            class="page-link">{{indexPage + 2}}</a></li>
+        <li *ngIf="(indexPage + 3 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 3)"
+            class="page-link">{{indexPage + 3}}</a></li>
+      </ng-container>
+      <li *ngIf="totalPage > 1 else elsePageNext" class="page-item">
+        <a (click)="nextPage(indexPage)" class="page-link" style="color: #216FA3">Successiva
+          <span class="visually-hidden">Pagina successiva</span>
+        </a>
+      </li>
+      <ng-template #elsePageNext>
+        <li class="page-item disabled">
+          <a (click)="nextPage(indexPage)" class="page-link" style="color: #216FA3">Successiva
+            <span class="visually-hidden">Pagina successiva disabilitata</span>
+          </a>
+        </li>
+      </ng-template>
+    </ul>
+    <!--<p style="color:#2F475E">Stai visualizzando {{totalPage}} di {{totalResult}} elementi </p>--><!--testo a sinistra-->
+  </nav>
+</div>
+
+<a hidden id="btnOpenRichiestePanel" class="btn btn-primary" data-bs-toggle="collapse" href="#sub-tables" role="button"
+  aria-expanded="false" aria-controls="collapseExample"></a>
+
+<div class="container text-left body collapse mt-5" id="sub-tables">
+  <ul class="nav nav-tabs nav-tabs-icon-text ul-select-type-request" id="myTab3" role="tablist">
+    <li class="nav-item nav-richieste">
+      <a class="nav-link a-sub-table active" id="tab1c-tab" data-bs-toggle="tab" href="#tab1b"  role="tab"
+        aria-controls="tab1b" aria-selected="true">
+        <svg class="icon">
+          <use href="\assets\svg\sprites.svg#it-note"></use>
+        </svg>
+        <span> Richiesta di iscrizione al Registro degli Organismi di
+          Mediazione</span>
+      </a>
+    </li>
+    <!-- <li class="nav-item nav-richieste">
+      <a class="nav-link a-sub-table" id="tab2c-tab" data-bs-toggle="tab" href="#tab2b" role="tab" aria-controls="tab2b"
+        aria-selected="true">
+        <svg class="icon">
+          <use href="\assets\svg\sprites.svg#it-note"></use>
+        </svg>
+        <span>Richiesta di iscrizione alla sezione speciale degli
+          organismi ADR</span>
+      </a>
+    </li>
+    <li class="nav-item nav-richieste">
+      <a class="nav-link a-sub-table" id="tab3b-tab" data-bs-toggle="tab" href="#tab3b" role="tab" aria-controls="tab3b"
+        aria-selected="false">
+        <svg class="icon">
+          <use href="\assets\svg\sprites.svg#it-pa"></use>
+        </svg>
+        <span>Richiesta di accreditamento come Ente di Formazione</span>
+      </a>
+    </li> -->
+  </ul>
+
+  <div class="tab-content margin-bottom-content" id="myTab3Content">
+
+    <div class="tab-pane fade show active mt-5" id="tab1b" role="tabpanel" aria-labelledby="tab1c-tab">
+      <ng-container *ngIf="richiesta === null || richiesta.length === 0">
+        <div class="row">
+          <div class="col select-wrapper mt-1">
+            <label for="defaultSelect">Selezionare il tipo richiedente:</label>
+            <select id="defaultSelect" [(ngModel)]="tipologiaRichiestaOdm"
+              (change)="changeTipologiaRichiestaOdm($event)" class="data_input">
+              <option *ngFor="let tipologia of tipologieROdm" [value]="tipologia.id">
+                {{ tipologia.tipo + (tipologia.descrizione != null ? ' - ' + tipologia.descrizione : '') }}
+              </option>
+            </select>
+          </div>
+          <div class="col">
+            <button type="button" (click)="insertRichiestaODM()"
+              class="btn btn-success btn-menu-page-body btn-mediazione-salva">Conferma</button>
+          </div>
+        </div>
+        <div *ngIf="selectId4Odm" class="row">
+          <div class="col">
+            <p class="fw-semibold">Tipologia</p>
+            <div class="form-check ">
+              <input name="gruppo3" type="radio" class="with-gap" id="radio7" checked>
+              <label for="radio7">Camera commercio</label>
+              <input name="gruppo3" type="radio" class="with-gap" id="radio8">
+              <label for="radio8">Ordine avvocati</label>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="richiesta !== null && richiesta.length !== 0 ">
+        <table class="table table-hover" style="border: 1px solid #E0E0E0;">
+          <thead class="thead-voto-estero sub-table-color">
+            <tr>
+              <th scope="col" class="text-center">Data richiesta</th>
+              <th scope="col" class="text-center">Richiedente</th>
+              <th scope="col" class="text-center">Numero protocollo domanda</th>
+              <th scope="col" class="text-center">Data iscrizione albo</th>
+              <th scope="col" class="text-center">Stato richiesta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-active">
+              <td class="text-center">{{richiesta.dataRichiesta | date:'dd/MM/yyyy'}}</td>
+              <td class="text-center">{{getDescTipoRic(richiesta.idTipoRichiedente)}}</td>
+              <td class="text-center">{{richiesta.idRichiesta}}</td>
+              <td class="text-center">{{richiesta.dataIscrAlbo | date:'dd/MM/yyyy'}}</td>
+              <td class="text-center">{{richiesta.statoRichiesta}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="body">
+          <button type="button" *ngIf="(richiesta.idStato === null || richiesta.idStato === 1  
+                                      || richiesta.idStato === 4) && statusJobRichiesta != 'A' " 
+                (click)="routerDomandaIscrizione(richiesta.idRichiesta)" class="btn btn-secondary-min space-btn-richiesta float-end">
+            Modifica/Aggiorna
+          </button>
+          <button type="button" *ngIf="(richiesta.idStato === 1 || richiesta.idStato === 4)"  
+                  (click)="finalizzaRichiestaODM()" class="btn btn-primary-min space-btn-richiesta float-end">
+            Finalizza richiesta
+          </button>
+          <button type="button" (click)="routerRichiesteInviate(richiesta.idRichiesta)"
+                  class="btn btn-outline-primary-min space-btn-richiesta float-end">
+            Richieste inviate
+          </button>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="tab-pane fade mt-5" id="tab2b" role="tabpanel" aria-labelledby="tab2c-tab">
+      <ng-container *ngIf="false">
+        <!-- DA CAPIRE QUALE SARA IL PARAMETRO DI RIFERIMENTO DELLA CONDIZIONE -->
+        <div class="row">
+          <div class="col mt-1 select-wrapper">
+            <label for="defaultSelect">Selezionare il tipo richiedente:</label>
+            <select id="defaultSelect" [(ngModel)]="tipologiaRichiestaOdm" class="data_input mt-2">
+              <!-- DA CAPIRE QUALE SARA IL PARAMETRO DI RIFERIMENTO PER LE OPTION -->
+              <option *ngFor="let tipologia of tipologieROdm" [value]="tipologia.id">
+                {{ tipologia.tipo + (tipologia.descrizione != null ? ' - ' + tipologia.descrizione : '') }}
+              </option>
+            </select>
+          </div>
+          <div class="col">
+            <button type="button" (click)="invioRichiestaADM()"
+              class="btn btn-success btn-menu-page-body btn-mediazione-salva mt-2">Conferma</button>
+          </div>
+        </div>
+      </ng-container>
+
+      <ng-container *ngIf="false"> <!-- DA CAPIRE QUALE SARA IL PARAMETRO DI RIFERIMENTO DELLA CONDIZIONE -->
+        <table class="table table-hover" style="border: 1px solid #E0E0E0;">
+          <thead class="thead-voto-estero sub-table-color">
+            <tr>
+              <th scope="col" class="text-center">Data richiesta</th>
+              <th scope="col" class="text-center">Richiedente</th>
+              <th scope="col" class="text-center">Numero protocollo domanda</th>
+              <th scope="col" class="text-center">Data iscrizione albo</th>
+              <th scope="col" class="text-center">Stato richiesta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-active">
+              <td class="text-center">{{richiesta.dataRichiesta | date:'dd/MM/yyyy'}}</td>
+              <td class="text-center">{{getDescTipoRic(richiesta.idTipoRichiedente)}}</td>
+              <td class="text-center">{{richiesta.idRichiesta}}</td>
+              <td class="text-center">{{richiesta.dataIscrAlbo | date:'dd/MM/yyyy'}}</td>
+              <td class="text-center">{{richiesta.statoRichiesta}}</td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="container-btn-richiesta">
+          <button type="button" (click)="routerDomandaIscrizione(richiesta.idRichiesta)">
+            Modifica/Aggiorna
+          </button>
+          <button type="button" class="btn btn-success space-btn-richiesta">
+            Finalizza richiesta
+          </button>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="tab-pane fade mt-5" id="tab3b" role="tabpane3" aria-labelledby="tab3c-tab">
+      <ng-container *ngIf="false">
+        <div class="row">
+          <div class="col mt-1 select-wrapper">
+            <label for="defaultSelect">Selezionare il tipo richiedente:</label>
+            <select id="defaultSelect" [(ngModel)]="tipologiaRichiestaEf" class="data_input mt-2">
+              <option *ngFor="let tipologia of tipologieREf" [value]="tipologia.descrizione">
+                {{ tipologia.tipo + (tipologia.descrizione != null ? ' - ' + tipologia.descrizione : '') }}
+              </option>
+            </select>
+          </div>
+          <div class="col ">
+            <button type="button" (click)="insertRichiestaODM()"
+              class="btn btn-success btn-menu-page-body btn-mediazione-salva mt-2">Conferma</button>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="false">
+        <table class="table table-hover" style="border: 1px solid #E0E0E0;">
+          <thead class="thead-voto-estero sub-table-color">
+            <tr>
+              <th scope="col" class="text-center">Data richiesta</th>
+              <th scope="col" class="text-center">Richiedente</th>
+              <th scope="col" class="text-center">Numero protocollo domanda</th>
+              <th scope="col" class="text-center">Data iscrizione albo</th>
+              <th scope="col" class="text-center">Stato richiesta</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="table-active">
+              <td class="text-center">{{richiesta.dataRichiesta | date:'dd/MM/yyyy'}}</td>
+              <td class="text-center">{{getDescTipoRic(richiesta.idTipoRichiedente)}}</td>
+              <td class="text-center">{{richiesta.idRichiesta}}</td>
+              <td class="text-center">{{richiesta.dataIscrAlbo | date:'dd/MM/yyyy'}}</td>
+              <td class="text-center">{{richiesta.statoRichiesta}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </ng-container>
+    </div>
+
+  </div>
+</div>
+

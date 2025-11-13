@@ -1,0 +1,55 @@
+<button type="button" hidden id="activeModalTabellaAllegatoA" class="btn btn-primary " data-bs-toggle="modal"
+  data-bs-target="#modalTabellaAllegatoA"></button>
+
+<div class="modal fade bd-example-modal-xl" id="modalTabellaAllegatoA" tabindex="-1" role="dialog"
+  aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl modal-insert-voto-estero ">
+    <div class=" modal-content ">
+      <div class="modal-header">
+        <h4 class="modal-title"> TABELLA ALLEGATO A </h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi finestra modale"></button>
+      </div>
+      <div class="modal-body modal-body-update">
+        <div>
+          <table class="table table-hover" style="border: 1px solid #E0E0E0; margin-bottom: 2%;">
+            <thead class="thead-voto-estero">
+              <tr>
+                <th scope="col" class="text-center twoRowsText" colspan="1" rowspan="2"> Valore della lite </th>
+                <th scope="col" class="text-center" colspan="2"> Spese in Euro </th>
+              </tr>
+              <tr>
+                <th scope="col" class="text-center inlaidColumn"> Minimi </th>
+                <th scope="col" class="text-center inlaidColumn"> Massimi </th>
+              </tr>
+            </thead>
+            <tbody class="tbody-empty-table">
+              <td *ngIf="scaglioni.length == 0; else elseBlock" colspan="16">
+                  <p class="text-empty-table">Nessun risultato trovato</p>
+              </td>
+              <ng-template #elseBlock>
+                  <ng-container *ngFor="let item of scaglioni; let i = index">
+                      <tr>
+                  <td class="text-center">{{ item.range }}</td>
+                  <td class="text-center">{{ item.min }}</td>
+                  <td class="text-center">{{ item.max }}</td>
+                </tr>
+              </ng-container>
+              </ng-template>
+            </tbody>
+          </table>
+          <div style="margin-bottom: 2%;">
+            <p class="text-center">
+              Per le mediazioni di valore superiore ad euro 5.000.000,00, per
+              lo scaglione minimo si applica un coefficiente dello 0,2% e per lo
+              scaglione massimo dello 0,3%.
+            </p>
+            <p class="text-center">
+              Quando il valore della controversia e' indeterminabile si applica
+              lo scaglione da euro 50.000,00 a euro 150.000,00.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

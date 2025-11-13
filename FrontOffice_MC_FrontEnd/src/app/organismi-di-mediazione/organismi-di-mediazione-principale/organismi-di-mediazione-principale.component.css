@@ -1,0 +1,7 @@
+.container-menu {
+    height: auto!important;
+}
+
+.breadcrumb-container .breadcrumb .breadcrumb-item a{
+    font-weight: normal !important;
+}

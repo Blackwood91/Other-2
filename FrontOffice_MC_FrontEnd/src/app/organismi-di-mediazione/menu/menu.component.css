@@ -1,0 +1,78 @@
+.title-medium {
+  width: 100% !important;
+  margin-right: 0px !important;
+  padding-right: 0px !important;
+  font-size: 14px !important;
+}
+
+.nav-link {
+  margin-right: 0px !important;
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+}
+
+.side {
+  width: 115% !important;
+  margin-left: -24px !important;
+}
+
+.sidebar-wrapper.side.ridotto {
+  width: 50px;
+  /* Puoi regolare la larghezza a tuo piacimento */
+}
+
+/* Aggiungi questa transizione per un effetto di animazione durante il ridimensionamento */
+.sidebar-wrapper.side {
+  transition: width 0.3s ease;
+}
+
+.side-ridotto {
+  width: 50% !important;
+}
+
+.label-show-menu {
+  padding-left: 0px !important;
+}
+
+.nav-link {
+  cursor: pointer;
+}
+
+.p-subMenu {
+  cursor: pointer;
+}
+
+.li-subMenu {
+  margin-left: 25px;
+  font-size: 14px;
+  color: #06c;
+  text-decoration: underline;
+}
+
+.svg-subMenu {
+  margin-bottom: 3px;
+  margin-right: 2px;
+}
+
+.container-menu-left {
+  position: sticky !important;
+  top: 12%;
+}
+
+.card:after {
+  margin-top: 16px;
+}
+
+.menu-item-clicked {
+  background-color: #F2F7FC;
+}
+
+.container-moduli-principal {
+  font-size: 14px !important;
+  color: #216fa3 !important;
+}
+
+.svg-moduli-principal {
+  margin-top: -2px;
+  float: right;
+}

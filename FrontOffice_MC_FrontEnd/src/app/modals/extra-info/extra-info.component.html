@@ -1,0 +1,67 @@
+<a class="btn btn-primary" hidden data-bs-toggle="collapse" id="buttonOpencollapseCard" href="#collapseCard"
+    role="button" aria-expanded="false" aria-controls="collapseCard">
+    Open collapse card
+</a>
+<!-- <div class="collapse" id="collapseCard">
+     Modal
+    <div class="card-wrapper card-space">
+        <div class="card card-bg card-big">
+            <div class="card-body">
+                <div class="top-icon">
+                    <svg class="icon" xmlns="http://www.w3.org/2000/svg" width="65" height="65" fill="rgb(255, 210, 48)"
+                        class="bi bi-exclamation-octagon-fill" viewBox="0 0 16 16">
+                        <path
+                            d="M11.46.146A.5.5 0 0 0 11.107 0H4.893a.5.5 0 0 0-.353.146L.146 4.54A.5.5 0 0 0 0 4.893v6.214a.5.5 0 0 0 .146.353l4.394 4.394a.5.5 0 0 0 .353.146h6.214a.5.5 0 0 0 .353-.146l4.394-4.394a.5.5 0 0 0 .146-.353V4.893a.5.5 0 0 0-.146-.353zM8 4c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995A.905.905 0 0 1 8 4m.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2" />
+                    </svg>
+                </div>
+                <h3 class="card-title h5 ">{{titolo}}</h3>
+                <p class="card-text" [innerHTML]="descrizione"></p>
+                <a class="read-more" *ngIf="extraDescrizione != ''">
+                     Button trigger modal
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#modalExtraInfo">Visualizzazione completa</button>
+                </a>
+                <button type="button" (click)="closeModal()" class="btn btn-primary">Chiudi
+                </button>
+            </div>
+        </div>
+    </div>
+</div> -->
+<div class="collapse" id="collapseCard">
+
+    <div class="mt-3 alert alert-warning color-alert alert-bording alert-dismissible fade show" role="alert">
+        <strong>{{titolo}}</strong> <p [innerHTML]="descrizione"></p>  
+        <button type="button" class="btn-close" aria-label="Chiudi avviso" (click)="closeModal()">
+            <svg class="icon"><use href="/bootstrap-italia/dist/svg/sprites.svg#it-close"></use></svg>
+          </button>      
+        <a class="read-more" *ngIf="extraDescrizione != ''">
+            <hr>
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                data-bs-target="#modalExtraInfo">Visualizzazione completa</button>
+        </a>
+    </div>
+</div>
+
+<!-- Modal -->
+<div class="modal it-dialog-scrollable fade" tabindex="-1" role="dialog" id="modalExtraInfo"
+    aria-labelledby="modalExtraInfoTitle">
+    <div class="modal-dialog modal-dialog-right" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Questo è un messaggio di notifica</h4>
+                <button class="btn-close" type="button" data-bs-dismiss="modal" aria-label="Chiudi finestra modale">
+                    <svg class="icon">
+                        <use href="\assets\svg\sprites.svg#it-close"></use>
+                    </svg>
+                </button>
+            </div>
+            <div class="modal-body modal-body-update">
+                <p [innerHTML]="extraDescrizione"></p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary btn-sm" type="button" data-bs-dismiss="modal">Presa visione</button>
+            </div>
+        </div>
+    </div>
+</div>

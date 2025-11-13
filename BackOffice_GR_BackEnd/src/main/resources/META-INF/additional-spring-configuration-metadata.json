@@ -1,0 +1,117 @@
+{"properties": [
+  {
+    "name": "multipart.boundary",
+    "type": "java.lang.String",
+    "description": "A description for 'multipart.boundary'"
+  },
+  {
+    "name": "spring.servlet.multipart.boundary",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.servlet.multipart.boundary'"
+  },
+  {
+    "name": "multipart.required-parts",
+    "type": "java.lang.String",
+    "description": "A description for 'multipart.required-parts'"
+  },
+  {
+    "name": "multipart.max-file-size",
+    "type": "java.lang.String",
+    "description": "A description for 'multipart.max-file-size'"
+  },
+  {
+    "name": "spring.cache.memory.cache-names",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cache.memory.cache-names'"
+  },
+  {
+    "name": "spring.cache.memory.time-to-live",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cache.memory.time-to-live'"
+  },
+  {
+    "name": "spring-boot.devtools.remote.debug.browser",
+    "type": "java.lang.String",
+    "description": "A description for 'spring-boot.devtools.remote.debug.browser'"
+  },
+  {
+    "name": "spring-boot.devtools.browser",
+    "type": "java.lang.String",
+    "description": "A description for 'spring-boot.devtools.browser'"
+  },
+  {
+    "name": "security.require-ssl",
+    "type": "java.lang.String",
+    "description": "A description for 'security.require-ssl'"
+  },
+  {
+    "name": "spring.cache.memory.cache-names",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cache.memory.cache-names'"
+  },
+  {
+    "name": "rowsTable",
+    "type": "java.lang.String",
+    "description": "A description for 'rowsTable'"
+  },
+  {
+    "name": "rowsTable",
+    "type": "java.lang.String",
+    "description": "A description for 'rowsTable'"
+  },
+  {
+    "name": "spring.cache.memory.time-to-live",
+    "type": "java.lang.String",
+    "description": "A description for 'spring.cache.memory.time-to-live'"
+  },
+  {
+    "name": "leonardo.principal_uri",
+    "type": "java.lang.String",
+    "description": "A description for 'leonardo.principal_uri'"
+  },
+  {
+    "name": "leonardo.redirect_uri",
+    "type": "java.lang.String",
+    "description": "A description for 'leonardo.redirect_uri'"
+  },
+  {
+    "name": "leonardo.api_fe",
+    "type": "java.lang.String",
+    "description": "A description for 'leonardo.api_fe'"
+  },
+  {
+    "name": "leonardo.client_id_fe",
+    "type": "java.lang.String",
+    "description": "A description for 'leonardo.client_id_fe'"
+  },
+  {
+    "name": "leonardo.code_verifier_fe",
+    "type": "java.lang.String",
+    "description": "A description for 'leonardo.code_verifier_fe'"
+  },
+  {
+    "name": "leonardo.setAllowedOrigins",
+    "type": "java.lang.String",
+    "description": "A description for 'leonardo.setAllowedOrigins'"
+  },
+  {
+    "name": "leonardo.api_be",
+    "type": "java.lang.String",
+    "description": "A description for 'leonardo.api_be'"
+  },
+  {
+    "name": "leonardo.client_id_be",
+    "type": "java.lang.String",
+    "description": "A description for 'leonardo.client_id_be'"
+  },
+  {
+    "name": "leonardo.code_verifier_be",
+    "type": "java.lang.String",
+    "description": "A description for 'leonardo.code_verifier_be'"
+  },
+  {
+    "name": "leonardo.setAllowedOrigins",
+    "type": "java.lang.String",
+    "description": "A description for 'leonardo.setAllowedOrigins'"
+  }
+]}

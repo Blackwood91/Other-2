@@ -1,0 +1,242 @@
+<!-- Button trigger modal -->
+
+<button type="button" hidden id="activeModalMediatore" class="btn btn-primary " data-bs-toggle="modal"
+	data-bs-target="#modalInsertMediatori"></button>
+
+<div class="modal fade bd-example-modal-xl" id="modalInsertMediatori" tabindex="-1" role="dialog"
+	aria-labelledby="myExtraLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-xl modal-insert-voto-estero">
+		<div class="modal-content">
+			<div class="modal-header mb-2">
+				<h2 class="modal-title h5" id="myExtraLargeModalLabel">Dettaglio</h2>
+				<button type="button" class="btn-close" data-bs-dismiss="modal"
+					aria-label="Chiudi finestra modale"></button>
+			</div>
+			<div class="modal-body">
+				<div class="it-list-wrapper">
+					<ul class="it-list">
+						<li>
+							<div class="list-item">
+								<div class="it-right-zone"><span class="text"><label class="fw-bolder">Cognome:</label>
+										{{mediatore?.cognomeMediatore}}</span>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="list-item">
+								<div class="it-right-zone"><span class="text"><label class="fw-bolder">Nome:</label>
+										{{mediatore?.nomeMediatore}} </span>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="list-item">
+								<div class="it-right-zone"><span class="text"><label class="fw-bolder">Codice
+											Fiscale:</label> {{mediatore?.codiceFiscale}}</span>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="list-item">
+								<div class="it-right-zone"><span class="text"><label class="fw-bolder">Data di
+											nascita:</label> {{mediatore?.dataDiNascita | date: 'dd/MM/yyyy'}}</span>
+								</div>
+							</div>
+						</li>
+
+						<li>
+							<div class="list-item">
+								<div class="it-right-zone"><span class="text"><label class="fw-bolder">Luogo di
+											nascita:</label> {{mediatore?.luogoDiNascita}} </span>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="list-item">
+								<div class="it-right-zone"><span class="text"><label
+											class="fw-bolder">Indirizzo:</label> {{mediatore?.indirizzo}}</span>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="list-item">
+								<div class="it-right-zone"><span class="text">
+										<label class="fw-bolder">Indirizzo PEC:</label>
+										{{mediatore?.indirizzoPec}}</span>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="list-item">
+								<div class="it-right-zone"><span class="text">
+										<label class="fw-bolder">Qualifica:</label>
+										{{mediatore?.isFormatore == 1?'SI':'NO'}}</span>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="list-item">
+								<div class="it-right-zone"><span class="text">
+										<label class="fw-bolder">Numero di Iscrizione:</label>
+										{{mediatore?.numeroIscrizioneElenco}}</span>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="list-item">
+								<div class="it-right-zone"><span class="text">
+										<label class="fw-bolder">Requisiti di Iscrizione:</label>
+										{{mediatore?.requisitiIscrizioneElenco}}</span>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="list-item">
+								<div class="it-right-zone"><span class="text">
+										<label class="fw-bolder">Data Iscrizione:</label>
+										{{mediatore?.dataIscrizioneElenco | date:'dd/MM/yyyy'}}</span>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="list-item">
+								<div class="it-right-zone"><span class="text">
+										<label class="fw-bolder">Stato:</label>
+										{{mediatore?.stato}}</span>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="list-item">
+								<div class="it-right-zone">
+									<span class="text">
+										<label class="fw-bolder">Provvedimento:</label>
+										<b class="text-open-pdf" (click)="openPdfFile()">
+											{{mediatore?.data_provvedimento | date:'dd/MM/yyyy'}}
+										</b>
+									</span>
+								</div>
+							</div>
+						</li>
+						<li>
+							<div class="list-item">
+								<div class="it-right-zone"><span class="text">
+										<label class="fw-bolder">Data provvedimento:</label>
+										{{mediatore?.data_provvedimento | date:'dd/MM/yyyy'}}</span>
+								</div>
+							</div>
+						</li>
+						<!-- fino a qui sono dati che si vedono sempre-->
+
+						<!--caso in cui lo stato è Iscritto- sospeso da Formatore-->
+						<div
+							*ngIf="mediatore?.stato === 'Iscritto- sospeso da Formatore' || mediatore?.stato === 'Sospeso' || mediatore?.stato === 'Cancellato'">
+							<li>
+								<div class="list-item">
+									<div class="it-right-zone"><span class="text">
+											<label class="fw-bolder">Data da:</label>
+											{{mediatore?.data_stato}}</span>
+									</div>
+								</div>
+							</li>
+							<div *ngIf="mediatore?.stato != 'Cancellato'">
+								<li>
+									<div class="list-item">
+										<div class="it-right-zone"><span class="text">
+												<label class="fw-bolder">Data a:</label>
+												{{mediatore?.data_fine}}</span>
+										</div>
+									</div>
+								</li>
+							</div>
+							<li>
+								<div class="list-item">
+									<div class="it-right-zone"><span class="text">
+											<label class="fw-bolder">Tipologia:</label>
+											{{mediatore?.tipologia == 1?'Volontaria':"D'ufficio"}}</span>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="list-item">
+									<div class="it-right-zone"><span class="text">
+											<label class="fw-bolder">Motivazione:</label>
+											{{mediatore?.motivazione}}</span>
+									</div>
+								</div>
+							</li>
+						</div>
+						<div *ngIf="mediatore?.isConvenzionato === 1">
+							<li>
+								<div class="list-item">
+									<div class="it-right-zone"><span class="text">
+											<label class="fw-bolder">Ente Formatore:</label>
+											{{mediatore?.descrizione}}</span>
+									</div>
+								</div>
+							</li>
+						</div>
+						<div *ngIf="mediatore?.descrizione === 'Università'">
+							<!--<li>
+									<div class="list-item">
+										<div class="it-right-zone"><span class="text">
+												<label class="fw-bolder">Ente:</label>
+												{{mediatore?.enteAttestato}}</span>
+										</div>
+									</div>
+								</li>-->
+							<li>
+								<div class="list-item">
+									<div class="it-right-zone"><span class="text">
+											<label class="fw-bolder">Nome Ente:</label>
+											{{mediatore?.enteAttestato}}</span>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="list-item">
+									<div class="it-right-zone"><span class="text">
+											<label class="fw-bolder">Tipologia:</label>
+											{{mediatore?.tipologiaEnte}}</span>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="list-item">
+									<div class="it-right-zone"><span class="text">
+											<label class="fw-bolder">Convenzionato:</label>
+											{{mediatore?.isConvenzionato == 1?'SI':'NO'}}</span>
+									</div>
+								</div>
+							</li>
+						</div>
+						<div *ngIf="mediatore?.descrizione === 'Centro per la giustizia riparativa'">
+							<li>
+								<div class="list-item">
+									<div class="it-right-zone"><span class="text">
+											<label class="fw-bolder">Nome Ente:</label>
+											{{mediatore?.enteAttestato}}</span>
+									</div>
+								</div>
+							</li>
+							<li>
+								<div class="list-item">
+									<div class="it-right-zone"><span class="text">
+											<label class="fw-bolder">Tipologia:</label>
+											{{mediatore?.tipologiaEnte}}</span>
+									</div>
+								</div>
+							</li>
+						</div>
+					</ul>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<div class="modal-footer">
+					<button class="btn btn-secondary-min btn-sm" data-bs-dismiss="modal" type="button">Annulla</button>
+					<button id="closeModal" hidden type="button" data-bs-dismiss="modal">Close modal</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

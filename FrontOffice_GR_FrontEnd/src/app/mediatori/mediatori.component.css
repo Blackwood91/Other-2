@@ -1,0 +1,38 @@
+.container-search-table {
+    margin-left: auto;
+    top: 9px;
+}
+
+.container-top-table {
+    display: flex;
+}
+
+.btn-csv {
+    margin-left: 1rem;
+}
+
+
+.image{
+    max-width: 25% !important;
+    width: 50% !important;
+}
+
+.color-back{
+background-color: white !important;
+color: #216FA3 !important;
+}
+
+.inputH{
+    width: 66%  !important;
+    border: 1px solid #216FA3  !important;
+    border-radius: 4px !important;
+}
+
+.normativa a {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    text-align: center;
+    color: #216FA3 !important;
+    
+  }

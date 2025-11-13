@@ -1,0 +1,59 @@
+<button hidden id="showMessage" data-bs-toggle="notification" [attr.data-bs-target]="notification" type="button" class="btn btn-primary focus--mouse" data-focus-mouse="true">SHOW MESSAGE</button>
+
+<div class="notification dismissable with-icon success fade" *ngIf="typeMessage == 'success'" role="region" aria-label="Messaggio di successo" id="notication-success">
+    <h1 id="not6-title" class="h5">
+      <svg class="icon" alt="info">
+        <use href="\assets\svg\sprites.svg#it-check-circle" xlink:href="\assets\svg\sprites.svg#it-check-circle"></use></svg>Notifica Successo
+    </h1>
+    <p class="line-height" [innerHTML]="descriptionMessage"></p>
+    <button type="button" class="btn notification-close" data-bs-dismiss="notification" (click)="closeMessage()">
+      <svg class="icon" alt="chiudi notifica">
+        <use xlink="\assets\svg\sprites.svg#it-close" xlink:href="\assets\svg\sprites.svg#it-close"></use>
+      </svg>
+      <span class="visually-hidden">Chiudi notifica: Titolo notification</span>
+    </button>
+</div>
+
+<div class="notification dismissable with-icon error fade" *ngIf="typeMessage == 'error'" role="region" aria-label="Messaggio di errore" id="notication-error"  >
+    <h1 id="not6-title" class="h5">
+      <svg class="icon" alt="notifica errore">
+        <use href="\assets\svg\sprites.svg#it-close-circle" xlink:href="\assets\svg\sprites.svg#it-check-circle"></use></svg>Notifica Errore
+    </h1>
+    <p class="line-height" [innerHTML]="descriptionMessage"></p>
+    <button type="button" class="btn notification-close" data-bs-dismiss="notification" (click)="closeMessage()">
+      <svg class="icon" alt="chiudi notifica">
+        <use xlink="\assets\svg\sprites.svg#it-close" xlink:href="\assets\svg\sprites.svg#it-close"></use>
+      </svg>
+      <span class="visually-hidden">Chiudi notifica: Titolo notification</span>
+    </button>
+</div>
+
+<div class="notification dismissable left-fix with-icon info fade" *ngIf="typeMessage == 'attention'" role="alert" id="notication-attention" 
+     aria-labelledby="not9-title" style="display: block;">
+  <h5 id="not9-title">
+    <svg class="icon">
+      <use href="\assets\svg\sprites.svg#it-info-circle" xlink:href="/bootstrap-italia/dist/svg/sprites.svg#it-info-circle"></use></svg>Notifica Avviso
+  </h5>
+  <p>{{descriptionMessage}}</p>
+  <button type="button" class="btn notification-close" data-bs-dismiss="notification" (click)="closeMessage()">
+    <svg class="icon">
+      <use href="\assets\svg\sprites.svg#it-close" xlink:href="/bootstrap-italia/dist/svg/sprites.svg#it-close"></use>
+    </svg>
+    <span class="visually-hidden">Chiudi notifica</span>
+  </button>
+</div>
+
+<div class="notification dismissable with-icon warning fade" *ngIf="typeMessage == 'success-attention'" role="alert"
+     aria-label="Messaggio di successo ma con info" id="notication-success-attention">
+  <h1 id="not6-title" class="h5">
+    <svg class="icon" alt="info">
+      <use href="\assets\svg\sprites.svg#it-error" xlink:href="\assets\svg\sprites.svg#it-error"></use></svg>Notifica Successo Parziale
+  </h1>
+  <p class="line-height" [innerHTML]="descriptionMessage"></p>
+  <button type="button" class="btn notification-close" data-bs-dismiss="notification" (click)="closeMessage()">
+    <svg class="icon" alt="chiudi notifica">
+      <use xlink="\assets\svg\sprites.svg#it-close" xlink:href="\assets\svg\sprites.svg#it-close"></use>
+    </svg>
+    <span class="visually-hidden">Chiudi notifica: Titolo notification</span>
+  </button>
+</div>

@@ -1,0 +1,19 @@
+export const environment = {
+  //True per poter utilizzare le variabili di environment.prod per l'utilizzo in produzione
+  production: false,
+  pathApi: "https://localhost:8443/",
+  "uriConfig" : {
+    "clientId"  : "63e32e6c-775e-4264-a794-f6ee23db355e",
+    "path_iang" : "https://auth03coll.giustizia.it/b2cmingiustiziaspidcoll.onmicrosoft.com/b2c_1a_signin_spid/oauth2/v2.0/authorize",
+    "path_iang_logout" : "https://auth03coll.giustizia.it/b2cmingiustiziaspidcoll.onmicrosoft.com/b2c_1a_signin_spid/oauth2/v2.0/authorize",
+    "logout_redirect_uri" : "https://localhost:4200/logout",
+    "scope" : "https://b2cmingiustiziaspidcoll.onmicrosoft.com/GiustiziaAPI/Mail.Send openid profile offline_access",
+    "redirectUri" : "https://localhost:4200/",
+    "response_mode" : "fragment",
+    "response_type" : "code",
+    "code_challenge" : "ab907ecef2e9006f734b96e3b9d907212e41c6924c56a54f688ae433", 
+    "code_challenge_method" : "plain" 
+    },
+    "uriLogout" : "https://auth03coll.giustizia.it/b2cmingiustiziaspidcoll.onmicrosoft.com/b2c_1a_signin_spid/oauth2/v2.0/logout?post_logout_redirect_uri=https://localhost:4200/logout",
+    "rowsTable" : 10
+};

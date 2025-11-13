@@ -1,0 +1,15 @@
+.table-responsive {
+  padding: 2% !important;
+}
+
+
+.Giustizia_Tooltip
+ {
+    padding: 7px 3px !important;
+/*    background-color: #003270 !important;*/
+    position: relative !important;
+	display: inline-block !important;
+	cursor: help !important;/*change the cursor symbol to a question mark on mouse over*/
+	color: inherit !important;/*inherit text color*/
+	text-decoration: none !important; /*remove underline*/
+}

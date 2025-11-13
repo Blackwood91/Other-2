@@ -1,0 +1,146 @@
+<!--<div class="container container-principal-voto-estero text-left">-->
+    <div class="container text-left body">
+        <div class="container text-left body">
+            <section id="Bottoni" class="mt-0 ml-2 mr-2 mb-1">
+                <div class="cmp-breadcrumbs container" role="navigation"
+                    style="margin-top: 1em; margin-bottom: 1rem; margin-left: 28px;">
+                    <nav class="breadcrumb-container" aria-label="breadcrumb">
+                        <ol class="breadcrumb p-0" data-element="breadcrumb">
+                            <li class="breadcrumb-item"><a data-focus-mouse="false">Elenco Mediatori e Mediatori esperti
+                                    formatori in Giustizia Riparativa</a></li>
+                        </ol>
+                    </nav>
+                </div>
+                <div class="d-flex justify-content-between bd-highlight mt-3">
+                    <div class="p-2 bd-highlight">
+                        <div class="col">
+                        </div>
+                    </div>
+                    <div class="p-2 bd-highlight">
+                        <div class="row ">
+                            <!-- RICEERCA -->
+                            <div class="col mt-4">
+                                <div class="form-group">
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><svg xmlns="http://www.w3.org/2000/svg" width="16"
+                                                    height="16" class="bi bi-search" viewBox="0 0 16 16"
+                                                    aria-label="Ricerca" fill="#415559">
+                                                    <path
+                                                        d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z">
+                                                    </path>
+                                                </svg></div>
+                                        </div>
+                                        <label class="visually-hidden" for="input-group-3">Testo da cercare</label>
+                                        <input type="search" [(ngModel)]="searchTextTable" (ngModelChange)="attivaRicerca()" type="text"
+                                            class="form-control" id="Ricerca" placeholder="Testo da cercare">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="table-responsive container">
+            <table class="table table-hover" style="border: 1px solid #E0E0E0;">
+                <thead class="thead-voto-estero">
+                    <tr>
+                        <th scope="col">Cognome</th>
+                        <th scope="col">Nome</th>
+                        <th scope="col" class="text-center">Codice Fiscale</th>
+                        <th scope="col" class="text-center">N. Iscrizione</th>
+                        <th scope="col" class="text-center">Data Iscrizione</th>
+                        <th scope="col" class="text-center">Qualifica di Formatore</th>
+                        <th scope="col" class="text-center">Requisiti Iscrizione</th>
+                        <th scope="col" class="text-center">Stato</th>
+                        <th scope="col" *ngIf="ruoloUser == '3'" class="text-center">Dettaglio</th>
+                    </tr>
+                </thead>
+                <tbody class="tbody-empty-table">
+                    <td *ngIf="tableResult.length == 0; else elseBlock" colspan="19">
+                        <p class="text-empty-table">Nessun risultato trovato</p>
+                    </td>
+                    <ng-template #elseBlock>
+                        <ng-container *ngFor="let item of tableResult; let i = index">
+                            <tr>
+                                <td>{{item.cognomeMediatore}}</td>
+                                <td>{{item.nomeMediatore}}</td>
+                                <td class="text-center">{{item.codiceFiscale}}</td>
+                                <td class="text-center">{{item.numeroIscrizioneElenco}}</td>
+                                <td class="text-center">{{item.dataIscrizioneElenco | date: 'dd/MM/yyyy'}}</td>
+                                <td class="text-center">{{item.isFormatore == 1?'SI':'NO'}}</td>
+                                <td class="text-center">{{item.requisitiIscrizioneElenco}}</td>
+                                <td class="text-center">
+                                    <div *ngIf="item.stato == 'Iscritto'">
+                                        <label class="fw-bolder"> {{item.stato}}</label>
+                                    </div>
+                                    <div *ngIf="item.stato == 'Sospeso'">
+                                        {{item.stato}} 
+                                    </div>
+                                    <div *ngIf="item.stato == 'Cancellato'">
+                                        {{item.stato}}
+                                    </div>
+                                    <div *ngIf="item.stato == 'Iscritto- sospeso da Formatore'">
+                                       <label class="fw-bolder"> {{item.stato}}</label>
+                                    </div>
+                                </td>
+                                <td class="text-center" *ngIf="ruoloUser == '3'">
+                                    <a class="a-icon-table" id="modalView">
+                                        <svg class="bg-light icon align-middle svg-icon-table-td" fill="#216FA3"
+                                            aria-label="openDettaglio" (click)="openModal(item.idMediatore)">>
+                                            <use href="assets/svg/sprites.svg#it-search"></use>
+                                        </svg>
+                                    </a>
+                                </td>
+                            </tr>
+                        </ng-container>
+                    </ng-template>
+                </tbody>
+            </table>
+            <nav class="pagination-wrapper justify-content-center color-pagination" aria-label="Navigazione centrata">
+                <ul *ngIf="totalPage != 0" class="pagination mt-2">
+                    <li *ngIf="indexPage == 1; else elsePageBefore" class="page-item disabled">
+                        <a (click)="previousPage(indexPage)" class="page-link" style="color: #415559">Precedente
+                            <span class="visually-hidden">Pagina precedente disabilitata</span>
+                        </a>
+                    </li>
+                    <ng-template #elsePageBefore>
+                        <li class="page-item">
+                            <a (click)="previousPage(indexPage)" class="page-link" style="color: #415559">Precedente
+                                <span class="visually-hidden">Pagina precedente</span>
+                            </a>
+                        </li>
+                    </ng-template>
+                    <ng-container>
+                        <li *ngIf="(indexPage > 1)" class="page-item"><a (click)="cambiaPagina(indexPage - 1)"
+                                class="page-link">{{indexPage - 1}}</a></li>
+                        <li class="page-item active" style="color:#0F3E75">
+                            <a class="page-link" (click)="cambiaPagina(indexPage)" aria-current="page">
+                                <span class="d-inline-block d-sm-none">Pagina </span>{{indexPage}}
+                            </a>
+                        </li>
+                        <li *ngIf="(indexPage + 1 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 1)"
+                                class="page-link">{{indexPage + 1}}</a></li>
+                        <li *ngIf="(indexPage + 2 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 2)"
+                                class="page-link">{{indexPage + 2}}</a></li>
+                        <li *ngIf="(indexPage + 3 <= totalPage)" class="page-item"><a (click)="cambiaPagina(indexPage + 3)"
+                                class="page-link">{{indexPage + 3}}</a></li>
+                    </ng-container>
+                    <li *ngIf="totalPage > 1 else elsePageNext" class="page-item">
+                        <a (click)="nextPage(indexPage)" class="page-link" style="color: #216FA3">Successiva
+                            <span class="visually-hidden">Pagina successiva</span>
+                        </a>
+                    </li>
+                    <ng-template #elsePageNext>
+                        <li class="page-item disabled">
+                            <a (click)="nextPage(indexPage)" class="page-link" style="color: #216FA3">Successiva
+                                <span class="visually-hidden">Pagina successiva disabilitata</span>
+                            </a>
+                        </li>
+                    </ng-template>
+                </ul>
+                <!--<p style="color:#2F475E">Stai visualizzando {{totalPage}} di {{totalResult}} elementi </p>--><!--testo a sinistra-->
+            </nav>
+        </div>
+        <app-modal-mediatori [mediatore]="mediatore" (onMediatore)="onMediatore()"></app-modal-mediatori>

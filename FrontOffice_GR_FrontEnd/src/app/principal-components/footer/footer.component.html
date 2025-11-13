@@ -1,0 +1,114 @@
+<!-- Barra dei cookies -->
+<div id="cookie-container" class="cookie-container-wrapper" role="contentinfo" *ngIf="isHomePage">
+  <div class="navbar-fixed-bottom navbar-cookies">
+      <div class="inner-container">
+          <div class="navbar-content-center" id="accetta-cookie">
+              <div class="cookie-container-setting">
+              Questo sito utilizza cookies tecnici che aiutano a contribuire e 
+              rendere fruibile il sito web abilitando le funzioni di base come 
+              la navigazione della pagina e l'accesso alle aree protette del sito.
+              Rifiutando i cookies tecnici, alcune di queste funzionalita potrebbero non essere disponibili. 
+              Per maggiori informazioni consulta la pagina Privacy Policy.</div>
+              <div class="cookie-container-checkboxes">
+                  <span>Preferenze cookie</span>
+                  <div>
+                      <label class="switch" for="thirdPartyCookies">
+                          <div class="cookie-label">Cookie tecnici</div>
+                          <input [(ngModel)]="sceltaCT"  type="checkbox" id="thirdPartyCookies"> 
+                          <span class="slider round"></span>
+                      </label>
+                  </div>
+              </div>
+              <div class="save-preferences">
+                  <a (click)="acceptCookie()" class="btn-accept accept">Salva preferenze</a>
+                  <a href="https://www.giustizia.it/giustizia/page/it/privacy" class="btn-privacy">Privacy Policy</a>
+          </div>
+      </div>
+  </div>
+</div>
+</div>
+
+
+
+
+<footer class="it-footer mt-5">
+  <div class="it-footer-main color-footer">
+    <div class="container">
+      <section>
+        <div class="row clearfix">
+          <div class="col-sm-12">
+            <div class="it-brand-wrapper">
+              <div class="it-brand-text">
+                <a class="d-none d-lg-block navbar-brand color-text"><img class="logo-header-footer"
+                    src="assets/image-voto-estero/logo-repubblica.png"> Ministero della Giustizia</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section class="py-4 border-white border-top">
+        <div class="row">
+          <div class="col">
+            <h4><a href="#" title="Vai alla pagina: Contatti">DOVE SIAMO</a></h4>
+            <p>
+              <strong>Via Arenula, 70</strong><br>
+              00186 Roma
+            </p>
+          </div>
+          <div class="col">
+            <h4><a href="#" title="Vai alla pagina: Lorem Ipsum">CONTATTI</a></h4>
+            <p>
+              <strong>Centralino: +39 06 68851</strong><br>
+              Call center: 848 800 110 
+            </p>
+          </div>
+          <div class="col">
+            <div class="pb-2">
+              <h4><a href="#" title="Vai alla pagina: Seguici su">Seguici su</a></h4>
+              <ul class="list-inline text-left social">
+                <li class="list-inline-item">
+                  <a class="p-2 text-white" href="https://it-it.facebook.com/ministerodellagiustizia/" target="_blank"><svg class="icon icon-sm icon-white align-top">
+                      <use xlink:href="assets/svg/sprites.svg#it-facebook"></use>
+                    </svg><span class="visually-hidden">Facebook</span></a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="p-2 text-white" href="https://www.instagram.com/ministerodellagiustizia/" target="_blank"><svg class="icon icon-sm icon-white align-top">
+                      <use xlink:href="assets/svg/sprites.svg#it-instagram"></use>
+                    </svg><span class="visually-hidden">Instagram</span></a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="p-2 text-white" href="https://twitter.com/minGiustizia" target="_blank">
+                 <!--   <svg class="icon icon-sm icon-white align-top">
+                      <use xlink:href="assets/svg/sprites.svg#it-twitter"></use>
+                    </svg><span class="visually-hidden">Twitter</span> -->
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-twitter-x" viewBox="0 0 16 16">
+                      <path d="M12.6.75h2.454l-5.36 6.142L16 15.25h-4.937l-3.867-5.07-4.425 5.07H.316l5.733-6.57L0 .75h5.063l3.495 4.633L12.601.75Zm-.86 13.028h1.36L4.323 2.145H2.865z"/>
+                    </svg>
+                  </a>
+                </li>
+                <li class="list-inline-item">
+                  <a class="p-2 text-white" href="https://www.youtube.com/channel/UCwYwWxp3G2Wk1nbYI3UZBYg" target="_blank"><svg class="icon icon-sm icon-white align-top">
+                      <use xlink:href="assets/svg/sprites.svg#it-youtube"></use>
+                    </svg><span class="visually-hidden">Youtube</span></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div class="it-footer-small-prints clearfix color-footer-list">
+    <div class="container">
+      <!-- <h3 class="visually-hidden">Sezione Link Utili</h3> -->
+      <ul class="it-footer-small-prints-list list-inline mb-0 d-flex flex-column flex-md-row">
+        <li class="list-inline-item"><a href="#" title="Note Legali">Note legali</a></li>
+        <li class="list-inline-item"><a href="#" title="Privacy-Cookies">Privacy</a></li>
+        <li class="list-inline-item"><a href="#" title="Note Legali">Accessibilità</a></li>
+        <li class="list-inline-item"><a href="#" title="Mappa del sito">Mappa del sito</a></li>
+        <li class="list-inline-item"><a href="#" title="Mappa del sito">Redazione</a></li>
+
+      </ul>
+    </div>
+  </div>
+</footer>

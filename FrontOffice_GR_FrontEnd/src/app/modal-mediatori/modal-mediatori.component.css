@@ -1,0 +1,6 @@
+.text-open-pdf {
+    text-decoration: underline;
+    font-weight: bold;
+    color: blue;
+    cursor: pointer;
+  }
